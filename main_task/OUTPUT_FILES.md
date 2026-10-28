@@ -31,7 +31,7 @@ schedule columns kept on every trial row.
 
 | column | content |
 |---|---|
-| `subj_id` | the participant code |
+| `subj_id` | the participant code: in the study the participant database code (e.g. `27985.cb`), the same in the online, MEG and MRI files |
 | `block` | main task: the scanner block 1..6 (the schedule's `block`); familiarization and gate: the attempt number; practice, the overview and the meta rows: 0 |
 | `trial` | the trial number within the phase (the schedule's `trial` in the main task, the question number in the gate); blank on block-level and meta rows |
 | `onset` | seconds on the block clock when the screen went up; the block clock starts at the trigger key (`block_start` at 0.0000); blank on meta rows |

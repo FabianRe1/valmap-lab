@@ -1,7 +1,7 @@
 # ValMap lab sessions (MEG, MRI)
 
 Private. Built by `make_lab_repo.py` in the main task project; do not edit here, rebuild there.
-Content as of 2026-10-28: main task commit a5b64e1. Tested with PsychoPy 2023.2.3 (standalone).
+Content as of 2026-10-28: main task commit f9ec3ee. Tested with PsychoPy 2023.2.3 (standalone).
 
 ## Before every session
     git pull
@@ -15,8 +15,9 @@ Run each command from inside the folder named before it.
 
 ## Numbers
 Subject N uses schedule N in the main task (1 to 100; sub-N is the same person in the online, MEG
-and MRI designs) and design N in the localizers (1 to 60). The link from N to the person is in the
-lab's subject sheet.
+and MRI designs) and design N in the localizers (1 to 60). CODE is the participant database code,
+e.g. 27985.cb (letters, digits, dots), the same code as in their online link, so the online, MEG
+and MRI files match. N and the code are in the lab's subject sheet.
 
 ## MRI session (localizer first, then the main task)
 1. `Localizer_MRI`: `PY run_localizer.py --design N --participant CODE`

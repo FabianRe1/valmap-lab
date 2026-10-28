@@ -26,6 +26,7 @@ import datetime
 import json
 import math
 import random
+import re
 import sys
 from pathlib import Path
 
@@ -354,6 +355,9 @@ def run(args):
         cfg.KEYBOARD_BACKEND = args.keyboard_backend
     cfg.DATA_DIR.mkdir(exist_ok=True)
     subj = args.participant or f"sub-{int(args.design):03d}"
+    # the participant database code (2026-10-28, e.g. 27985.cb), the same in every session
+    if not re.fullmatch(r"[A-Za-z0-9.\-]+", subj):
+        sys.exit(f"--participant {subj!r}: only letters, digits and dots, e.g. 27985.cb")
     design = f"{int(args.design):03d}"
     stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     tag = "_dryrun" if args.dry_run else ""
@@ -450,7 +454,8 @@ def run(args):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--design", required=True, help="design number N, reads designs/sub-NNN_localizer.csv")
-    ap.add_argument("--participant", default="", help="participant code for the output file")
+    ap.add_argument("--participant", default="",
+                    help="the participant database code, e.g. 27985.cb (letters, digits, dots)")
     ap.add_argument("--start-block", type=int, default=1)
     ap.add_argument("--plan-only", action="store_true")
     ap.add_argument("--dry-run", action="store_true")

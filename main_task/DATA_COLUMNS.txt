@@ -36,7 +36,9 @@ THE 28 COLUMNS
 --------------
 
 1. subj_id
-   The participant code: the Prolific ID online, or the code in the link (e.g. COLL01).
+   The participant code: the Prolific ID online, or the code in the link (e.g. COLL01). In the
+   MEG/MRI study the participant database code (e.g. 27985.cb), the same in the online, MEG and
+   MRI files, so the three sessions of one person can be matched.
 
 2. block
    Main task: the block, 1 to 6 (32 trials each).

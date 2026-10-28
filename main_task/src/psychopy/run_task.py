@@ -14,6 +14,7 @@ participants never see a grid (spec section 1).
 """
 
 import math
+import re
 import time
 import argparse
 import sys
@@ -57,6 +58,11 @@ def enable_button_box():
 # ---------------------------------------------------------------------------
 # Launch dialog
 # ---------------------------------------------------------------------------
+
+# the participant database code (2026-10-28): letters, digits and dots, kept exactly in every
+# session (online, MEG, MRI) so the three can be matched
+PARTICIPANT_CODE = re.compile(r"[A-Za-z0-9.]+")
+
 
 def derive_participant_code(first, last, year):
     """'Fabian', 'Renz', '1995' -> 'FaRe1995'. Only this derived code ever reaches a file."""
@@ -1536,7 +1542,7 @@ def main():
     parser.add_argument("--dry-run", action="store_true",
                         help="tiny durations and auto-responses; steps through a whole schedule")
     parser.add_argument("--schedule", type=int, help="schedule number 1-100")
-    parser.add_argument("--participant", help="pre-derived participant code, e.g. FaRe1995")
+    parser.add_argument("--participant", help="the participant database code, e.g. 27985.cb (letters, digits, dots); skips the name dialog")
     parser.add_argument("--steps", type=int, choices=[3, 4], default=None,
                         help="route length: 4 (default, schedules_grid/) or 3 "
                              "(schedules_grid_3step/). Also settable with GRID_STEPS.")
@@ -1580,7 +1586,12 @@ def main():
         "practice": "practice" not in skip,
     }
 
-    if args.no_dialog or args.plan_only or args.dry_run:
+    # a given --participant (the lab sessions: the participant database code, e.g. 27985.cb,
+    # 2026-10-28) skips the name dialog, so the code is kept exactly as typed
+    if args.no_dialog or args.plan_only or args.dry_run or args.participant:
+        if args.participant and not PARTICIPANT_CODE.fullmatch(args.participant):
+            print(f"--participant {args.participant!r}: only letters, digits and dots, e.g. 27985.cb")
+            return 2
         session = {
             "participant": args.participant or "DRYRUN0000",
             "schedule": defaults["schedule"],
