@@ -1605,7 +1605,7 @@ def main():
     # the session itself: ISI distribution and rest length. It MUST happen before the schedule is
     # loaded, because that is where the jitter is drawn.
     profile = cfg.apply_timing_profile(cfg.profile_for_modality(session["modality"]))
-    # videos (online, MRI) or stills (MEG): sets T_VIDEO too, so the plan below is right
+    # videos (online, MRI, MEG since 2026-10-28) or stills: sets T_VIDEO too, so the plan below is right
     stimulus_mode = cfg.apply_stimulus_mode(session["modality"])
     # the scanner's buttons b, y, g for the three answers (fMRI); J, K, L elsewhere
     response_keys = cfg.apply_response_keys(session["modality"])

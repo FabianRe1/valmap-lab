@@ -410,14 +410,15 @@ CLIP_HEIGHT = 0.60                  # a main-task picture: its grey square; 0.60
                                     # so the objects are as large as on the old cards (they fill less of the square)
 CLIP_ASPECT = 1.0
 REWARD_ASPECT = 1.0                 # the final treasure images are square (2026-10-23; before 640x360)
-# Videos (2026-10-23; the online sessions since 2026-10-26, user): in these modalities every
-# picture of a walk (familiarization and practice included) and the treasure on the outcome screen
-# play their 1 s video in full; the MEG shows the stills for 0.75 s. PsychoPy shows the video frame
+# Videos (2026-10-23; the online sessions since 2026-10-26, the MEG since 2026-10-28, user): in
+# these modalities every picture of a walk (familiarization and practice included) and the treasure
+# on the outcome screen play their 1 s video in full; a modality left out would show the stills
+# for 0.75 s (none does since 2026-10-28). PsychoPy shows the video frame
 # by frame from the manifest's 'frames' / 'reward_frames' (24 frames at VIDEO_FPS), timed by the
 # screen refreshes. Questions, names screens and journey maps always show the stills.
-VIDEO_MODALITIES = ("fmri", "behavioral")
+VIDEO_MODALITIES = ("fmri", "behavioral", "meg")
 VIDEO_FPS = 24
-T_VIDEO_STILL = 0.75            # a still picture (MEG)
+T_VIDEO_STILL = 0.75            # a still picture (a modality outside VIDEO_MODALITIES)
 T_VIDEO_PLAYING = 1.0           # a video, played in full
 VIDEO_MODE = False              # set by apply_stimulus_mode()
 
