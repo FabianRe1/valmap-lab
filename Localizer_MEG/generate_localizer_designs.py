@@ -5,9 +5,10 @@ localizers of Kern et al. 2024 (eLife 93357) and FASTIMAGES (Kern et al. 2026): 
 pictures, ordering logic and probe as MRI, but a short MEG ITI and more presentations.
 
 One session, 6 blocks. The 12 classes are the main task's pictures (aliens_1-3, spaceships_1-3,
-planets_1-3) and treasures (money, gold, diamonds), each shown as its STILL
-(../Localizer_MRI/stimuli/probe/, the final stimuli on grey since 2026-10-26), 0.75 s, centrally,
-after a fixation ITI.
+planets_1-3) and treasures (money, gold, diamonds), each shown centrally after a fixation ITI, as
+its 1 s VIDEO since 2026-10-28 (as the main task; the still, 0.75 s, before). `stimulus_file`
+names the still (../Localizer_MRI/stimuli/probe/), the logged image; the runtime plays the class's
+video frames from the MRI localizer's manifest.
 
 Order (first order counterbalancing, as MRI):
 - one random Eulerian circuit over the multigraph holding every ordered pair of DIFFERENT classes
@@ -36,7 +37,9 @@ never the class just seen or the next trial's class and are balanced over classe
 PROBE_MAX_RT (1.5 s), the probe screen plus feedback lasting PROBE_TOTAL (2 s) from probe onset.
 A probe follows its own ITI, so its picture epoch (onset to at least 1.5 s) stays clean.
 
-Each design is checked against the time budget (blocks plus breaks at most SESSION_CAP_S).
+Each design is checked against the time budget (blocks plus breaks at most SESSION_CAP_S: 45 min,
+46 min since the videos, 2026-10-28, user; the 60 designs are unchanged, every one was accepted at
+its first draw under either budget).
 
 Usage:  python3 generate_localizer_designs.py [--n 60] [--seed 20261014] [--first 1]
 Writes designs/sub-XXX_localizer_meg.csv (never overwrites; pass --force to replace).
@@ -57,7 +60,7 @@ OUT_DIR = HERE / "designs"
 
 N_BLOCKS = 6
 N_CIRCUITS = 7
-T_STIM = 0.75
+T_STIM = 1.0                 # the video (0.75 s still before 2026-10-28)
 PROBES_PER_CLASS = 5
 NEITHER_SHARE = 1 / 3
 MIN_PROBE_GAP = 4
@@ -66,7 +69,7 @@ PROBE_TOTAL = 2.0
 T_BLOCK_LEAD_IN = 5.0
 T_BLOCK_LEAD_OUT = 5.0
 T_BREAK_PLAN = 30.0          # planned pause between blocks, for the budget only
-SESSION_CAP_S = 2700.0
+SESSION_CAP_S = 2760.0       # 46 min (45 before the videos, 2026-10-28)
 ITI_RANGE = (1.25, 1.75)
 BLOCK_COUNT_HARD = (11, 15)
 BLOCK_COUNT_SOFT = (12, 14)

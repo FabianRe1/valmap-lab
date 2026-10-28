@@ -45,7 +45,7 @@ Run commands are in the `run_localizer.py` docstring (PsychoPy needs
 `PYTHONHOME=/Applications/PsychoPy.app/Contents/Resources` and its own python).
 
 Design in one paragraph: 12 classes (aliens_1-3, spaceships_1-3, planets_1-3, money, gold,
-diamonds), task pictures only, 0.75 s each. One Eulerian circuit holding every ordered pair of
+diamonds), task pictures only, each its 1 s video since 2026-10-28 (0.75 s stills before). One Eulerian circuit holding every ordered pair of
 different classes 5 times (660 transitions), cut into 6 blocks of 111 trials, Kotzig swaps to
 balance classes per block (8 to 11 each). Old `makeITI` unchanged (mean really about 3.26 s;
 the user chose to keep it). Probes on 5 trials per class (60, about 9%): two pictures, match 2/3,

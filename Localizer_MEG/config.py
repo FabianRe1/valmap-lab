@@ -6,7 +6,9 @@ probe columns of the design (probe_max_rt, probe_total), which run_localizer.py 
 
 The pictures are read from the MRI localizer's folder (decided 2026-10-13: one copy of the
 stimuli), so the MEG stimulus PC needs Localizer_MRI/stimuli next to this folder. Since 2026-10-26
-the final stills on grey (probe/, alternatives_grey/, the designs name them).
+the final stills on grey (probe/, alternatives_grey/, the designs name them). Since 2026-10-28
+(user, on an MEG colleague's advice, as the main task) each picture plays its 1 s video, the
+MRI localizer's pre-decoded frames (MANIFEST); the probes keep the stills.
 """
 import sys
 from pathlib import Path
@@ -20,6 +22,8 @@ from meg_lab.codes import CLASS_CODES, SHARED_CODES                       # noqa
 HERE = Path(__file__).resolve().parent
 DESIGN_DIR = HERE / "designs"
 STIM_DIR = HERE.parent / "Localizer_MRI" / "stimuli"
+# the videos (2026-10-28): per class its frames, as in the MRI localizer
+MANIFEST = STIM_DIR / "localizer_manifest_video.json"
 DATA_DIR = HERE / "data"
 FEEDBACK_IMAGES = {"correct": STIM_DIR / "feedback" / "feedback_correct.png",
                    "incorrect": STIM_DIR / "feedback" / "feedback_false.png"}
@@ -27,7 +31,7 @@ FEEDBACK_IMAGES = {"correct": STIM_DIR / "feedback" / "feedback_correct.png",
 # ---------------------------------------------------------------------------
 # Timing (seconds)
 # ---------------------------------------------------------------------------
-T_STIM = 0.75               # each picture (as MRI and the main task's clips)
+T_STIM = 1.0                # each video, in full (24 frames at 24 fps; 0.75 s stills before 2026-10-28)
 PROBE_MAX_RT = 1.5          # answer window, as MRI
 PROBE_TOTAL = 2.0           # probe plus feedback, measured from probe onset, as MRI
 TIMEOUT_MAX = 5.0           # timeout message: until a button or this long
@@ -107,7 +111,7 @@ BACKGROUND_COLOR = (0, 0, 0)   # mid grey (RGB 128), the stimuli's own backgroun
 WINDOW_SIZE = (1280, 720)   # only when not fullscreen
 UNITS = "height"
 
-STIM_HEIGHT = 0.60          # a still: its grey square (the object fills about 30 to 75 % of it); as the
+STIM_HEIGHT = 0.60          # a video: its grey square (the object fills about 30 to 75 % of it); as the
                             # main task and the MRI localizer: 0.60 since 2026-10-26 (0.50 before, 0.33 on
                             # the old cards), so the objects are as large as on the old cards
 PROBE_HEIGHT = 0.60         # each probe square, as tall as the picture: an item has one size (as MRI; 0.60 since 2026-10-26)

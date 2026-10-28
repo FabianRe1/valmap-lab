@@ -14,9 +14,9 @@ HERE = Path(__file__).resolve().parent
 STIM = HERE.parent / "Localizer_MRI" / "stimuli"
 ITEMS = json.loads((STIM / "localizer_manifest_video.json").read_text())["items"]
 CLASSES = sorted(ITEMS)
-N_BLOCKS, PAIR_REPS, CAP_S = 6, 7, 2700.0
+N_BLOCKS, PAIR_REPS, CAP_S = 6, 7, 2760.0   # 46 min since the videos (2026-10-28)
 COUNT_RANGE, PAIR_MAX, ITI_RANGE, PROBES_PER_CLASS = (11, 15), 3, (1.25, 1.75), 5
-T_STIM, PROBE_TOTAL, LEAD, BREAK = 0.75, 2.0, 5.0, 30.0
+T_STIM, PROBE_TOTAL, LEAD, BREAK = 1.0, 2.0, 5.0, 30.0
 
 
 def check(path):
@@ -101,7 +101,7 @@ def check(path):
     total = sum(float(r["stimulus_ITI"]) + T_STIM for r in rows)
     total += sum(float(r["probe_ITI"]) + PROBE_TOTAL for r in probes)
     total += N_BLOCKS * 2 * LEAD + (N_BLOCKS - 1) * BREAK
-    need(total <= CAP_S, f"planned {total / 60:.1f} min > 45")
+    need(total <= CAP_S, f"planned {total / 60:.1f} min > {CAP_S / 60:.0f}")
     return errs, len(rows), len(probes), total
 
 

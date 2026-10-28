@@ -78,6 +78,18 @@ are worth the time.
     Designs regenerated with the same seeds: identical order, ITIs, probes and versions, only
     the picture paths changed (old ones in `designs_pictures/`). The online intro's MEG part
     follows (grey, the new stills at 0.50; its text no longer says the pictures are smaller).
+16. Videos (user, 2026-10-28, on an MEG colleague's advice; the main task's MEG session too,
+    its DESIGN_VERIFICATION 67; supersedes the duration of 4 and "stills only" of 15): each
+    picture plays its 1 s video in full, the MRI localizer's pre-decoded frames
+    (`localizer_manifest_video.json`, `frames`), refresh-locked like the MRI localizer's
+    `present_video`, the class code sent right after the flip of frame 0; `T_STIM` 1.0 s. Probes
+    keep the stills. The design's `stimulus_file` still names the still (logged as `image`); the
+    runtime plays the class's video, and the log's note says how many distinct frames showed.
+    The 60 designs are unchanged: the budget check rises from 45 to 46 min (user's choice over
+    shorter ITIs or fewer presentations), and every design was accepted at its first draw under
+    either budget, so the generator still reproduces them exactly. The online intro's MEG part
+    plays the grey videos too and no longer says the pictures do not move (made in
+    `../Localizer_MRI/online_practice/`, synced to the main task).
 
 Kept from MRI without a separate question: 5 s lead-in and lead-out fixation per block,
 30 s planned breaks, timeout message, bonus file. German texts: scanner wording removed, plus one
@@ -85,8 +97,8 @@ sentence asking to look at the center and blink only when no picture is shown (a
 allowing blinks). Easy to change in `strings_de.py`.
 
 ## Session length
-Plan per design: 930 trials, about 41.9 min with 30 s breaks, about 39.4 min of recording
-(budget cap in the generator: 45 min).
+Plan per design: 930 trials, about 45.8 min with 30 s breaks, about 43.3 min of recording
+(budget cap in the generator: 46 min). With stills (until 2026-10-28): 41.9 and 39.4 min, cap 45.
 
 ## Files
 | File | Role |

@@ -3,8 +3,9 @@
 The MRI localizer's runtime (../Localizer_MRI/run_localizer.py) with MEG markers. Presents a
 pre-generated design (designs/sub-XXX_localizer_meg.csv, built by generate_localizer_designs.py):
 instructions, a button check, then 6 blocks, each started by the operator (space) and the
-experimenter's 't' (the block's t0). Per trial a fixation for `stimulus_ITI`, the picture for
-T_STIM; on probe trials a fixation for `probe_ITI`, two pictures (left / right / neither), feedback
+experimenter's 't' (the block's t0). Per trial a fixation for `stimulus_ITI`, the picture's video
+for T_STIM (its pre-decoded frames, refresh-locked, as in the MRI localizer; stills before
+2026-10-28); on probe trials a fixation for `probe_ITI`, two pictures (left / right / neither), feedback
 until PROBE_TOTAL after probe onset, or a timeout message. Everything the trial shows comes from
 the design row; nothing is recomputed.
 
@@ -40,6 +41,7 @@ import argparse
 import csv
 import datetime
 import json
+import math
 import random
 import sys
 import time
@@ -48,6 +50,7 @@ from pathlib import Path
 import config as cfg
 import strings_de as txt
 
+VIDEO_ITEMS = json.loads(cfg.MANIFEST.read_text())["items"]
 DESIGN_FLOATS = ("stimulus_ITI", "probe_ITI", "probe_max_rt", "probe_total")
 DESIGN_INTS = ("block", "trial", "trial_in_block", "probe")
 KEPT_DESIGN_COLUMNS = ("prev_stimulus", "stimulus_ITI", "probe", "probe_ITI", "probe_kind",
@@ -89,6 +92,9 @@ def check_design(rows):
                 errors.append(f"trial {r['trial']}: missing {f}")
         if r["probe"] and (r["probe_max_rt"] != cfg.PROBE_MAX_RT or r["probe_total"] != cfg.PROBE_TOTAL):
             errors.append(f"trial {r['trial']}: probe timing differs from config")
+        frames = VIDEO_ITEMS.get(r["stimulus"], {}).get("frames")
+        if not frames or not all((cfg.STIM_DIR / f).exists() for f in frames):
+            errors.append(f"trial {r['trial']}: missing video frames of {r['stimulus']}")
         if r["stimulus"] not in cfg.CLASS_CODES:
             errors.append(f"trial {r['trial']}: no marker code for {r['stimulus']}")
     for k in cfg.FEEDBACK_IMAGES.values():
@@ -198,10 +204,17 @@ class Presenter:
                                     wrapWidth=cfg.TEXT_WRAP, alignText="center")
         self.footer = visual.TextStim(self.win, text="", height=cfg.FOOTER_HEIGHT,
                                       color=cfg.TEXT_COLOR, pos=(0, cfg.FOOTER_Y))
-        # preload every picture the design can show, each as its own ImageStim
+        # every video as its pre-decoded frames, one ImageStim each (2026-10-28, as the MRI
+        # localizer): shown as a refresh-locked sequence, so frame 0 is on screen at the onset
+        self.videos = {}
+        for c in sorted({r["stimulus"] for r in rows}):
+            self.videos[c] = (VIDEO_ITEMS[c]["fps"],
+                              [visual.ImageStim(self.win, image=str(cfg.STIM_DIR / f),
+                                                size=(cfg.STIM_HEIGHT, cfg.STIM_HEIGHT))
+                               for f in VIDEO_ITEMS[c]["frames"]])
+        # preload every probe picture the design can show, each as its own ImageStim
         files = set()
         for r in rows:
-            files.add(r["stimulus_file"])
             if r["probe"]:
                 files.update([r["probe_left_file"], r["probe_right_file"]])
         self.images = {}
@@ -292,6 +305,32 @@ class Presenter:
                 self.send(code, label)
             if self.now() - onset >= target - half:
                 return onset, self.now() - onset
+
+    def present_video(self, item, code=None, label=""):
+        """One video for T_STIM as its frames, refresh-locked: each refresh shows the frame due at
+        that refresh's predicted time since onset (frame 0 at onset), so a dropped refresh never
+        stretches the video. Marker `code` goes out right after the first flip. Returns (onset,
+        measured duration, number of distinct frames shown)."""
+        fps, frames = self.videos[item]
+        target = cfg.T_STIM * self.scale
+        half = self.frame_dur * 0.5
+        onset = last = None
+        shown = set()
+        if code is not None:
+            self.wait_marker()
+        while True:
+            k = 0 if onset is None else min(
+                len(frames) - 1,
+                math.floor((last + self.frame_dur - onset) / self.scale * fps + 1e-6))
+            frames[k].draw()
+            t = self.flip()
+            shown.add(k)
+            if onset is None:
+                onset = t
+                self.send(code, label)
+            last = t
+            if self.now() - onset >= target - half:
+                return onset, self.now() - onset, len(shown)
 
     def wait_keys(self, keys, draw, max_wait=None, code=None, label=""):
         """Show `draw` until one of `keys` (or max_wait seconds); returns (key, key time, onset).
@@ -479,10 +518,10 @@ def run(args):
                 code = cfg.MARKER_CODES["fixation"]
                 on, dur = pres.present(r["stimulus_ITI"], pres.fixation.draw, code, "fixation")
                 log.trial_row(r, "fixation", on - t0, dur, on, marker=code)
-                stim = pres.image(r["stimulus_file"], cfg.STIM_HEIGHT)
                 code = cfg.CLASS_CODES[r["stimulus"]]
-                on, dur = pres.present(cfg.T_STIM, stim.draw, code, r["stimulus"])
-                log.trial_row(r, "stimulus", on - t0, dur, on, marker=code, image=r["stimulus_file"])
+                on, dur, n_frames = pres.present_video(r["stimulus"], code, r["stimulus"])
+                log.trial_row(r, "stimulus", on - t0, dur, on, marker=code, image=r["stimulus_file"],
+                              note=f"video_frames={n_frames}")
                 if not r["probe"]:
                     continue
                 code = cfg.MARKER_CODES["probe_fixation"]
