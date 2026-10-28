@@ -1,0 +1,8 @@
+# The supported runtime is the standalone PsychoPy app (verified against 2023.2.3), which ships
+# everything below. This file exists for a pip-based environment instead.
+psychopy>=2023.2.3
+pandas
+numpy
+# optional hardware backends
+# pyserial      # serial markers
+# pylsl         # LSL markers (MEG)

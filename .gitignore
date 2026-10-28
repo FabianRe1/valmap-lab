@@ -1,0 +1,8 @@
+# participant data never enters this repository
+data/
+**/data/
+*.tsv
+*_bonus_*.txt
+__pycache__/
+*.pyc
+.DS_Store

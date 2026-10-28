@@ -1,0 +1,221 @@
+{
+  "comment": "Maps schedule ids to media files, paths relative to the repo root. Since 2026-09-29 the main-task stimuli are still PICTURES, not video clips: the id is the file stem in stimuli/images/ (animals_1 is stimuli/images/animals_1.png), made from the originals stimuli/<category>_<n>.png by stimuli/make_clean_images.py. Four everyday categories of three exemplars for the 4-step task, and since 2026-10-05 the space set for the 3-step task: aliens, spaceships, planets, in this fixed order (originals in stimuli/alien_images/). The ids are fixed for all participants: per-participant randomization (category order per step, exemplar per journey) lives in the schedule's A1..C4 columns. Reward images since 2026-10-06: money, a gold relic and a diamond (stimuli/rewards/treasure_*.png, built by stimuli/make_reward_images.py from reward4, reward2 and reward1); the earlier placeholders money.png, gold.png, diamonds.png are kept. Since 2026-10-23 the space set and the treasures are the FINAL stimuli (stimuli/final/, built by stimuli/make_final_stimuli.py from final_stimuli/favorites/): stills on mid-grey for every session and every screen, and for the MRI the 24 frames of each 1 s video ('frames', 'reward_frames'), played in the walks and on the outcome screen; the earlier white-card pictures stay in stimuli/images/ and stimuli/rewards/. Since 2026-10-26 also 'video' and 'reward_videos': the same frames as H.264 for the browser, which plays them online.",
+  "clips": {
+    "animals_1": {
+      "image": "stimuli/images/animals_1.png",
+      "category": "animals"
+    },
+    "animals_2": {
+      "image": "stimuli/images/animals_2.png",
+      "category": "animals"
+    },
+    "animals_3": {
+      "image": "stimuli/images/animals_3.png",
+      "category": "animals"
+    },
+    "vehicles_1": {
+      "image": "stimuli/images/vehicles_1.png",
+      "category": "vehicles"
+    },
+    "vehicles_2": {
+      "image": "stimuli/images/vehicles_2.png",
+      "category": "vehicles"
+    },
+    "vehicles_3": {
+      "image": "stimuli/images/vehicles_3.png",
+      "category": "vehicles"
+    },
+    "food_1": {
+      "image": "stimuli/images/food_1.png",
+      "category": "food"
+    },
+    "food_2": {
+      "image": "stimuli/images/food_2.png",
+      "category": "food"
+    },
+    "food_3": {
+      "image": "stimuli/images/food_3.png",
+      "category": "food"
+    },
+    "music_1": {
+      "image": "stimuli/images/music_1.png",
+      "category": "music"
+    },
+    "music_2": {
+      "image": "stimuli/images/music_2.png",
+      "category": "music"
+    },
+    "music_3": {
+      "image": "stimuli/images/music_3.png",
+      "category": "music"
+    },
+    "aliens_1": {
+      "image": "stimuli/final/images/aliens_1.png",
+      "frames": "stimuli/final/frames/aliens_1",
+      "category": "aliens",
+      "video": "stimuli/final/videos/aliens_1.mp4"
+    },
+    "aliens_2": {
+      "image": "stimuli/final/images/aliens_2.png",
+      "frames": "stimuli/final/frames/aliens_2",
+      "category": "aliens",
+      "video": "stimuli/final/videos/aliens_2.mp4"
+    },
+    "aliens_3": {
+      "image": "stimuli/final/images/aliens_3.png",
+      "frames": "stimuli/final/frames/aliens_3",
+      "category": "aliens",
+      "video": "stimuli/final/videos/aliens_3.mp4"
+    },
+    "spaceships_1": {
+      "image": "stimuli/final/images/spaceships_1.png",
+      "frames": "stimuli/final/frames/spaceships_1",
+      "category": "spaceships",
+      "video": "stimuli/final/videos/spaceships_1.mp4"
+    },
+    "spaceships_2": {
+      "image": "stimuli/final/images/spaceships_2.png",
+      "frames": "stimuli/final/frames/spaceships_2",
+      "category": "spaceships",
+      "video": "stimuli/final/videos/spaceships_2.mp4"
+    },
+    "spaceships_3": {
+      "image": "stimuli/final/images/spaceships_3.png",
+      "frames": "stimuli/final/frames/spaceships_3",
+      "category": "spaceships",
+      "video": "stimuli/final/videos/spaceships_3.mp4"
+    },
+    "planets_1": {
+      "image": "stimuli/final/images/planets_1.png",
+      "frames": "stimuli/final/frames/planets_1",
+      "category": "planets",
+      "video": "stimuli/final/videos/planets_1.mp4"
+    },
+    "planets_2": {
+      "image": "stimuli/final/images/planets_2.png",
+      "frames": "stimuli/final/frames/planets_2",
+      "category": "planets",
+      "video": "stimuli/final/videos/planets_2.mp4"
+    },
+    "planets_3": {
+      "image": "stimuli/final/images/planets_3.png",
+      "frames": "stimuli/final/frames/planets_3",
+      "category": "planets",
+      "video": "stimuli/final/videos/planets_3.mp4"
+    }
+  },
+  "rewards": {
+    "money": "stimuli/final/rewards/treasure_money.png",
+    "gold": "stimuli/final/rewards/treasure_gold.png",
+    "diamonds": "stimuli/final/rewards/treasure_diamonds.png"
+  },
+  "practice_clips": {
+    "train01": {
+      "video": "0_stim_vid/Train1.mp4",
+      "frame": "0_stim_vid/Train1_frame.png",
+      "source_id": "Train1"
+    },
+    "train02": {
+      "video": "0_stim_vid/Train2.mp4",
+      "frame": "0_stim_vid/Train2_frame.png",
+      "source_id": "Train2"
+    },
+    "train03": {
+      "video": "0_stim_vid/Train3.mp4",
+      "frame": "0_stim_vid/Train3_frame.png",
+      "source_id": "Train3"
+    },
+    "train04": {
+      "video": "0_stim_vid/Train4.mp4",
+      "frame": "0_stim_vid/Train4_frame.png",
+      "source_id": "Train4"
+    },
+    "train05": {
+      "video": "0_stim_vid/Train5.mp4",
+      "frame": "0_stim_vid/Train5_frame.png",
+      "source_id": "Train5"
+    },
+    "train06": {
+      "video": "0_stim_vid/Train6.mp4",
+      "frame": "0_stim_vid/Train6_frame.png",
+      "source_id": "Train6"
+    },
+    "train07": {
+      "video": "0_stim_vid/Train7.mp4",
+      "frame": "0_stim_vid/Train7_frame.png",
+      "source_id": "Train7"
+    },
+    "train08": {
+      "video": "0_stim_vid/Train8.mp4",
+      "frame": "0_stim_vid/Train8_frame.png",
+      "source_id": "Train8"
+    },
+    "train09": {
+      "video": "0_stim_vid/Train9.mp4",
+      "frame": "0_stim_vid/Train9_frame.png",
+      "source_id": "Train9"
+    },
+    "train10": {
+      "video": "0_stim_vid/Train10.mp4",
+      "frame": "0_stim_vid/Train10_frame.png",
+      "source_id": "Train10"
+    },
+    "train11": {
+      "video": "0_stim_vid/Train11.mp4",
+      "frame": "0_stim_vid/Train11_frame.png",
+      "source_id": "Train11"
+    },
+    "train12": {
+      "video": "0_stim_vid/Train12.mp4",
+      "frame": "0_stim_vid/Train12_frame.png",
+      "source_id": "Train12"
+    },
+    "train13": {
+      "video": "0_stim_vid/Train13.mp4",
+      "frame": "0_stim_vid/Train13_frame.png",
+      "source_id": "Train13"
+    },
+    "train14": {
+      "video": "0_stim_vid/Train14.mp4",
+      "frame": "0_stim_vid/Train14_frame.png",
+      "source_id": "Train14"
+    },
+    "train15": {
+      "video": "0_stim_vid/Train15.mp4",
+      "frame": "0_stim_vid/Train15_frame.png",
+      "source_id": "Train15"
+    },
+    "train16": {
+      "video": "0_stim_vid/Train16.mp4",
+      "frame": "0_stim_vid/Train16_frame.png",
+      "source_id": "Train16"
+    },
+    "train17": {
+      "video": "0_stim_vid/Train20.mp4",
+      "frame": "0_stim_vid/Train20_frame.png",
+      "source_id": "Train20"
+    },
+    "train18": {
+      "video": "0_stim_vid/Train21.mp4",
+      "frame": "0_stim_vid/Train21_frame.png",
+      "source_id": "Train21"
+    }
+  },
+  "feedback": {
+    "correct": "0_stim_vid/feedback_correct.png",
+    "incorrect": "0_stim_vid/feedback_false.png"
+  },
+  "practice_rewards": {
+    "chest": "0_stim_vid/reward.png"
+  },
+  "reward_frames": {
+    "money": "stimuli/final/frames/money",
+    "gold": "stimuli/final/frames/gold",
+    "diamonds": "stimuli/final/frames/diamonds"
+  },
+  "reward_videos": {
+    "money": "stimuli/final/videos/money.mp4",
+    "gold": "stimuli/final/videos/gold.mp4",
+    "diamonds": "stimuli/final/videos/diamonds.mp4"
+  }
+}

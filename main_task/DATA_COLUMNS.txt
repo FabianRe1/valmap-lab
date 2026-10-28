@@ -1,0 +1,233 @@
+DATA FILE COLUMNS: what every column of a participant's data file shows
+=======================================================================
+
+Applies to the files downloaded from Pavlovia (ValMap_<id>_score<pct>pct_SESSION_<date>.csv,
+comma separated) and to the local files (sub-<code>_task-gridvalstruct_<stamp>.tsv, tab
+separated). Both have the same 28 columns. Written 2026-10-09 for the 3-step task (aliens,
+spaceships, planets); the task itself is explained in TASK_OVERVIEW.txt, more detail in
+OUTPUT_FILES.md and SCHEDULE_COLUMNS.md.
+
+HOW THE FILE IS ORGANIZED
+-------------------------
+* One file per session. One row per screen change (a picture going up, a fixation, an answer,
+  ...), plus "meta" rows at the top (facts about the session) and "session_end" rows at the
+  bottom (summary and score).
+* Empty cells are written as n/a.
+* Times are in seconds and MEASURED (when the screen actually appeared and disappeared), never
+  copied from the design.
+* Each main-task block has its own clock: 0.0 is the moment the block was started with the key
+  "t". Onsets are therefore comparable within a block only.
+* Every row of a main-task trial repeats that trial's design columns (columns 12 to 28), so any
+  single row of a trial tells you what the trial was.
+* Intro rows (familiarization, practice, gate questions, overviews) are in the same file; filter
+  on trial_type to keep the main task only.
+
+Terms used below
+  journey / route  one of the three sequences alien -> spaceship -> planet -> treasure. The routes
+                   are named A, B, C after their starting alien and keep that name all session.
+  100 route        the route currently worth 100 points; the other two are worth 50.
+  clip id          the name of a picture, e.g. aliens_2, spaceships_1, planets_3.
+  swap             a structure change: the two 50 routes exchange their ends from one step on.
+  observed half    the swapped route whose new transition was shown on the change trial.
+  unseen half      the other swapped route ("counterfactual"), whose change was never shown.
+
+
+THE 28 COLUMNS
+--------------
+
+1. subj_id
+   The participant code: the Prolific ID online, or the code in the link (e.g. COLL01).
+
+2. block
+   Main task: the block, 1 to 6 (32 trials each).
+   Familiarization and gate questions: the attempt number (1, 2, 3).
+   Practice, overviews, meta and session_end rows: 0.
+
+3. trial
+   Main task: the trial number in the session, 1 to 192.
+   Gate: the question number. Practice: the practice trial number.
+   n/a on block-level rows (block_start, block_end, ...) and meta rows.
+
+4. onset
+   Seconds on the block clock when this screen appeared (block_start is 0.0). n/a on meta rows.
+
+5. duration
+   Measured seconds the screen stayed up. 0 for instant events (a key press, block start/end).
+   Self-paced screens: the time until the participant pressed the key.
+
+6. event
+   What this row is (see the EVENT list below), e.g. clip1, outcome, rest_readout, probe,
+   response.
+
+7. trial_type
+   The type of trial, spelled out:
+     establish                    the first main-task trial, a full walk
+     value_change                 the 100 moved to another route (V)
+     structure_change             two 50 routes swapped their ends (S)
+     value_control                looks like a value change, but nothing changed (CV)
+     structure_control            looks like a structure change, but nothing changed (CS)
+     partial_tracking_value       short trial in the value format, no change, no question (TV)
+     partial_tracking_structure   short trial in the structure format, no change, no question (TS)
+                                  (TV and TS have a rest since 2026-10-09; before, none)
+     tracking                     a full walk, no change (T)
+     familiarization, practice, gate, overview   intro screens
+     session                      meta and session_end rows
+
+8. stimulus
+   What was on screen; its form depends on the event (see the EVENT list). On meta and
+   session_end rows: key=value.
+
+9. response
+   On "response" rows only: the clip id the participant chose.
+
+10. rt
+   On "response" rows only: seconds from the question appearing to the key press.
+
+11. correct
+   On "response" and "feedback" rows: 1 = correct, 0 = wrong. A missed question has a
+   "no_response" row instead (counted as wrong in the score).
+
+--- columns 12 to 28: the design of the trial, repeated on every row of the trial ---
+
+12. kind
+   The trial type in short: EST, V, S, CV, CS, TV, TS, T (meanings as in trial_type above).
+   A rest follows every short trial (V, S, CV, CS, TV, TS; TV and TS since 2026-10-09) and the T
+   right after every change (the follow-up). A question follows the rest on all of them except
+   TV and TS.
+   What each kind SHOWS:
+     EST, T     the whole route (3 pictures) and then its treasure with its points
+     V, CV      no picture, only the treasure of the 100 route with "100"
+     TV         no picture, only a treasure with its points (100 or 50, half each)
+     S, CS, TS  two neighboring pictures of a 50 route, no treasure
+   ("gate" appears here on the gate question rows.)
+
+13. probe_slot
+   Which question this trial carries:
+     change             the question on a change trial (after its rest)
+     followup           the question on the trial right after a change (after its own rest)
+     control            the question on a control trial (CV, CS)
+     practice_question  the three swap questions in the practice (not scored)
+   n/a when the trial has no question.
+
+14. winner_column
+   Which route (A, B or C) is worth 100 after this trial. The other two are worth 50.
+   On a value change, the previous trial's winner_column is the route that lost the 100.
+
+15. untouched_column
+   On change trials only: the route the change did not involve (the within-trial control).
+   Value change: the 50 route that stayed 50. Structure change: the 100 route.
+
+16. swap_step
+   On structure changes only: where the two routes were cut and swapped. 1->2 means the
+   spaceships and planets were exchanged (each alien now boards the other route's spaceship);
+   2->3 means only the planets were exchanged.
+
+17. counterfactual_route
+   On structure changes only: the route of the UNSEEN half of the swap (its new transition was
+   never shown). The observed half is the other swapped route, the one whose pictures appear in
+   shown_videos.
+
+18. shown_videos
+   The pictures shown on this trial, in order (separated by |). Empty on V, CV and TV (they show
+   only the treasure).
+
+19. hidden_videos
+   The pictures of the walked route that were NOT shown on this trial.
+
+20. route_A_videos
+21. route_B_videos
+22. route_C_videos
+   The three journeys as they stand AFTER this trial, pictures in step order, e.g.
+   aliens_3|spaceships_2|planets_1. Each route's treasure is the one belonging to its planet
+   (see the reward_images meta row, which gives the treasure of each starting route's planet).
+
+23. reactivation_targets
+   On change trials only: the pictures predicted to be replayed in the rest after the change
+   (the parts of the changed routes that were not shown). Value change: the new 100 route and the
+   route that lost the 100. Structure change: the unshown parts of both swapped routes.
+
+24. probe_type
+   What the question tests:
+     value_unobserved        after a value change: which picture do you prefer? The answer is a
+                             picture of the new 100 route that was not shown
+     value_established       value control: a picture of the current 100 route, any step
+     structure_unobserved    after a structure change: which picture belongs to the same journey
+                             as the cue? The answer was never shown and was created by the swap
+     structure_established   structure control: same question about a pairing already seen
+   (value_observed and structure_observed are older names for the controls, used in the first
+   pilot rounds and on some practice rows.)
+
+25. probe_subtype
+   On structure change and follow-up questions: observed_leg (about the observed half) or
+   counterfactual_leg (about the unseen half).
+
+26. probe_options
+   The three answer options, in screen order left to right (keys J, K, L), separated by |.
+   All three are at the same step (same category), one from each route.
+
+27. probe_correct_video
+   The correct option.
+
+28. probe_cue_video
+   The picture shown above a structure question ("which belongs to the same journey as this?").
+   n/a on value questions, which show only the options.
+
+
+EVENT VALUES (column 6) AND WHAT stimulus HOLDS
+-----------------------------------------------
+meta              a session fact, stimulus = key=value (list below)
+block_start       the "t" key that starts a block; onset 0.0; stimulus = date and time
+block_lead_in     the 3 s fixation before the block's first trial
+fixation_start    the big cross that opens every trial; stimulus = scheduled=<seconds>
+                  (the planned duration; duration column = what it really took)
+clip1, clip2, clip3   a picture on screen; stimulus = its clip id
+fixation_gap      the small cross between screens; stimulus = scheduled=<seconds>
+outcome           the treasure screen; stimulus = treasure+points, e.g. gold+100
+rest_readout      the rest (replay window): fixation only, 5 s online
+probe             the question screen; stimulus = the three options; its duration is the
+                  time it stayed up (answer time plus a short highlight, or the full 8 s)
+response          the key press; response, rt and correct are filled in
+no_response       the 8 s window ran out without an answer
+feedback          the "Correct!" / "Wrong." screen; correct = 1 or 0
+practice_note     an explanation screen in the practice; stimulus = the text key
+structure_overview  the screen with the three starting journeys before the main task;
+                  stimulus = the three routes A;B;C
+break_overview    the screen with the current journeys in each break between blocks
+block_end         end of the block
+page_hidden       online only: the participant switched tab or window; duration = how long
+fullscreen_exit   online only: the participant left fullscreen
+reminder          online only: the reminder shown after either of the two above
+session_end       a summary value at the end, stimulus = key=value (list below)
+
+
+META ROWS (top of the file, event = meta)
+-----------------------------------------
+subj_id, schedule (which of the 100 schedules), steps (3), modality, implementation
+(jspsych or psychopy), language (en/de), dry_run (true = a test run, exclude), timing_profile,
+layout (which picture sits in which grid cell, e.g. A1=aliens_3|A2=spaceships_1|...),
+reward_images (the treasure of each starting route, A=money|B=gold|C=diamonds), timings (all
+planned durations), main_task_feedback, skipped_phases (intro parts skipped by a test link;
+empty for real participants), data_sink, schedule_assignment (url = from the link, hash_of_id =
+from the participant ID), prolific_pid, prolific_study_id, prolific_session_id (Prolific only),
+log_schema, started.
+
+
+SESSION_END ROWS (bottom of the file, event = session_end)
+---------------------------------------------------------
+gate_passed (true/false), gate_attempts (1 to 3), gate_scores (correct out of 5 per attempt,
+e.g. 4/5|5/5), n_page_hidden and page_hidden_s (how often and how long they left the page),
+n_fullscreen_exit, n_correct and n_questions (main-task questions answered correctly, of 60),
+score_pct (the score shown to the participant; a missed question counts as wrong), status
+(complete when they reached the end), finished (date and time).
+
+
+QUICK RECIPES
+-------------
+* One row per main-task question: keep event = response or no_response with a main-task
+  trial_type (not practice or gate). correct, rt, probe_type, probe_slot and probe_subtype are on
+  that row.
+* What a trial showed: rows with event clip1/clip2/clip3 and outcome for that trial number.
+* The state of the world at any trial: winner_column and route_A/B/C_videos on that trial's rows.
+* Old answer after a change (a "stale" error): look up the cue's route on the trial before the
+  change; the option that belonged to it then is the stale answer.
+* Exclude test runs: meta dry_run = true, or status other than complete.

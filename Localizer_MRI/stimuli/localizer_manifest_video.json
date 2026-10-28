@@ -1,0 +1,503 @@
+{
+ "comment": "Built by make_video_stimuli.py from ../files (5)/final_stimuli/favorites; paths relative to this folder. The picture version (localizer_manifest.json) is unchanged and still read by the MEG localizer.",
+ "background_rgb255": [
+  128,
+  128,
+  128
+ ],
+ "items": {
+  "aliens_1": {
+   "category": "aliens",
+   "video": "videos/aliens_1.mp4",
+   "video_grey": "videos_grey/aliens_1.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/aliens_1/frame_00.png",
+    "video_frames/aliens_1/frame_01.png",
+    "video_frames/aliens_1/frame_02.png",
+    "video_frames/aliens_1/frame_03.png",
+    "video_frames/aliens_1/frame_04.png",
+    "video_frames/aliens_1/frame_05.png",
+    "video_frames/aliens_1/frame_06.png",
+    "video_frames/aliens_1/frame_07.png",
+    "video_frames/aliens_1/frame_08.png",
+    "video_frames/aliens_1/frame_09.png",
+    "video_frames/aliens_1/frame_10.png",
+    "video_frames/aliens_1/frame_11.png",
+    "video_frames/aliens_1/frame_12.png",
+    "video_frames/aliens_1/frame_13.png",
+    "video_frames/aliens_1/frame_14.png",
+    "video_frames/aliens_1/frame_15.png",
+    "video_frames/aliens_1/frame_16.png",
+    "video_frames/aliens_1/frame_17.png",
+    "video_frames/aliens_1/frame_18.png",
+    "video_frames/aliens_1/frame_19.png",
+    "video_frames/aliens_1/frame_20.png",
+    "video_frames/aliens_1/frame_21.png",
+    "video_frames/aliens_1/frame_22.png",
+    "video_frames/aliens_1/frame_23.png"
+   ],
+   "task": "probe/aliens_1.png",
+   "alternatives": [
+    "alternatives_grey/aliens_1_alt1.png",
+    "alternatives_grey/aliens_1_alt2.png",
+    "alternatives_grey/aliens_1_alt3.png"
+   ],
+   "source": {
+    "video": "alien1_v1_1080p_s0.00.mp4",
+    "still": "alien1.png"
+   }
+  },
+  "aliens_2": {
+   "category": "aliens",
+   "video": "videos/aliens_2.mp4",
+   "video_grey": "videos_grey/aliens_2.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/aliens_2/frame_00.png",
+    "video_frames/aliens_2/frame_01.png",
+    "video_frames/aliens_2/frame_02.png",
+    "video_frames/aliens_2/frame_03.png",
+    "video_frames/aliens_2/frame_04.png",
+    "video_frames/aliens_2/frame_05.png",
+    "video_frames/aliens_2/frame_06.png",
+    "video_frames/aliens_2/frame_07.png",
+    "video_frames/aliens_2/frame_08.png",
+    "video_frames/aliens_2/frame_09.png",
+    "video_frames/aliens_2/frame_10.png",
+    "video_frames/aliens_2/frame_11.png",
+    "video_frames/aliens_2/frame_12.png",
+    "video_frames/aliens_2/frame_13.png",
+    "video_frames/aliens_2/frame_14.png",
+    "video_frames/aliens_2/frame_15.png",
+    "video_frames/aliens_2/frame_16.png",
+    "video_frames/aliens_2/frame_17.png",
+    "video_frames/aliens_2/frame_18.png",
+    "video_frames/aliens_2/frame_19.png",
+    "video_frames/aliens_2/frame_20.png",
+    "video_frames/aliens_2/frame_21.png",
+    "video_frames/aliens_2/frame_22.png",
+    "video_frames/aliens_2/frame_23.png"
+   ],
+   "task": "probe/aliens_2.png",
+   "alternatives": [
+    "alternatives_grey/aliens_2_alt1.png",
+    "alternatives_grey/aliens_2_alt2.png",
+    "alternatives_grey/aliens_2_alt3.png"
+   ],
+   "source": {
+    "video": "alien2_v1_1080p_s0.00.mp4",
+    "still": "alien2.png"
+   }
+  },
+  "aliens_3": {
+   "category": "aliens",
+   "video": "videos/aliens_3.mp4",
+   "video_grey": "videos_grey/aliens_3.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/aliens_3/frame_00.png",
+    "video_frames/aliens_3/frame_01.png",
+    "video_frames/aliens_3/frame_02.png",
+    "video_frames/aliens_3/frame_03.png",
+    "video_frames/aliens_3/frame_04.png",
+    "video_frames/aliens_3/frame_05.png",
+    "video_frames/aliens_3/frame_06.png",
+    "video_frames/aliens_3/frame_07.png",
+    "video_frames/aliens_3/frame_08.png",
+    "video_frames/aliens_3/frame_09.png",
+    "video_frames/aliens_3/frame_10.png",
+    "video_frames/aliens_3/frame_11.png",
+    "video_frames/aliens_3/frame_12.png",
+    "video_frames/aliens_3/frame_13.png",
+    "video_frames/aliens_3/frame_14.png",
+    "video_frames/aliens_3/frame_15.png",
+    "video_frames/aliens_3/frame_16.png",
+    "video_frames/aliens_3/frame_17.png",
+    "video_frames/aliens_3/frame_18.png",
+    "video_frames/aliens_3/frame_19.png",
+    "video_frames/aliens_3/frame_20.png",
+    "video_frames/aliens_3/frame_21.png",
+    "video_frames/aliens_3/frame_22.png",
+    "video_frames/aliens_3/frame_23.png"
+   ],
+   "task": "probe/aliens_3.png",
+   "alternatives": [
+    "alternatives_grey/aliens_3_alt1.png",
+    "alternatives_grey/aliens_3_alt2.png",
+    "alternatives_grey/aliens_3_alt3.png"
+   ],
+   "source": {
+    "video": "alien3_v2_1080p_s2.50.mp4",
+    "still": "alien3.png"
+   }
+  },
+  "spaceships_1": {
+   "category": "spaceships",
+   "video": "videos/spaceships_1.mp4",
+   "video_grey": "videos_grey/spaceships_1.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/spaceships_1/frame_00.png",
+    "video_frames/spaceships_1/frame_01.png",
+    "video_frames/spaceships_1/frame_02.png",
+    "video_frames/spaceships_1/frame_03.png",
+    "video_frames/spaceships_1/frame_04.png",
+    "video_frames/spaceships_1/frame_05.png",
+    "video_frames/spaceships_1/frame_06.png",
+    "video_frames/spaceships_1/frame_07.png",
+    "video_frames/spaceships_1/frame_08.png",
+    "video_frames/spaceships_1/frame_09.png",
+    "video_frames/spaceships_1/frame_10.png",
+    "video_frames/spaceships_1/frame_11.png",
+    "video_frames/spaceships_1/frame_12.png",
+    "video_frames/spaceships_1/frame_13.png",
+    "video_frames/spaceships_1/frame_14.png",
+    "video_frames/spaceships_1/frame_15.png",
+    "video_frames/spaceships_1/frame_16.png",
+    "video_frames/spaceships_1/frame_17.png",
+    "video_frames/spaceships_1/frame_18.png",
+    "video_frames/spaceships_1/frame_19.png",
+    "video_frames/spaceships_1/frame_20.png",
+    "video_frames/spaceships_1/frame_21.png",
+    "video_frames/spaceships_1/frame_22.png",
+    "video_frames/spaceships_1/frame_23.png"
+   ],
+   "task": "probe/spaceships_1.png",
+   "alternatives": [
+    "alternatives_grey/spaceships_1_alt1.png",
+    "alternatives_grey/spaceships_1_alt2.png",
+    "alternatives_grey/spaceships_1_alt3.png"
+   ],
+   "source": {
+    "video": "spaceship1_v1_1080p_s0.00.mp4",
+    "still": "spaceship1.png"
+   }
+  },
+  "spaceships_2": {
+   "category": "spaceships",
+   "video": "videos/spaceships_2.mp4",
+   "video_grey": "videos_grey/spaceships_2.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/spaceships_2/frame_00.png",
+    "video_frames/spaceships_2/frame_01.png",
+    "video_frames/spaceships_2/frame_02.png",
+    "video_frames/spaceships_2/frame_03.png",
+    "video_frames/spaceships_2/frame_04.png",
+    "video_frames/spaceships_2/frame_05.png",
+    "video_frames/spaceships_2/frame_06.png",
+    "video_frames/spaceships_2/frame_07.png",
+    "video_frames/spaceships_2/frame_08.png",
+    "video_frames/spaceships_2/frame_09.png",
+    "video_frames/spaceships_2/frame_10.png",
+    "video_frames/spaceships_2/frame_11.png",
+    "video_frames/spaceships_2/frame_12.png",
+    "video_frames/spaceships_2/frame_13.png",
+    "video_frames/spaceships_2/frame_14.png",
+    "video_frames/spaceships_2/frame_15.png",
+    "video_frames/spaceships_2/frame_16.png",
+    "video_frames/spaceships_2/frame_17.png",
+    "video_frames/spaceships_2/frame_18.png",
+    "video_frames/spaceships_2/frame_19.png",
+    "video_frames/spaceships_2/frame_20.png",
+    "video_frames/spaceships_2/frame_21.png",
+    "video_frames/spaceships_2/frame_22.png",
+    "video_frames/spaceships_2/frame_23.png"
+   ],
+   "task": "probe/spaceships_2.png",
+   "alternatives": [
+    "alternatives_grey/spaceships_2_alt1.png",
+    "alternatives_grey/spaceships_2_alt2.png",
+    "alternatives_grey/spaceships_2_alt3.png"
+   ],
+   "source": {
+    "video": "spaceship2_v1_1080p_s1.50.mp4",
+    "still": "spaceship2.png"
+   }
+  },
+  "spaceships_3": {
+   "category": "spaceships",
+   "video": "videos/spaceships_3.mp4",
+   "video_grey": "videos_grey/spaceships_3.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/spaceships_3/frame_00.png",
+    "video_frames/spaceships_3/frame_01.png",
+    "video_frames/spaceships_3/frame_02.png",
+    "video_frames/spaceships_3/frame_03.png",
+    "video_frames/spaceships_3/frame_04.png",
+    "video_frames/spaceships_3/frame_05.png",
+    "video_frames/spaceships_3/frame_06.png",
+    "video_frames/spaceships_3/frame_07.png",
+    "video_frames/spaceships_3/frame_08.png",
+    "video_frames/spaceships_3/frame_09.png",
+    "video_frames/spaceships_3/frame_10.png",
+    "video_frames/spaceships_3/frame_11.png",
+    "video_frames/spaceships_3/frame_12.png",
+    "video_frames/spaceships_3/frame_13.png",
+    "video_frames/spaceships_3/frame_14.png",
+    "video_frames/spaceships_3/frame_15.png",
+    "video_frames/spaceships_3/frame_16.png",
+    "video_frames/spaceships_3/frame_17.png",
+    "video_frames/spaceships_3/frame_18.png",
+    "video_frames/spaceships_3/frame_19.png",
+    "video_frames/spaceships_3/frame_20.png",
+    "video_frames/spaceships_3/frame_21.png",
+    "video_frames/spaceships_3/frame_22.png",
+    "video_frames/spaceships_3/frame_23.png"
+   ],
+   "task": "probe/spaceships_3.png",
+   "alternatives": [
+    "alternatives_grey/spaceships_3_alt1.png",
+    "alternatives_grey/spaceships_3_alt2.png",
+    "alternatives_grey/spaceships_3_alt3.png"
+   ],
+   "source": {
+    "video": "spaceship3_v2_1080p_s0.00.mp4",
+    "still": "spaceship3.png"
+   }
+  },
+  "planets_1": {
+   "category": "planets",
+   "video": "videos/planets_1.mp4",
+   "video_grey": "videos_grey/planets_1.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/planets_1/frame_00.png",
+    "video_frames/planets_1/frame_01.png",
+    "video_frames/planets_1/frame_02.png",
+    "video_frames/planets_1/frame_03.png",
+    "video_frames/planets_1/frame_04.png",
+    "video_frames/planets_1/frame_05.png",
+    "video_frames/planets_1/frame_06.png",
+    "video_frames/planets_1/frame_07.png",
+    "video_frames/planets_1/frame_08.png",
+    "video_frames/planets_1/frame_09.png",
+    "video_frames/planets_1/frame_10.png",
+    "video_frames/planets_1/frame_11.png",
+    "video_frames/planets_1/frame_12.png",
+    "video_frames/planets_1/frame_13.png",
+    "video_frames/planets_1/frame_14.png",
+    "video_frames/planets_1/frame_15.png",
+    "video_frames/planets_1/frame_16.png",
+    "video_frames/planets_1/frame_17.png",
+    "video_frames/planets_1/frame_18.png",
+    "video_frames/planets_1/frame_19.png",
+    "video_frames/planets_1/frame_20.png",
+    "video_frames/planets_1/frame_21.png",
+    "video_frames/planets_1/frame_22.png",
+    "video_frames/planets_1/frame_23.png"
+   ],
+   "task": "probe/planets_1.png",
+   "alternatives": [
+    "alternatives_grey/planets_1_alt1.png",
+    "alternatives_grey/planets_1_alt2.png"
+   ],
+   "source": {
+    "video": "planet1_v1_1080p_s0.00.mp4",
+    "still": "planet1.png"
+   }
+  },
+  "planets_2": {
+   "category": "planets",
+   "video": "videos/planets_2.mp4",
+   "video_grey": "videos_grey/planets_2.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/planets_2/frame_00.png",
+    "video_frames/planets_2/frame_01.png",
+    "video_frames/planets_2/frame_02.png",
+    "video_frames/planets_2/frame_03.png",
+    "video_frames/planets_2/frame_04.png",
+    "video_frames/planets_2/frame_05.png",
+    "video_frames/planets_2/frame_06.png",
+    "video_frames/planets_2/frame_07.png",
+    "video_frames/planets_2/frame_08.png",
+    "video_frames/planets_2/frame_09.png",
+    "video_frames/planets_2/frame_10.png",
+    "video_frames/planets_2/frame_11.png",
+    "video_frames/planets_2/frame_12.png",
+    "video_frames/planets_2/frame_13.png",
+    "video_frames/planets_2/frame_14.png",
+    "video_frames/planets_2/frame_15.png",
+    "video_frames/planets_2/frame_16.png",
+    "video_frames/planets_2/frame_17.png",
+    "video_frames/planets_2/frame_18.png",
+    "video_frames/planets_2/frame_19.png",
+    "video_frames/planets_2/frame_20.png",
+    "video_frames/planets_2/frame_21.png",
+    "video_frames/planets_2/frame_22.png",
+    "video_frames/planets_2/frame_23.png"
+   ],
+   "task": "probe/planets_2.png",
+   "alternatives": [
+    "alternatives_grey/planets_2_alt1.png"
+   ],
+   "source": {
+    "video": "planet2_v1_1080p_s0.00.mp4",
+    "still": "planet2.png"
+   }
+  },
+  "planets_3": {
+   "category": "planets",
+   "video": "videos/planets_3.mp4",
+   "video_grey": "videos_grey/planets_3.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/planets_3/frame_00.png",
+    "video_frames/planets_3/frame_01.png",
+    "video_frames/planets_3/frame_02.png",
+    "video_frames/planets_3/frame_03.png",
+    "video_frames/planets_3/frame_04.png",
+    "video_frames/planets_3/frame_05.png",
+    "video_frames/planets_3/frame_06.png",
+    "video_frames/planets_3/frame_07.png",
+    "video_frames/planets_3/frame_08.png",
+    "video_frames/planets_3/frame_09.png",
+    "video_frames/planets_3/frame_10.png",
+    "video_frames/planets_3/frame_11.png",
+    "video_frames/planets_3/frame_12.png",
+    "video_frames/planets_3/frame_13.png",
+    "video_frames/planets_3/frame_14.png",
+    "video_frames/planets_3/frame_15.png",
+    "video_frames/planets_3/frame_16.png",
+    "video_frames/planets_3/frame_17.png",
+    "video_frames/planets_3/frame_18.png",
+    "video_frames/planets_3/frame_19.png",
+    "video_frames/planets_3/frame_20.png",
+    "video_frames/planets_3/frame_21.png",
+    "video_frames/planets_3/frame_22.png",
+    "video_frames/planets_3/frame_23.png"
+   ],
+   "task": "probe/planets_3.png",
+   "alternatives": [
+    "alternatives_grey/planets_3_alt1.png"
+   ],
+   "source": {
+    "video": "planet4_v2_1080p_s3.00.mp4",
+    "still": "planet4.png"
+   }
+  },
+  "money": {
+   "category": "treasures",
+   "video": "videos/money.mp4",
+   "video_grey": "videos_grey/money.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/money/frame_00.png",
+    "video_frames/money/frame_01.png",
+    "video_frames/money/frame_02.png",
+    "video_frames/money/frame_03.png",
+    "video_frames/money/frame_04.png",
+    "video_frames/money/frame_05.png",
+    "video_frames/money/frame_06.png",
+    "video_frames/money/frame_07.png",
+    "video_frames/money/frame_08.png",
+    "video_frames/money/frame_09.png",
+    "video_frames/money/frame_10.png",
+    "video_frames/money/frame_11.png",
+    "video_frames/money/frame_12.png",
+    "video_frames/money/frame_13.png",
+    "video_frames/money/frame_14.png",
+    "video_frames/money/frame_15.png",
+    "video_frames/money/frame_16.png",
+    "video_frames/money/frame_17.png",
+    "video_frames/money/frame_18.png",
+    "video_frames/money/frame_19.png",
+    "video_frames/money/frame_20.png",
+    "video_frames/money/frame_21.png",
+    "video_frames/money/frame_22.png",
+    "video_frames/money/frame_23.png"
+   ],
+   "task": "probe/money.png",
+   "alternatives": [
+    "alternatives_grey/money_alt1.png"
+   ],
+   "source": {
+    "video": "reward4_v1_1080p_s0.00.mp4",
+    "still": "reward4.png"
+   }
+  },
+  "gold": {
+   "category": "treasures",
+   "video": "videos/gold.mp4",
+   "video_grey": "videos_grey/gold.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/gold/frame_00.png",
+    "video_frames/gold/frame_01.png",
+    "video_frames/gold/frame_02.png",
+    "video_frames/gold/frame_03.png",
+    "video_frames/gold/frame_04.png",
+    "video_frames/gold/frame_05.png",
+    "video_frames/gold/frame_06.png",
+    "video_frames/gold/frame_07.png",
+    "video_frames/gold/frame_08.png",
+    "video_frames/gold/frame_09.png",
+    "video_frames/gold/frame_10.png",
+    "video_frames/gold/frame_11.png",
+    "video_frames/gold/frame_12.png",
+    "video_frames/gold/frame_13.png",
+    "video_frames/gold/frame_14.png",
+    "video_frames/gold/frame_15.png",
+    "video_frames/gold/frame_16.png",
+    "video_frames/gold/frame_17.png",
+    "video_frames/gold/frame_18.png",
+    "video_frames/gold/frame_19.png",
+    "video_frames/gold/frame_20.png",
+    "video_frames/gold/frame_21.png",
+    "video_frames/gold/frame_22.png",
+    "video_frames/gold/frame_23.png"
+   ],
+   "task": "probe/gold.png",
+   "alternatives": [
+    "alternatives_grey/gold_alt1.png"
+   ],
+   "source": {
+    "video": "reward2_v1_1080p_s0.00.mp4",
+    "still": "reward2.png"
+   }
+  },
+  "diamonds": {
+   "category": "treasures",
+   "video": "videos/diamonds.mp4",
+   "video_grey": "videos_grey/diamonds.mp4",
+   "fps": 24,
+   "frames": [
+    "video_frames/diamonds/frame_00.png",
+    "video_frames/diamonds/frame_01.png",
+    "video_frames/diamonds/frame_02.png",
+    "video_frames/diamonds/frame_03.png",
+    "video_frames/diamonds/frame_04.png",
+    "video_frames/diamonds/frame_05.png",
+    "video_frames/diamonds/frame_06.png",
+    "video_frames/diamonds/frame_07.png",
+    "video_frames/diamonds/frame_08.png",
+    "video_frames/diamonds/frame_09.png",
+    "video_frames/diamonds/frame_10.png",
+    "video_frames/diamonds/frame_11.png",
+    "video_frames/diamonds/frame_12.png",
+    "video_frames/diamonds/frame_13.png",
+    "video_frames/diamonds/frame_14.png",
+    "video_frames/diamonds/frame_15.png",
+    "video_frames/diamonds/frame_16.png",
+    "video_frames/diamonds/frame_17.png",
+    "video_frames/diamonds/frame_18.png",
+    "video_frames/diamonds/frame_19.png",
+    "video_frames/diamonds/frame_20.png",
+    "video_frames/diamonds/frame_21.png",
+    "video_frames/diamonds/frame_22.png",
+    "video_frames/diamonds/frame_23.png"
+   ],
+   "task": "probe/diamonds.png",
+   "alternatives": [
+    "alternatives_grey/diamonds_alt1.png"
+   ],
+   "source": {
+    "video": "reward1_v1_1080p_s0.00.mp4",
+    "still": "reward1.png"
+   }
+  }
+ }
+}

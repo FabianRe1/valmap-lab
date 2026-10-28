@@ -1,0 +1,114 @@
+{
+ "comment": "Built by make_localizer_images.py; paths relative to this folder.",
+ "items": {
+  "aliens_1": {
+   "category": "aliens",
+   "task": "task/aliens_1.png",
+   "alternatives": [
+    "alternatives/aliens_1_alt1.png",
+    "alternatives/aliens_1_alt2.png",
+    "alternatives/aliens_1_alt3.png"
+   ],
+   "source": "alien_images/localizer/whale.png"
+  },
+  "aliens_2": {
+   "category": "aliens",
+   "task": "task/aliens_2.png",
+   "alternatives": [
+    "alternatives/aliens_2_alt1.png",
+    "alternatives/aliens_2_alt2.png",
+    "alternatives/aliens_2_alt3.png"
+   ],
+   "source": "alien_images/localizer/bird.png"
+  },
+  "aliens_3": {
+   "category": "aliens",
+   "task": "task/aliens_3.png",
+   "alternatives": [
+    "alternatives/aliens_3_alt1.png",
+    "alternatives/aliens_3_alt2.png",
+    "alternatives/aliens_3_alt3.png"
+   ],
+   "source": "alien_images/localizer/lizard.png"
+  },
+  "spaceships_1": {
+   "category": "spaceships",
+   "task": "task/spaceships_1.png",
+   "alternatives": [
+    "alternatives/spaceships_1_alt1.png",
+    "alternatives/spaceships_1_alt2.png",
+    "alternatives/spaceships_1_alt3.png"
+   ],
+   "source": "alien_images/localizer/boat.png"
+  },
+  "spaceships_2": {
+   "category": "spaceships",
+   "task": "task/spaceships_2.png",
+   "alternatives": [
+    "alternatives/spaceships_2_alt1.png",
+    "alternatives/spaceships_2_alt2.png",
+    "alternatives/spaceships_2_alt3.png"
+   ],
+   "source": "alien_images/localizer/car.png"
+  },
+  "spaceships_3": {
+   "category": "spaceships",
+   "task": "task/spaceships_3.png",
+   "alternatives": [
+    "alternatives/spaceships_3_alt1.png",
+    "alternatives/spaceships_3_alt2.png",
+    "alternatives/spaceships_3_alt3.png"
+   ],
+   "source": "alien_images/localizer/rocket.png"
+  },
+  "planets_1": {
+   "category": "planets",
+   "task": "task/planets_1.png",
+   "alternatives": [
+    "alternatives/planets_1_alt1.png",
+    "alternatives/planets_1_alt2.png"
+   ],
+   "source": "alien_images/localizer/vulcano.png"
+  },
+  "planets_2": {
+   "category": "planets",
+   "task": "task/planets_2.png",
+   "alternatives": [
+    "alternatives/planets_2_alt1.png"
+   ],
+   "source": "alien_images/localizer/city.png"
+  },
+  "planets_3": {
+   "category": "planets",
+   "task": "task/planets_3.png",
+   "alternatives": [
+    "alternatives/planets_3_alt1.png"
+   ],
+   "source": "alien_images/localizer/forest.png"
+  },
+  "money": {
+   "category": "treasures",
+   "task": "task/money.png",
+   "alternatives": [
+    "alternatives/money_alt1.png"
+   ],
+   "source": "alien_images/localizer/cash.png"
+  },
+  "gold": {
+   "category": "treasures",
+   "task": "task/gold.png",
+   "alternatives": [
+    "alternatives/gold_alt1.png"
+   ],
+   "source": "alien_images/localizer/gold.png"
+  },
+  "diamonds": {
+   "category": "treasures",
+   "task": "task/diamonds.png",
+   "alternatives": [
+    "alternatives/diamonds_alt1.png"
+   ],
+   "source": "alien_images/localizer/crystal.png"
+  }
+ }
+}
