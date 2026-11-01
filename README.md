@@ -1,7 +1,7 @@
 # ValMap lab sessions (MEG, MRI)
 
 Private. Built by `make_lab_repo.py` in the main task project; do not edit here, rebuild there.
-Content as of 2026-10-28: main task commit f9ec3ee. Tested with PsychoPy 2023.2.3 (standalone).
+Content as of 2026-11-01: main task commit f9ec3ee. Tested with PsychoPy 2023.2.3 (standalone).
 
 ## Before every session
     git pull
