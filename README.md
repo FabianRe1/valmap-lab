@@ -1,7 +1,7 @@
 # ValMap lab sessions (MEG, MRI)
 
 Private. Built by `make_lab_repo.py` in the main task project; do not edit here, rebuild there.
-Content as of 2026-11-01: main task commit f9ec3ee. Tested with PsychoPy 2023.2.3 (standalone).
+Content as of 2026-11-02: main task commit a6206d9. Tested with PsychoPy 2023.2.3 (standalone).
 
 ## Before every session
     git pull
@@ -11,7 +11,17 @@ Content as of 2026-11-01: main task commit f9ec3ee. Tested with PsychoPy 2023.2.
   prefix `PYTHONHOME=/Applications/PsychoPy.app/Contents/Resources`)
 - Windows: `"C:\Program Files\PsychoPy\python.exe"`
 
-Run each command from inside the folder named before it.
+## Starting a part (the usual way)
+    bash run_session.sh mri        (or: bash run_session.sh meg)
+The dialog asks for the session, the part (localizer or main task), the participant code, the
+subject number N, age, gender, handedness, the starting block and notes, then runs that part with
+the command below. One part per start: run it again for the main task after the localizer. Every
+start adds a row to `data/participant_details/CODE_details.tsv`. It uses the CBS wrapper
+`PSYCHOPY --version 2023.2.3`; elsewhere set PY first (`PY=... bash run_session.sh mri`).
+A check without a participant: `bash run_session.sh --no-dialog --session MRI --part localizer
+--code TEST --n 1 --age 30 --gender f --dry-run`.
+
+The commands it runs, to type by hand if needed (each from inside the folder named before it):
 
 ## Numbers
 Subject N uses schedule N in the main task (1 to 100; sub-N is the same person in the online, MEG
@@ -32,7 +42,8 @@ and MRI files match. N and the code are in the lab's subject sheet.
 2. `main_task`: `PY src/psychopy/run_task.py --steps 3 --session meg --schedule N --participant CODE --modality meg --marker-backend parallel --button-box`
 
 ## Data
-Written to `main_task/src/psychopy/data/`, `Localizer_MRI/data/`, `Localizer_MEG/data/`. These
+Written to `main_task/src/psychopy/data/`, `Localizer_MRI/data/`, `Localizer_MEG/data/`, and the
+participant details (age, gender, handedness, notes) to `data/participant_details/`. These
 folders are ignored by git: copy them off the computer after every session.
 
 ## Quick check after cloning (fast-forward, no participant, a few minutes)
