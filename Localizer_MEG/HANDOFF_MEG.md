@@ -6,7 +6,7 @@ folder. The user (Fabian) asked for "something similar for the MEG". Nothing abo
 version has been decided yet: ask before changing any design choice.
 
 ## Hard rules from the user
-- Write files ONLY in `/Users/renzadmin/MaxPlanck_PhD/PhD_Schuck/P7_struct_value/Localizer_MRI`
+- Write files ONLY in `/Users/renzadmin/Princeton_Postdoc/P7_struct_value/Localizer_MRI`
   unless the user names another folder (ask where the MEG version should live; a subfolder such
   as `Localizer_MRI/meg/` or a sibling `Localizer_MEG/` needs the user's OK). The main task repo
   `P7_struct_value/files (5)` is READ ONLY.

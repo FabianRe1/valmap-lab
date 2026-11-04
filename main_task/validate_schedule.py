@@ -376,13 +376,9 @@ def validate_file(path, manifest):
         checker.check(must <= full, rows[i]["trial"],
                       f"routes {sorted(must - full)} are not walked in full after this change")
         for x in gap:
-            if x["kind"] == "CV":
-                checker.check(r0["kind"] == "V", x["trial"], "a value control outside a value cluster")
-            if x["kind"] == "CS":
-                checker.check(r0["kind"] == "S" and x["walk_cells"]
-                              == x[f"route_{r0['observed_route']}_path"], x["trial"],
-                              "a structure control not on the observed leg of its swap")
-                # never the transition the swap itself showed (2026-09-23)
+            # since 2026-11-04 the controls are spread through the session (no longer one per
+            # cluster); a structure control still never shows the transition its swap just showed
+            if x["kind"] == "CS" and r0["kind"] == "S":
                 checker.check(x["shown_cells"] != r0["shown_cells"], x["trial"],
                               "a structure control repeats the transition its swap just showed")
         checker.check(all(x["kind"] not in CHANGE_KINDS for x in gap), rows[i]["trial"],
