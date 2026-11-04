@@ -1,7 +1,7 @@
 # ValMap lab sessions (MEG, MRI)
 
 Private. Built by `make_lab_repo.py` in the main task project; do not edit here, rebuild there.
-Content as of 2026-11-04: main task commit ddecf21. Tested with PsychoPy 2023.2.3 (standalone).
+Content as of 2026-11-04: main task commit c4cf0f8. Tested with PsychoPy 2023.2.3 (standalone).
 
 ## Before every session
     git pull
@@ -18,6 +18,9 @@ subject number N, age, gender, handedness, the starting block and notes, then ru
 the command below. One part per start: run it again for the main task after the localizer. Every
 start adds a row to `data/participant_details/CODE_details.tsv`. It uses the CBS wrapper
 `PSYCHOPY --version 2023.2.3`; elsewhere set PY first (`PY=... bash run_session.sh mri`).
+On a Linux PC where that wrapper is missing (or lacks pyserial and pyparallel for the MEG):
+`bash setup_env_linux.sh` once builds an environment in ~/.valmap (no root needed) and checks the
+MEG ports; run_session.sh then uses it by itself. `bash setup_env_linux.sh --check` repeats the checks.
 A check without a participant: `bash run_session.sh --no-dialog --session MRI --part localizer
 --code TEST --n 1 --age 30 --gender f --dry-run`.
 
