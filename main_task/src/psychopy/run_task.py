@@ -36,6 +36,25 @@ from stimuli import (StimulusError, build_stimulus_map, load_manifest, resolve_f
                      resolve_reward, resolve_reward_frames)
 
 
+
+def ptb_key_time(k, now):
+    """A ptb key press's time on core.getTime's timebase (2026-11-04). PsychoPy's KeyPress.tDown
+    counts from the moment the Keyboard was created, while flips and core.getTime count from
+    PsychoPy's start: using tDown directly put every key time (the trigger, so every onset of the
+    block, and every reaction time) about 4 s early, found in a real (not dry) localizer run.
+    The press's age on ptb's own clock, taken from now, is independent of both zero points. A
+    time that is in the future or more than 2 s old falls back to now, with one warning."""
+    from psychopy.hardware import keyboard as _kb
+    import psychtoolbox as _ptb
+    t_now = now()
+    age = _ptb.GetSecs() - (k.tDown + getattr(_kb.Keyboard, "_ptbOffset", 0.0))
+    if -0.01 <= age <= 2.0:
+        return t_now - age
+    if not getattr(ptb_key_time, "warned", False):
+        print(f"WARNING: key time {age:.3f} s old, implausible; using the polling time instead")
+        ptb_key_time.warned = True
+    return t_now
+
 class QuitExperiment(Exception):
     """Raised when the experimenter presses the quit key."""
 
@@ -297,7 +316,7 @@ class Presenter:
                if self.buttons is not None and any(k in cfg.lab.BUTTONS for k in wanted)
                else [])
         if cfg.KEYBOARD_BACKEND == "ptb":
-            return [(k.name, k.tDown) for k in self.kb.getKeys(wanted, waitRelease=False)] + box
+            return [(k.name, ptb_key_time(k, self.now)) for k in self.kb.getKeys(wanted, waitRelease=False)] + box
         from psychopy import event as psyevent
         return [(name, None) for name in psyevent.getKeys(wanted)] + box
 

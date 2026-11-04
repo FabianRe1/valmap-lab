@@ -45,6 +45,8 @@ def main():
             continue
         ev = [r["event"] for r in by_trial[t]]
         rows = {r["event"]: r for r in by_trial[t]}
+        if not complete and t == max(by_trial) and "stimulus" not in rows:
+            continue                  # the trial a quit or crash cut short (2026-11-04)
         expected = ["fixation", "stimulus"]
         if d["probe"] == "1":
             timed_out = rows.get("probe", {}).get("response") == "timed_out"
@@ -83,6 +85,10 @@ def main():
     for b, onsets in blocks.items():
         need(all(x < y for x, y in zip(onsets, onsets[1:])), f"block {b}: onsets not increasing")
         need(onsets[0] == 0.0, f"block {b}: does not start at the trigger")
+        # the trigger is the block's clock zero: the first screen after it starts within a few
+        # frames (2026-11-04: a wrong key timebase put it 4.2 s late in a real run)
+        need(len(onsets) < 2 or 0.0 <= onsets[1] < 0.1,
+             f"block {b}: first event {onsets[1] if len(onsets) > 1 else ''} s after the trigger, not within 0.1 s")
     for r in log:
         if r["event"] in ("trigger", "block_end"):
             base = cfg.MARKER_CODES["block_start" if r["event"] == "trigger" else "block_end"]

@@ -62,6 +62,25 @@ LOG_COLUMNS = (("subj_id", "design", "block", "trial", "trial_in_block", "event"
                + KEPT_DESIGN_COLUMNS + ("note",))
 
 
+
+def ptb_key_time(k, now):
+    """A ptb key press's time on core.getTime's timebase (2026-11-04). PsychoPy's KeyPress.tDown
+    counts from the moment the Keyboard was created, while flips and core.getTime count from
+    PsychoPy's start: using tDown directly put every key time (the trigger, so every onset of the
+    block, and every reaction time) about 4 s early, found in a real (not dry) localizer run.
+    The press's age on ptb's own clock, taken from now, is independent of both zero points. A
+    time that is in the future or more than 2 s old falls back to now, with one warning."""
+    from psychopy.hardware import keyboard as _kb
+    import psychtoolbox as _ptb
+    t_now = now()
+    age = _ptb.GetSecs() - (k.tDown + getattr(_kb.Keyboard, "_ptbOffset", 0.0))
+    if -0.01 <= age <= 2.0:
+        return t_now - age
+    if not getattr(ptb_key_time, "warned", False):
+        print(f"WARNING: key time {age:.3f} s old, implausible; using the polling time instead")
+        ptb_key_time.warned = True
+    return t_now
+
 class QuitExperiment(Exception):
     pass
 
@@ -187,7 +206,7 @@ class Presenter:
                                  screen=cfg.SCREEN, color=cfg.BACKGROUND_COLOR, units=cfg.UNITS,
                                  allowGUI=False, checkTiming=True)
         self.win.mouseVisible = False
-        self.now = core.getTime          # one timebase: flip times and ptb key times share it
+        self.now = core.getTime          # one timebase: flips; ptb key times via ptb_key_time
         self.kb = keyboard.Keyboard(backend=cfg.KEYBOARD_BACKEND)
         self.frame_dur = self.win.monitorFramePeriod or (1 / 60.0)
         measured = self.win.getActualFrameRate(nIdentical=10, nMaxFrames=120, nWarmUpFrames=10)
@@ -246,7 +265,7 @@ class Presenter:
         if self.buttons is not None and len(board) < len(keys):
             out = [(n, t) for n, t in self.buttons.read() if n in keys]
         if cfg.KEYBOARD_BACKEND == "ptb":
-            out += [(k.name, k.tDown) for k in self.kb.getKeys(board, waitRelease=False)]
+            out += [(k.name, ptb_key_time(k, self.now)) for k in self.kb.getKeys(board, waitRelease=False)]
         else:
             from psychopy import event
             out += [(name, self.now()) for name in event.getKeys(board)]

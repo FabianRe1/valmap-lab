@@ -141,6 +141,10 @@ print(f"timing profile: {profile} | long ISIs per trial: {dict(n_long)}" + (f" |
 for b in blocks_from_events(events):
     on = [float(e["onset"]) for e in b["events"] if val(e["onset"]) is not None]
     if on != sorted(on): fails.append(f"block {b['block']}: onsets not monotonic")
+    # the trigger is the block's clock zero (2026-11-04): the lead-in starts within 0.1 s of it
+    lead = [float(e["onset"]) for e in b["events"] if e["event"] == "block_lead_in"]
+    if lead and not 0.0 <= lead[0] < 0.1:
+        fails.append(f"block {b['block']}: lead-in {lead[0]:.3f} s after the trigger, not within 0.1 s")
 
 if rest_secs:
     lo_r, hi_r = min(rest_secs), max(rest_secs)
