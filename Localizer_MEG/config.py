@@ -126,6 +126,6 @@ FIXATION_COLOR = "white"
 
 TEXT_HEIGHT = 0.045
 TEXT_WRAP = 1.3
-TEXT_COLOR = "black"            # black like the main task since 2026-11-04 (user; white before), the fixation stays white
+TEXT_COLOR = "white"
 FOOTER_HEIGHT = 0.035
 FOOTER_Y = -0.42

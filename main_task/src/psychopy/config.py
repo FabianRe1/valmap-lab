@@ -433,13 +433,17 @@ VIDEO_MODE = False              # set by apply_stimulus_mode()
 
 OUTCOME_IMAGE_HEIGHT = 0.60        # the square treasure (2026-10-23; the treasure fills about half of it)
 OUTCOME_TEXT_HEIGHT = 0.14
-OUTCOME_TEXT_COLOR = "black"        # black like all text since 2026-11-04 (white with a shadow before)
-OUTCOME_TEXT_SHADOW_COLOR = None    # None draws no shadow
+OUTCOME_TEXT_COLOR = "white"
+OUTCOME_TEXT_SHADOW_COLOR = "black" # None draws no shadow
 OUTCOME_TEXT_SHADOW_OFFSET = 0.006
-# the amount sits ABOVE the treasure since 2026-11-04 (user: they overlapped; -0.02, over it, before).
-# Centred on the picture's top edge: the treasures, their videos included, keep to the lower 84 %
-# of the square, so the number stays clear of them and close above them.
-OUTCOME_TEXT_Y = OUTCOME_IMAGE_HEIGHT / 2
+# the amount sits DIRECTLY above the treasure since 2026-11-04 (user: over it they overlapped, and
+# it should be readable without looking up; -0.02, over it, before). The treasures, every frame of
+# their videos included, begin at least OUTCOME_TREASURE_TOP of the square below its top edge
+# (diamonds 0.161, gold 0.185, money 0.213), so the number's glyphs (about 0.10 high, centred on
+# the position) end OUTCOME_TEXT_GAP above the highest of them.
+OUTCOME_TREASURE_TOP = 0.16
+OUTCOME_TEXT_GAP = 0.015
+OUTCOME_TEXT_Y = OUTCOME_IMAGE_HEIGHT * (0.5 - OUTCOME_TREASURE_TOP) + OUTCOME_TEXT_GAP + 0.05
 
 # The map overview draws its arrows with this glyph.
 TRANSITION_ARROW_TEXT = "\u2192"
@@ -450,7 +454,7 @@ FIXATION_START_HEIGHT = 0.30        # the trial-opening fixation, 3 x the normal
 FIXATION_COLOR = "white"
 
 PROMPT_HEIGHT = 0.055
-PROMPT_COLOR = "black"              # every text, black since 2026-11-04 (user; white before)
+PROMPT_COLOR = "white"              # black for a few hours on 2026-11-04, back to white (user)
 PROMPT_WRAP = 1.4
 PROMPT_Y = 0.02                     # probe prompt sits between the cue and the options
 
