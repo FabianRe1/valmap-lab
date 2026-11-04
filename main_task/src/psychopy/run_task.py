@@ -44,13 +44,14 @@ OPTION_KEYS = (cfg.KEY_OPTION_1, cfg.KEY_OPTION_2, cfg.KEY_OPTION_3)
 
 
 def enable_button_box():
-    """Add the MEG response box's buttons to the keys (2026-10-14): each option also accepts the
-    button of its finger (config.OPTION_FINGERS -> meg_lab FINGER_BUTTON), and any button advances
-    a screen. Called once at startup when the box is used."""
+    """Add the MEG response box's buttons to the keys (2026-10-14): each option also accepts its
+    buttons (config.OPTION_BUTTONS -> meg_lab POSITION_BUTTONS: blue = left, either middle button
+    = middle, red = right, as the colleague's experiment in this lab, 2026-11-04), and any button
+    advances a screen. Called once at startup when the box is used."""
     global OPTION_KEYS
     lab = cfg.lab
-    OPTION_KEYS = tuple(tuple(keys) + (lab.FINGER_BUTTON[finger],)
-                        for keys, finger in zip(OPTION_KEYS, cfg.OPTION_FINGERS))
+    OPTION_KEYS = tuple(tuple(keys) + tuple(lab.POSITION_BUTTONS[pos])
+                        for keys, pos in zip(OPTION_KEYS, cfg.OPTION_BUTTONS))
     cfg.KEY_CONTINUE = tuple(cfg.KEY_CONTINUE) + tuple(lab.BUTTONS)
     cfg.BUTTON_BOX = True
 
@@ -287,13 +288,25 @@ class Presenter:
         key per call there).
         """
         wanted = list(keys)
-        # the MEG response box (2026-10-14): a press arrives as "btn<n>", read on the same clock
+        # the MEG response box (2026-10-14): a press arrives as "btn<n>", read on the same clock.
+        # Read only when a button is asked for (2026-11-04): the per-frame quit check in flip()
+        # used to read and drop every byte, so a press during an answer window was mostly lost.
+        # Bytes wait in the port until the next answer window, which empties it first
+        # (clear_responses), as the colleague's check_meg_kbd_test.m flushes before each wait.
         box = ([(name, t) for name, t in self.buttons.read() if name in wanted]
-               if self.buttons is not None else [])
+               if self.buttons is not None and any(k in cfg.lab.BUTTONS for k in wanted)
+               else [])
         if cfg.KEYBOARD_BACKEND == "ptb":
             return [(k.name, k.tDown) for k in self.kb.getKeys(wanted, waitRelease=False)] + box
         from psychopy import event as psyevent
         return [(name, None) for name in psyevent.getKeys(wanted)] + box
+
+    def clear_responses(self):
+        """Forget earlier presses before an answer or continue window: the keyboard and, in the
+        MEG, the response box's waiting bytes (2026-11-04)."""
+        self.kb.clearEvents()
+        if self.buttons is not None:
+            self.buttons.clear()
 
     def service_background_keys(self):
         """Quit key always. In fMRI mode the scanner keeps sending the trigger key on every volume;
@@ -481,7 +494,7 @@ class Presenter:
             if row.get("label"):
                 text(strings.get(self.lang, row["label"]), cfg.MAP_LABEL_HEIGHT,
                      (0, y + label_dy), wrap=cfg.INSTRUCTION_WRAP)
-        self.kb.clearEvents()
+        self.clear_responses()
 
         def draw():
             caption_stim.draw()
@@ -617,7 +630,7 @@ class Presenter:
             # the outline's inside is the window's own grey (black until 2026-10-26, when the
             # background turned grey: it left black bands inside every outline)
             under.extend(shape(ox, cells, cfg.SWAP_DIAGRAM_FRAME_LINE, cfg.BACKGROUND_COLOR))
-        self.kb.clearEvents()
+        self.clear_responses()
 
         def draw():
             self.message.draw()
@@ -702,7 +715,7 @@ class Presenter:
         first_frame = True
         photodiode = cfg.PHOTODIODE and self.modality == "meg"
         self.wait_marker_free()
-        self.kb.clearEvents()
+        self.clear_responses()
 
         all_option_keys = [k for keys in OPTION_KEYS for k in keys]
 
@@ -837,7 +850,7 @@ class Presenter:
             self._draw_review_journeys(q["journeys"])
             self.footer.draw()
 
-        self.kb.clearEvents()
+        self.clear_responses()
         if self.dry_run:
             self.present(cfg.T_FEEDBACK, draw)
             return
@@ -922,7 +935,7 @@ class Presenter:
                 self._names_label.draw()
             self.footer.draw()
 
-        self.kb.clearEvents()
+        self.clear_responses()
         if self.dry_run:
             self.present(cfg.T_FEEDBACK, draw)
             return
@@ -960,7 +973,7 @@ class Presenter:
         self.message.text = text
         self.message.pos = (0, 0)
         self.footer.text = strings.get(self.lang, cfg.CONTINUE_TEXT_KEY) if footer else ""
-        self.kb.clearEvents()
+        self.clear_responses()
 
         def draw():
             self.message.draw()
@@ -989,7 +1002,7 @@ class Presenter:
            because outside the scanner somebody has to press it."""
         self.message.text = strings.get(self.lang, "wait_trigger", run=run, n_runs=n_runs)
         self.message.pos = (0, 0)
-        self.kb.clearEvents()
+        self.clear_responses()
         while True:
             self.message.draw()
             self.win.flip()
@@ -1171,17 +1184,19 @@ def run_lab_intro(pres, resume_after=0):
     check: the participant presses the left, middle and right answer button in turn (only that
     button continues), so the fingers are on the right buttons before the task. Logged in its
     own block, one row per screen with the button that ended it."""
+    # the scanner names each button by finger and color (2026-11-04, as RepChanges did)
+    sfx = "_mri" if pres.modality == "fmri" else ""
     pres.logger.open_block("lab_intro", 0)
     pres.t0 = pres.now()
     pres.logger.write_event(0.0, 0.0, "block_start", stimulus=datalog_mod.wallclock(),
                             trial_type="lab_intro")
-    for key in ("lab_refresher_1", "lab_refresher_1b", "lab_refresher_2"):
+    for key in ("lab_refresher_1", "lab_refresher_1b", "lab_refresher_2" + sfx):
         onset = pres.now()
         pressed = pres.show_message(strings.get(pres.lang, key, t_probe=int(cfg.T_PROBE)))
         pres.logger.write_event(onset - pres.t0, pres.now() - onset, "lab_refresher",
                                 trial_type="lab_intro", stimulus=key, response=pressed)
-    for key, keys in zip(("button_check_left", "button_check_middle", "button_check_right"),
-                         OPTION_KEYS):
+    for key, keys in zip(("button_check_left" + sfx, "button_check_middle" + sfx,
+                          "button_check_right" + sfx), OPTION_KEYS):
         onset = pres.now()
         pressed = pres.show_message(strings.get(pres.lang, key), keys=keys, footer=False)
         pres.logger.write_event(onset - pres.t0, pres.now() - onset, "button_check",
@@ -1557,7 +1572,7 @@ def main():
     parser.add_argument("--marker-backend", choices=sorted(triggers.BACKENDS))
     parser.add_argument("--button-box", action="store_true",
                         help="also read the MEG response box (meg_lab/settings.py: port and the "
-                             "byte of each finger's button)")
+                             "bytes of the blue, middle and red buttons)")
     parser.add_argument("--keyboard-backend", choices=["ptb", "event", "iohub"],
                         help="use 'event' if ptb segfaults for lack of macOS Input Monitoring")
     parser.add_argument("--no-practice", action="store_true",
@@ -1621,7 +1636,7 @@ def main():
     profile = cfg.apply_timing_profile(cfg.profile_for_modality(session["modality"]))
     # videos (online, MRI, MEG since 2026-10-28) or stills: sets T_VIDEO too, so the plan below is right
     stimulus_mode = cfg.apply_stimulus_mode(session["modality"])
-    # the scanner's buttons b, y, g for the three answers (fMRI); J, K, L elsewhere
+    # the scanner's buttons b, z, r for the three answers (fMRI, as RepChanges); J, K, L elsewhere
     response_keys = cfg.apply_response_keys(session["modality"])
     global OPTION_KEYS
     OPTION_KEYS = (cfg.KEY_OPTION_1, cfg.KEY_OPTION_2, cfg.KEY_OPTION_3)
@@ -1713,7 +1728,7 @@ def main():
         "button_box": buttons is not None,
         # the MRI plays the pictures' and treasures' videos, every other modality the stills
         "stimulus_mode": stimulus_mode,
-        "response_keys": response_keys,          # scanner_buttons (b, y, g) or keyboard (J, K, L)
+        "response_keys": response_keys,          # scanner_buttons (b, z, r) or keyboard (J, K, L)
         "lab_intro": bool(lab_session),          # refresher + button check instead of the full intro
         "photodiode": bool(cfg.PHOTODIODE and session["modality"] == "meg"),
         # the timing profile is the ONLY thing the modality changes about the session, so it is

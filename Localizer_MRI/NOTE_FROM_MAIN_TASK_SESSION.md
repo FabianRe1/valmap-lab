@@ -17,3 +17,8 @@ Later the same day (user): the scanner box may read as b / y / g or b / z / r de
 keyboard layout, so this session made Localizer_MRI/config.py accept both: KEY_RIGHT z or y,
 KEY_NEITHER r or g, KEY_CONTINUE all of them. The main task does the same (b; y or z; g or r).
 The dry run still passes check_log.
+
+Update 2026-11-04 (from RepChanges, the earlier study on the same scanner): the box sends b (blue,
+right index), z (yellow, right middle), r (left index) and g (left middle), four separate buttons.
+"b / y / g" meant the colors blue, yellow, green. KEY_NEITHER is now r only (g dropped); "y" stays
+on KEY_RIGHT as a layout fallback. The main task answers left, middle, right with b, z (or y), r.

@@ -13,7 +13,7 @@ MRI localizer's pre-decoded frames (MANIFEST); the probes keep the stills.
 import sys
 from pathlib import Path
 
-# the MEG lab's hardware (port, pulses, 0..127, response box, finger buttons, photodiode) is
+# the MEG lab's hardware (port, pulses, 0..127, response box, button bytes, photodiode) is
 # shared with the main task in ../meg_lab (2026-10-14): change it THERE
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from meg_lab import settings as lab                                       # noqa: E402
@@ -81,17 +81,19 @@ MARKER_CODES = {
 # MEG response box (technician, 2026-10-14): 4 buttons on COM2 (Linux /dev/ttyS1), 19200 baud,
 # no parity, 8 data bits, 2 stop bits; each press sends one byte, its number, read as "btn<n>"
 # (responses.py). The keyboard keys (MRI button box b / z / r, laptop J / K / L) always work too.
-# THE ONE PLACE TO CHANGE WHICH FINGER ANSWERS WHAT (keys below). Which BYTE each finger's button
-# sends is UNCONFIRMED and set in ../meg_lab/settings.py (FINGER_BUTTON), shared with the main task:
-# run test_meg_io.py in the lab, press each finger's button and enter the printed names there.
+# THE ONE PLACE TO CHANGE WHICH BUTTON ANSWERS WHAT (keys below). Since 2026-11-04 as the
+# experiment that currently runs in this lab (Evie Coxon's test_sweeps-2-main, run_sweeps_test.m:
+# 109-110): left picture = BLUE button (byte 4), right picture = RED button (byte 1), neither =
+# either button between them (bytes 2, 3; the colleague uses neither, confirm in the lab). The
+# bytes are in ../meg_lab/settings.py (POSITION_BUTTONS), shared with the main task.
 BUTTON_BOX = False          # True in the MEG: also read the serial response box
-# the box's port and which byte each finger's button sends: ../meg_lab/settings.py (shared)
+# the box's port and which byte each button sends: ../meg_lab/settings.py (shared)
 BUTTON_SERIAL_PORT = lab.BUTTON_SERIAL_PORT
 BUTTON_BAUDRATE = lab.BUTTON_BAUDRATE
 BUTTONS = lab.BUTTONS
-KEY_LEFT = ("b", "j", lab.FINGER_BUTTON["right_index"])      # left picture: right index finger
-KEY_RIGHT = ("z", "k", lab.FINGER_BUTTON["right_middle"])    # right picture: right middle finger
-KEY_NEITHER = ("r", "l", lab.FINGER_BUTTON["left_index"])    # neither picture: left index finger
+KEY_LEFT = ("b", "j") + lab.POSITION_BUTTONS["left"]          # left picture: blue (left) button
+KEY_RIGHT = ("z", "k") + lab.POSITION_BUTTONS["right"]        # right picture: red (right) button
+KEY_NEITHER = ("r", "l") + lab.POSITION_BUTTONS["middle"]     # neither picture: a middle button
 KEY_CONTINUE = ("b", "z", "r", "g", "space") + BUTTONS   # participant-paced screens (any button)
 KEY_OPERATOR = ("space",)   # operator screens before each block (keyboard only)
 TRIGGER_KEYS = ("t",)       # the experimenter's start key; the first one of a block is its t0

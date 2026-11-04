@@ -90,6 +90,16 @@ are worth the time.
     either budget, so the generator still reproduces them exactly. The online intro's MEG part
     plays the grey videos too and no longer says the pictures do not move (made in
     `../Localizer_MRI/online_practice/`, synced to the main task).
+17. Buttons and trigger port as the colleague's experiment that currently runs in this lab
+    (2026-11-04; Evie Coxon's `../Orga_MRI_MEG/Other_experiments/test_sweeps-2-main`, details
+    in `../meg_lab/README.md`): the box on COM2, 19200 baud, 8N2 (run_sweeps_test.m:78), blue
+    button = byte 4 = left, red button = byte 1 = right (run_sweeps_test.m:109-110), triggers on
+    LPT 0x378 = `/dev/parport0` (run_sweeps_test.m:81-83), reset to 0. Here: left picture =
+    blue, right picture = red, neither = either button between them (bytes 2 and 3; the colleague
+    uses no third button). Replaces the finger placeholders of 13 and 14 (`FINGER_BUTTON` is now
+    `POSITION_BUTTONS`); the German instructions and button check name the blue, red and middle
+    button. Agrees with the technician's spec of 13 except the pulse: the colleague holds 2 ms
+    (its older autosave 20 ms), we keep the technician's 20 ms (reasons in `../meg_lab/README.md`).
 
 Kept from MRI without a separate question: 5 s lead-in and lead-out fixation per block,
 30 s planned breaks, timeout message, bonus file. German texts: scanner wording removed, plus one
@@ -106,7 +116,7 @@ Plan per design: 930 trials, about 45.8 min with 30 s breaks, about 43.3 min of 
 | `generate_localizer_designs.py` | designs; `designs/sub-001..060_localizer_meg.csv` (seed 20261014) |
 | `verify_localizer_design.py` | independent design checker; mutation tested (7 of 7 caught) |
 | `config.py`, `strings_de.py`, `triggers.py`, `run_localizer.py` | presentation, markers, output |
-| `responses.py` | the MEG serial response box (bytes read as `btn1`..`btn4`) |
+| `responses.py` | the MEG serial response box (bytes read as `btn1`..`btn4`; blue btn4, red btn1) |
 | `test_meg_io.py` | lab check: sends every code once a second, then prints the byte of each button press |
 | `check_log.py` | output vs design, event order, every marker code; `--timing` for real-time runs |
 | `designs/sub-900_localizer_meg.csv` | TEST design (first 30 trials of blocks 1 and 2 of sub-001), not for participants |
@@ -160,9 +170,10 @@ Plan per design: 930 trials, about 45.8 min with 30 s breaks, about 43.3 min of 
   60..62, 101..106, 111..116.
 
 ## Still open
-- Which byte each finger's button sends: `FINGER_BUTTON` in `../meg_lab/settings.py` holds
-  PLACEHOLDERS. Run `test_meg_io.py` in the lab and enter the printed names there (both tasks
-  follow).
+- The buttons (2026-11-04, see 17): blue btn4 and red btn1 are the colleague's; check them with
+  `test_meg_io.py`, find which of btn2 and btn3 the middle finger presses, and remove the other
+  from `POSITION_BUTTONS` in `../meg_lab/settings.py` (both tasks follow). Ask the technician
+  whether 20 ms pulses are still wanted (the colleague now holds 2 ms).
 - On faecherfisch: PsychoPy version, pyparallel and pyserial installed, ppdev loaded, write
   access to `/dev/parport0` and `/dev/ttyS1`; the monitor refresh rate; copy
   `Localizer_MEG`, `Localizer_MRI/stimuli` and `meg_lab` there, side by side.

@@ -18,7 +18,7 @@ from pathlib import Path
 # repository root = two levels up from this file (src/psychopy/config.py)
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 # The MEG lab's hardware (trigger port, 20 ms pulses, codes 1..127, response box, which byte each
-# finger's button sends, the photodiode switch) is shared with the MEG localizer in
+# button sends, the photodiode switch) is shared with the MEG localizer in
 # P7_struct_value/meg_lab, next to this repo (2026-10-14): change it THERE, both tasks follow.
 import sys                                                                    # noqa: E402
 sys.path.insert(0, str(REPO_ROOT.parent))
@@ -373,21 +373,30 @@ KEY_OPTION_3 = ("l",)
 KEY_OPTION_LABELS = ("J", "K", "L")   # shown under the options, left to right
 KEY_CONTINUE = ("space", "b")   # advance instruction screens; blue works inside the scanner
 CONTINUE_TEXT_KEY = "press_space"   # the footer on self-paced screens (the scanner: any button)
-# The scanner (2026-10-26, user): the three answers are the button box's b, y, g (left, middle,
-# right option) INSTEAD of J, K, L; any of them advances a screen; no letters under the options
-# (the button check before the task places the fingers). apply_response_keys() sets them.
-# The middle and right buttons also accept "z" and "r": the MRI localizer reads the same box as
-# b / z / r (a German keyboard layout turns the yellow button's "y" into "z"), so either reading
-# works until the box is tested; drop the extra keys once it is.
-MRI_OPTION_KEYS = (("b",), ("y", "z"), ("g", "r"))
+# The scanner (MPI CBS Leipzig) INSTEAD of J, K, L; apply_response_keys() sets them. Settled
+# 2026-11-04 from RepChanges, run on the same scanner (config_shared.py:35-38 and its button
+# check, instruction_texts_shared.py:4-7), which sent and logged these keys:
+#   b = blue, right index    -> LEFT option
+#   z = yellow, right middle -> MIDDLE option
+#   r = green, left index    -> RIGHT option
+#   g = red, left middle     -> no answer (RepChanges never used it for answers either)
+# Same three buttons, in the same order, as RepChanges' localizer (left, right picture, neither)
+# and its three-option code (utils_shared.py:810-827, b/z/r = left/middle/right). The user's
+# "b, y, g" (2026-10-26) are the colors blue, yellow, green, i.e. keys b, z, r; "g" is the red
+# button, so it no longer answers. "y" stays on the middle option ONLY as a layout fallback (a
+# German layout is the one place y and z swap; no other button sends y). Any button or the space
+# bar advances a screen, as in RepChanges; no letters under the options.
+MRI_OPTION_KEYS = (("b",), ("z", "y"), ("r",))
 MRI_OPTION_LABELS = ("", "", "")
-MRI_CONTINUE_KEYS = ("b", "y", "z", "g", "r", "space")
-# MEG response box (--button-box, 2026-10-14): its buttons are read next to the keyboard. Which
-# finger answers which option is set HERE (left, middle, right option); which byte each finger's
-# button sends is set in meg_lab/settings.py (FINGER_BUTTON, shared with the localizer; still
-# placeholders until tested in the lab). Any button also advances a screen.
+MRI_CONTINUE_KEYS = ("b", "z", "y", "r", "g", "space")
+# MEG response box (--button-box, 2026-10-14): its buttons are read next to the keyboard (J, K, L
+# and space keep working). Since 2026-11-04 as the experiment that currently runs in this MEG lab
+# (Evie Coxon's test_sweeps-2-main, run_sweeps_test.m:109-110): left option = BLUE button (byte 4),
+# right option = RED button (byte 1); the colleague uses no third button, so the middle option
+# takes either button between them (bytes 2, 3; confirm in the lab). The bytes are in
+# meg_lab/settings.py (POSITION_BUTTONS, shared with the localizer). Any button advances a screen.
 BUTTON_BOX = False
-OPTION_FINGERS = ("left_index", "right_index", "right_middle")   # UNCONFIRMED, decide in the lab
+OPTION_BUTTONS = ("left", "middle", "right")   # left, middle, right option -> POSITION_BUTTONS
 # The overview of the current journeys in every break between blocks (2026-10-01): keys are
 # ignored for its first BREAK_OVERVIEW_MIN_S seconds, then it takes TWO presses to move on, so it
 # cannot be skipped by accident. Mirrors ../jspsych/config.js.

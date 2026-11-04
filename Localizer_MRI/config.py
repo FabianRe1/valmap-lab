@@ -33,13 +33,16 @@ DRY_RUN_SCALE = 0.02        # --dry-run multiplies every duration by this
 # Scanner button box as in the old RepChanges study (config_shared.py): b = blue, right index;
 # z = yellow, right middle; r = green, left index; g = red, left middle (unused). J/K/L also work,
 # for a laptop. THE ONE PLACE TO CHANGE THE RESPONSE KEYS.
-# The scanner box (2026-10-26, user): its buttons arrive as b / y / g on one keyboard layout and as
-# b / z / r on another (a German layout turns y into z), so both readings are accepted, as in the
-# main task.
+# Settled 2026-11-04 from RepChanges on the same scanner (config_shared.py:35-38, its button
+# check in instruction_texts_shared.py:4-7, loc_1_utils.py:119-133): every session's check passed
+# on b, z, r and g in turn, so these are four different buttons and the box sends z, not y. The
+# 2026-10-26 "b / y / g" are the colors blue, yellow, green (keys b, z, r); g is the red left
+# middle button, which RepChanges never used for answers, so it no longer means "neither". "y"
+# stays as a layout fallback only (the one key a German layout swaps; no other button sends it).
 KEY_LEFT = ("b", "j")            # left picture
 KEY_RIGHT = ("z", "y", "k")      # right picture
-KEY_NEITHER = ("r", "g", "l")    # neither picture
-KEY_CONTINUE = ("b", "z", "y", "r", "g", "space")   # participant-paced screens (any button)
+KEY_NEITHER = ("r", "l")         # neither picture
+KEY_CONTINUE = ("b", "z", "y", "r", "g", "space")   # participant-paced screens (any button, as RepChanges)
 KEY_OPERATOR = ("space",)   # operator screens before each block (keyboard only)
 TRIGGER_KEYS = ("t", "T")   # the scanner's trigger (either case, as the old setup); the first one of a block is its t0
 KEY_QUIT = ("escape",)

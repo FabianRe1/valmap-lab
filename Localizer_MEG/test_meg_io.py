@@ -3,9 +3,10 @@
 1. Markers: sends every code the localizer can send, one per second in increasing order, through
    the configured backend (20 ms pulses). While the MEG records, check its trigger channel shows
    exactly this list and nothing else.
-2. Button box: then listens on the serial response box and prints the byte of every press, so the
-   button of each finger can be entered in ../meg_lab/settings.py (FINGER_BUTTON, shared with
-   the main task).
+2. Button box: then listens on the serial response box and prints the byte of every press, so
+   the expected bytes in ../meg_lab/settings.py (POSITION_BUTTONS, shared with the main task) can
+   be confirmed: blue (left) = btn4 and red (right) = btn1 as the colleague's experiment in this
+   lab (2026-11-04), the middle button btn2 or btn3.
 
 Usage (on the MEG PC, PsychoPy's python):
   python test_meg_io.py                       # parallel port and button box, as in the MEG
@@ -53,16 +54,17 @@ def main():
     if box is None:
         print("!!! button box failed to open; nothing to listen to")
         return
-    print(f"\nlistening {a.listen:.0f} s on {cfg.BUTTON_SERIAL_PORT}: press right index, right middle, "
-          "left index (and the 4th button), one at a time")
+    print(f"\nlistening {a.listen:.0f} s on {cfg.BUTTON_SERIAL_PORT}: press blue (left), the middle "
+          "button(s), red (right), one at a time")
+    roles = {b: role for role, bs in cfg.lab.POSITION_BUTTONS.items() for b in bs}
     end = time.time() + a.listen
     while time.time() < end:
         for name, t in box.read():
-            print(f"  {name}  (t = {t:.3f} s)")
+            print(f"  {name}  -> {roles.get(name, 'NOT MAPPED')}  (t = {t:.3f} s)")
         time.sleep(0.005)
     box.close()
-    print("enter the names into ../meg_lab/settings.py, FINGER_BUTTON (right_index, right_middle, "
-          "left_index, left_middle); both tasks read them from there")
+    print("expected: blue btn4 -> left, red btn1 -> right, middle btn2 or btn3. If not, correct "
+          "POSITION_BUTTONS in ../meg_lab/settings.py; both tasks read it from there")
 
 
 if __name__ == "__main__":

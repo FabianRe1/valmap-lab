@@ -190,6 +190,12 @@ STRINGS = {
         "button_check_left": "BUTTON CHECK\n\nPlace your fingers on the three buttons.\n\nNow press the LEFT button.",
         "button_check_middle": "Good. Now press the MIDDLE button.",
         "button_check_right": "Good. Now press the RIGHT button.",
+        # the scanner (2026-11-04): the buttons by finger and color, worded as in RepChanges, the
+        # lab's earlier study on the same scanner (config.MRI_OPTION_KEYS)
+        "lab_refresher_2_mri": "Today the journeys start again as you learned them. Which journey is worth 100 at the start may differ from last time: you will see it on an overview in a moment.\n\nYou answer with three buttons:\nright index finger (blue) = left picture\nright middle finger (yellow) = middle picture\nleft index finger = right picture\nYou have {t_probe} seconds.\n\nFirst, a short check of the buttons.",
+        "button_check_left_mri": "BUTTON CHECK\n\nPlease press the blue button under your right index finger.\n\n(left picture)",
+        "button_check_middle_mri": "Good. Now the yellow button under your right middle finger.\n\n(middle picture)",
+        "button_check_right_mri": "Good. Now the button under your left index finger.\n\n(right picture)",
         "button_check_done": "All set. Next you see the journeys as they stand at the start of this session.",
         # resuming after an interruption (--start-run R > 1, 2026-11-04): the state at the end of part R-1
         "button_check_done_resume": "All set. Next you see the journeys as they stand now, at the end of part {run}.",
@@ -349,6 +355,10 @@ STRINGS = {
         "button_check_left": "TASTEN-CHECK\n\nLeg deine Finger auf die drei Tasten.\n\nDruecke jetzt die LINKE Taste.",
         "button_check_middle": "Gut. Druecke jetzt die MITTLERE Taste.",
         "button_check_right": "Gut. Druecke jetzt die RECHTE Taste.",
+        "lab_refresher_2_mri": "Heute beginnen die Reisen wieder so, wie du sie gelernt hast. Welche Reise am Anfang 100 wert ist, kann aber anders sein als beim letzten Mal: Das siehst du gleich auf einer Uebersicht.\n\nDu antwortest mit drei Tasten:\nrechter Zeigefinger (blau) = linkes Bild\nrechter Mittelfinger (gelb) = mittleres Bild\nlinker Zeigefinger = rechtes Bild\nDu hast {t_probe} Sekunden Zeit.\n\nZuerst pruefen wir kurz die Tasten.",
+        "button_check_left_mri": "TASTEN-CHECK\n\nBitte druecke die blaue Taste unter deinem rechten Zeigefinger.\n\n(linkes Bild)",
+        "button_check_middle_mri": "Gut. Jetzt die gelbe Taste unter deinem rechten Mittelfinger.\n\n(mittleres Bild)",
+        "button_check_right_mri": "Gut. Jetzt die Taste unter deinem linken Zeigefinger.\n\n(rechtes Bild)",
         "button_check_done": "Alles bereit. Gleich siehst du die Reisen, wie sie zu Beginn dieser Sitzung stehen.",
         "button_check_done_resume": "Alles bereit. Gleich siehst du die Reisen, wie sie jetzt stehen, am Ende von Teil {run}.",
         "press_space_again": "Noch einmal die LEERTASTE, um den naechsten Teil zu starten",

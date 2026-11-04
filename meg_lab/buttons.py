@@ -3,8 +3,10 @@ The MEG response box, shared by the main task and the MEG localizer (2026-10-14;
 the localizer). Settings in meg_lab/settings.py: 4 buttons, read via COM2 (on Linux /dev/ttyS1) at 19200 baud,
 no parity, 8 data bits, 2 stop bits (technician's mail). Every press arrives as ONE byte, the
 button's number. A byte b is reported as the key name "btn<b>", so a task's response keys simply
-list the button names (settings.FINGER_BUTTON) next to the keyboard keys and the rest of the
-runtime treats both alike.
+list the button names (settings.POSITION_BUTTONS) next to the keyboard keys and the rest of the
+runtime treats both alike. As the colleague's experiment in this lab (test_sweeps-2-main,
+hw/check_meg_kbd_test.m, 2026-11-04): the buffer is emptied before each answer window (clear),
+every waiting byte is read, and a byte no task asks for (any but the mapped ones) is ignored.
 
 Timestamps are taken when the byte is read (polled once per frame), on the same clock as the
 flips (psychopy.core.getTime), so a response time can be late by up to one frame plus the serial
@@ -21,7 +23,8 @@ class ButtonBox:
         self.now = core.getTime
         self.ser = serial.Serial(port or cfg.BUTTON_SERIAL_PORT, cfg.BUTTON_BAUDRATE,
                                  bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
-                                 stopbits=serial.STOPBITS_TWO, timeout=0)
+                                 stopbits=serial.STOPBITS_TWO, timeout=0,
+                                 xonxoff=False, rtscts=False)   # no flow control, as MATLAB's default
         self.clear()
 
     def read(self):
