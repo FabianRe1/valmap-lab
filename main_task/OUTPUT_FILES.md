@@ -37,12 +37,12 @@ schedule columns kept on every trial row.
 | `onset` | seconds on the block clock when the screen went up; the block clock starts at the trigger key (`block_start` at 0.0000); blank on meta rows |
 | `duration` | measured seconds the screen stayed up; 0 for instantaneous markers (responses, block start and end); self-paced screens carry the time until the key press |
 | `event` | what happened, see section 2 |
-| `trial_type` | `establish`, `value_change`, `structure_change`, `value_control`, `structure_control`, `partial_tracking_value` (TV), `partial_tracking_structure` (TS), `tracking` in the main task (the two partial kinds since 2026-09-23); `practice`, `familiarization`, `gate`, `overview` in the intro; `session` on meta and session_end rows |
+| `trial_type` | `establish`, `value_change`, `structure_change`, `value_control`, `structure_control`, `partial_tracking_value` (TV), `partial_tracking_structure` (TS), `tracking` in the main task (the two partial kinds since 2026-09-23, in the Prolific set only since 2026-11-04); `practice`, `familiarization`, `gate`, `overview` in the intro; `session` on meta and session_end rows |
 | `stimulus` | what was shown, encoded per event type (section 2); `key=value` on meta rows |
 | `response` | on `response` rows: the clip id chosen |
 | `rt` | on `response` rows: seconds from probe onset to the key press |
 | `correct` | on `response` and `feedback` rows: 1 or 0 |
-| `kind` | `EST` / `V` / `S` / `CV` / `CS` / `TV` / `TS` / `T`: the trial type in short (`TV` and `TS`, the short no-change trials without a probe, since 2026-09-23; `gate` on the gate question rows). Every short trial (V, S, CV, CS, and TV and TS since 2026-10-09) carries a rest, and so does the `T` follow-up right after every change (`probe_slot` = `followup`, since 2026-09-23); the other T do not. TV and TS carry no probe |
+| `kind` | `EST` / `V` / `S` / `CV` / `CS` / `TV` / `TS` / `T`: the trial type in short (`TV` and `TS`, the short no-change trials without a probe, since 2026-09-23 and in the Prolific set only since 2026-11-04; `gate` on the gate question rows). Every short trial (V, S, CV, CS, and TV and TS since 2026-10-09) carries a rest, and so does the `T` follow-up right after every change (`probe_slot` = `followup`, since 2026-09-23); the other T do not. TV and TS carry no probe |
 | `probe_slot` | `change`, `followup` or `control` when the trial carries a probe; `practice_question` on the rows of the three swap questions of the practice (2026-10-05); blank otherwise |
 | `winner_column` | which route (A, B or C) is worth 100 after this trial; the other two are worth 50 |
 | `untouched_column` | on a change trial: the route the change did not involve, the within-trial control |
@@ -63,7 +63,7 @@ Everything else in a schedule row is derivable, so it is not repeated on every r
 | dropped column | how to get it |
 |---|---|
 | `event`, `change_domain`, `condition` | functions of `kind` (and of `trial_type`) |
-| `break_20s` | 1 exactly when `kind` is V, S, CV, CS, TV or TS (TV and TS since 2026-10-09), or `probe_slot` is `followup`; never on EST or the other T. Equal to `probe` except on TV and TS, which are rested but not probed |
+| `break_20s` | 1 exactly when `kind` is V, S, CV, CS, TV or TS (TV and TS since 2026-10-09), or `probe_slot` is `followup`; never on EST or the other T. Equal to `probe` except on TV and TS (Prolific set only), which are rested but not probed |
 | `probe` | 1 exactly when `probe_slot` is set |
 | `worth_A/B/C` | 100 for `winner_column`, 50 for the others |
 | `terminal_image`, `terminal_amount` | on the `outcome` row as `stimulus` (no outcome row on `S`, `CS`, `TS`) |

@@ -5,7 +5,9 @@ Schedule and asset validation (experiment_spec.md section 9).
 Updated 2026-09-23 for the sequential partial format: every trial plays its shown clips and ends on
 an outcome, and how much it shows is fixed by its kind (full walk: EST, T; ONE clip of the 100 route
 plus 100: V, CV, TV; ONE transition of a 50 route plus 50: S, CS, TS). The controls replace one
-cluster walk each, so the post-change cluster check now asks for full walks.
+cluster walk each, so the post-change cluster check now asks for full walks. Since 2026-11-04 the
+session sets have 24 controls spread through the session and no TV or TS (DESIGN_VERIFICATION 71);
+the cluster placement rules for controls were removed, and the clusters are all full walks.
 
 Updated 2026-09-07 for the regenerated schedules: the reward image is tied to the TERMINAL grid column
 (not the walked route), the probe cue and prompt form come from the explicit probe_cue_video and
@@ -21,6 +23,8 @@ Never modifies anything. Exit code 0 = all files pass.
 Usage:
   python validate_schedule.py schedules_grid/sub-001_schedule.csv
   python validate_schedule.py --all                       # every CSV in schedules_grid/
+  GRID_DIR=schedules_mri python validate_schedule.py --all # a session set (schedules_online/,
+                                                          # schedules_meg/, schedules_mri/)
   python validate_schedule.py --all --manifest stimuli/manifest.json
 """
 

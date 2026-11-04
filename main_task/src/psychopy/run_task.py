@@ -515,7 +515,9 @@ class Presenter:
                         left -= 1
                         if left == 0:
                             return
-                        self.footer.text = strings.get(self.lang, "press_space_again")
+                        self.footer.text = strings.get(
+                            self.lang, "press_space_again" if cfg.CONTINUE_TEXT_KEY == "press_space"
+                            else "press_button_again")
         finally:
             self.message.pos = (0, 0)
             self.message.height = cfg.INSTRUCTION_HEIGHT
@@ -1164,7 +1166,7 @@ def parse_skip(value, no_practice=False):
     return skip
 
 
-def run_lab_intro(pres):
+def run_lab_intro(pres, resume_after=0):
     """The opening of a lab session (MEG, MRI; 2026-10-26): two refresher screens, then the button
     check: the participant presses the left, middle and right answer button in turn (only that
     button continues), so the fingers are on the right buttons before the task. Logged in its
@@ -1184,7 +1186,8 @@ def run_lab_intro(pres):
         pressed = pres.show_message(strings.get(pres.lang, key), keys=keys, footer=False)
         pres.logger.write_event(onset - pres.t0, pres.now() - onset, "button_check",
                                 trial_type="lab_intro", stimulus=key, response=pressed)
-    pres.show_message(strings.get(pres.lang, "button_check_done"))
+    pres.show_message(strings.get(pres.lang, "button_check_done_resume", run=resume_after)
+                      if resume_after else strings.get(pres.lang, "button_check_done"))
     pres.logger.write_event(pres.now() - pres.t0, 0.0, "block_end", trial_type="lab_intro")
     pres.logger.close_run()
 
@@ -1672,6 +1675,8 @@ def main():
     buttons = None
     if args.button_box or cfg.BUTTON_BOX:
         enable_button_box()
+        # the footers name the buttons, not the space bar (2026-11-04)
+        cfg.CONTINUE_TEXT_KEY = "press_button"
         from meg_lab.buttons import make_button_box
         buttons = make_button_box()
         if buttons is None:
@@ -1744,8 +1749,15 @@ def main():
         if lab_session:
             # the online pre-session taught the task; here a refresher, the button check and the
             # starting overview (this session's own start state), then the task (2026-10-26)
-            run_lab_intro(pres)
-            run_structure_overview(pres, first_row)
+            # Resuming at block R (2026-11-04): the overview shows the journeys as they stand at the
+            # end of block R-1, as in the break after it, not the session's starting state.
+            if args.start_run > 1:
+                prev = next(r for r in runs if r["run"] == args.start_run - 1)
+                run_lab_intro(pres, resume_after=prev["run"])
+                run_break_overview(pres, prev["trials"][-1]["raw"], prev["run"])
+            else:
+                run_lab_intro(pres)
+                run_structure_overview(pres, first_row)
         elif "instructions" not in skip:
             show_instructions(pres)
         do_practice = (session["practice"] and cfg.RUN_PRACTICE and "practice" not in skip

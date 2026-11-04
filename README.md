@@ -1,7 +1,7 @@
 # ValMap lab sessions (MEG, MRI)
 
 Private. Built by `make_lab_repo.py` in the main task project; do not edit here, rebuild there.
-Content as of 2026-11-04: main task commit 1070ede. Tested with PsychoPy 2023.2.3 (standalone).
+Content as of 2026-11-04: main task commit 02c2c0f. Tested with PsychoPy 2023.2.3 (standalone).
 
 ## Before every session
     git pull
@@ -28,6 +28,11 @@ Subject N uses schedule N in the main task (1 to 100; sub-N is the same person i
 and MRI designs) and design N in the localizers (1 to 60). CODE is the participant database code,
 e.g. 27985.cb (letters, digits, dots), the same code as in their online link, so the online, MEG
 and MRI files match. N and the code are in the lab's subject sheet.
+
+## Planned durations (upper bounds, from `--plan-only`)
+MRI: localizer about 54 min, main task about 71 min (6 runs of about 11 to 13.5 min, 20 s rests).
+MEG: localizer about 43 min, main task about 48 min (6 blocks of about 7.5 to 8.5 min, 5 s rests).
+Add instructions, breaks between blocks and set-up.
 
 ## MRI session (localizer first, then the main task)
 1. `Localizer_MRI`: `PY run_localizer.py --design N --participant CODE`
