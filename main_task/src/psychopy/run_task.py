@@ -213,8 +213,9 @@ class Presenter:
                                       alignText="center")
         self.amount_text = visual.TextStim(self.win, text="", height=cfg.OUTCOME_TEXT_HEIGHT,
                                            color=cfg.OUTCOME_TEXT_COLOR, bold=True)
-        self.amount_shadow = visual.TextStim(self.win, text="", height=cfg.OUTCOME_TEXT_HEIGHT,
-                                             color=cfg.OUTCOME_TEXT_SHADOW_COLOR, bold=True)
+        self.amount_shadow = (visual.TextStim(self.win, text="", height=cfg.OUTCOME_TEXT_HEIGHT,
+                                              color=cfg.OUTCOME_TEXT_SHADOW_COLOR, bold=True)
+                              if cfg.OUTCOME_TEXT_SHADOW_COLOR else None)
         self.selection_frame = visual.Rect(self.win, fillColor=None,
                                            lineColor=cfg.SELECTION_FRAME_COLOR,
                                            lineWidth=cfg.SELECTION_FRAME_WIDTH)
@@ -427,16 +428,17 @@ class Presenter:
 
     def _draw_amount(self, value, pos):
         text = str(int(value))
-        self.amount_shadow.text = text
-        self.amount_shadow.pos = (pos[0] + cfg.OUTCOME_TEXT_SHADOW_OFFSET,
-                                  pos[1] - cfg.OUTCOME_TEXT_SHADOW_OFFSET)
-        self.amount_shadow.draw()
+        if self.amount_shadow is not None:
+            self.amount_shadow.text = text
+            self.amount_shadow.pos = (pos[0] + cfg.OUTCOME_TEXT_SHADOW_OFFSET,
+                                      pos[1] - cfg.OUTCOME_TEXT_SHADOW_OFFSET)
+            self.amount_shadow.draw()
         self.amount_text.text = text
         self.amount_text.pos = pos
         self.amount_text.draw()
 
     def show_outcome(self, reward_name, amount, marker_code, marker_label=""):
-        """Full-walk outcome: the journey's reward image with the amount over it."""
+        """Full-walk outcome: the journey's reward image with the amount above it (2026-11-04)."""
         reward = self.rewards[reward_name]
         reward.pos = (0, 0)
         reward.size = (cfg.OUTCOME_IMAGE_HEIGHT * cfg.REWARD_ASPECT, cfg.OUTCOME_IMAGE_HEIGHT)
@@ -619,8 +621,8 @@ class Presenter:
             head = [e, (e[0] - ux * h - uy * h / 2, e[1] - uy * h + ux * h / 2),
                     (e[0] - ux * h + uy * h / 2, e[1] - uy * h - ux * h / 2)]
             return [self.visual.Line(self.win, start=s, end=(e[0] - ux * h * 0.6, e[1] - uy * h * 0.6),
-                                     lineColor="white", lineWidth=2.5, units=cfg.UNITS),
-                    self.visual.ShapeStim(self.win, vertices=head, fillColor="white", lineColor=None,
+                                     lineColor=cfg.PROMPT_COLOR, lineWidth=2.5, units=cfg.UNITS),
+                    self.visual.ShapeStim(self.win, vertices=head, fillColor=cfg.PROMPT_COLOR, lineColor=None,
                                           units=cfg.UNITS)]
 
         frames = []
@@ -688,12 +690,13 @@ class Presenter:
 
     # -- probe ---------------------------------------------------------------------------
 
-    def _probe_layout(self, n_options):
+    def _probe_layout(self, n_options, has_cue=True):
         height = cfg.PROBE_OPTION_HEIGHT
         width = height * cfg.CLIP_ASPECT
         step = width + cfg.PROBE_OPTION_GAP
         first_x = -step * (n_options - 1) / 2
-        return [(first_x + i * step, cfg.PROBE_OPTION_Y) for i in range(n_options)], (width, height)
+        y = cfg.PROBE_OPTION_Y if has_cue else cfg.PROBE_OPTION_Y_NO_CUE
+        return [(first_x + i * step, y) for i in range(n_options)], (width, height)
 
     def run_probe(self, trial, schedule_number, marker_code, self_paced=False):
         """
@@ -703,7 +706,8 @@ class Presenter:
         """
         options = trial["probe_options"]
         n = len(options)
-        positions, size = self._probe_layout(n)
+        has_cue = bool(trial["probe_cue"])
+        positions, size = self._probe_layout(n, has_cue)
 
         for vid, pos in zip(options, positions):
             stim = self.frames[vid]
@@ -717,7 +721,7 @@ class Presenter:
             cue_stim.pos = (0, cfg.PROBE_CUE_Y)
 
         self.prompt.text = strings.probe_prompt(self.lang, trial["probe_direction"])
-        self.prompt.pos = (0, cfg.PROMPT_Y)
+        self.prompt.pos = (0, cfg.PROMPT_Y if has_cue else cfg.PROMPT_Y_NO_CUE)
 
         self.selection_frame.width = size[0] + cfg.SELECTION_FRAME_PAD
         self.selection_frame.height = size[1] + cfg.SELECTION_FRAME_PAD
@@ -968,17 +972,18 @@ class Presenter:
                     return
 
     def show_feedback(self, correct):
-        key = ("feedback_correct" if correct == 1
-               else "feedback_none" if correct == NA else "feedback_wrong")
-        self.message.text = strings.get(self.lang, key)
-        self.message.pos = (0, -0.28)
+        # since 2026-11-04 (user) only the tick or the cross, centred, without "Richtig!" or
+        # "Falsch." under it; a missed question has no picture and keeps its "no answer" line
+        self.message.text = strings.get(self.lang, "feedback_none")
+        self.message.pos = (0, 0)
         image = self.feedback_images["correct" if correct == 1 else "incorrect"]
-        image.pos = (0, 0.05)
+        image.pos = (0, 0)
 
         def draw():
             if correct != NA:
                 image.draw()
-            self.message.draw()
+            else:
+                self.message.draw()
 
         code = (cfg.MARKER_CODES["feedback_correct"] if correct == 1
                 else cfg.MARKER_CODES["feedback_incorrect"])

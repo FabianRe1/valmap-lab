@@ -433,10 +433,13 @@ VIDEO_MODE = False              # set by apply_stimulus_mode()
 
 OUTCOME_IMAGE_HEIGHT = 0.60        # the square treasure (2026-10-23; the treasure fills about half of it)
 OUTCOME_TEXT_HEIGHT = 0.14
-OUTCOME_TEXT_COLOR = "white"
-OUTCOME_TEXT_SHADOW_COLOR = "black"
+OUTCOME_TEXT_COLOR = "black"        # black like all text since 2026-11-04 (white with a shadow before)
+OUTCOME_TEXT_SHADOW_COLOR = None    # None draws no shadow
 OUTCOME_TEXT_SHADOW_OFFSET = 0.006
-OUTCOME_TEXT_Y = -0.02              # amount drawn over the reward image
+# the amount sits ABOVE the treasure since 2026-11-04 (user: they overlapped; -0.02, over it, before).
+# Centred on the picture's top edge: the treasures, their videos included, keep to the lower 84 %
+# of the square, so the number stays clear of them and close above them.
+OUTCOME_TEXT_Y = OUTCOME_IMAGE_HEIGHT / 2
 
 # The map overview draws its arrows with this glyph.
 TRANSITION_ARROW_TEXT = "\u2192"
@@ -447,7 +450,7 @@ FIXATION_START_HEIGHT = 0.30        # the trial-opening fixation, 3 x the normal
 FIXATION_COLOR = "white"
 
 PROMPT_HEIGHT = 0.055
-PROMPT_COLOR = "white"
+PROMPT_COLOR = "black"              # every text, black since 2026-11-04 (user; white before)
 PROMPT_WRAP = 1.4
 PROMPT_Y = 0.02                     # probe prompt sits between the cue and the options
 
@@ -458,6 +461,10 @@ PROBE_CUE_HEIGHT = 0.29
 PROBE_CUE_Y = 0.28
 PROBE_KEY_HINT_HEIGHT = 0.035      # the KEY_OPTION_LABELS under the options
 PROBE_KEY_HINT_DY = -0.19
+# a question without a cue picture (the value question, "preference") sits higher since 2026-11-04
+# (user): the options just below the middle of the screen instead of near the bottom
+PROMPT_Y_NO_CUE = 0.10
+PROBE_OPTION_Y_NO_CUE = -0.16
 
 SELECTION_FRAME_COLOR = "yellow"    # drawn around the chosen option during the confirm hold
 SELECTION_FRAME_WIDTH = 6
