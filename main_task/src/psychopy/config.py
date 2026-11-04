@@ -236,9 +236,9 @@ T_FEEDBACK = 1.2
 # ---------------------------------------------------------------------------
 
 # The run split is NOT computed here. Every schedule row states its run in the `block` column
-# (1..6), assigned by the generator so that each block opens immediately before a value change, the
-# establish trial sits in block 1, and no structure change is separated from its reinforcing
-# cluster. The arms group trials by that column; validate_schedule.py checks the column's
+# (1..6), assigned by the generator: the establish trial sits in block 1; in the session designs
+# (since 2026-11-05) every later block opens on a full walk and none ends on a short trial, in the
+# Prolific set every block opens on a change and no change is separated from its cluster. The arms group trials by that column; validate_schedule.py checks the column's
 # invariants on every load. N_RUNS is therefore only the expected number of blocks, used for the
 # break screens and as a sanity check against the file.
 N_RUNS = 6

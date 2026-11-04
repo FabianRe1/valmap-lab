@@ -403,12 +403,22 @@ def validate_file(path, manifest):
                           "block numbers are not non-decreasing down the file")
             checker.check(blocks[0] == 1 and rows[0]["kind"] == "EST", rows[0]["trial"],
                           "the establish trial is not the first trial of block 1")
+            # the session designs (no TV/TS rows) cut blocks freely since 2026-11-05: a block
+            # opens on a full walk and never ends on a short trial, so a change and its follow-up
+            # share a block while the rest of its cluster may continue after the break
+            free_cut = not any(r["kind"] in ("TV", "TS") for r in rows)
             for i in range(1, len(rows)):
                 if blocks[i] != blocks[i - 1]:
-                    checker.check(rows[i]["kind"] in CHANGE_KINDS, rows[i]["trial"],
-                                  "a block boundary falls somewhere other than immediately "
-                                  "before a change trial")
-            for n, i in enumerate(change_idx):
+                    if free_cut:
+                        checker.check(rows[i]["kind"] == "T", rows[i]["trial"],
+                                      "a block opens on something other than a full walk")
+                        checker.check(rows[i - 1]["kind"] not in ("V", "S", "CV", "CS"),
+                                      rows[i - 1]["trial"], "a block ends on a short trial")
+                    else:
+                        checker.check(rows[i]["kind"] in CHANGE_KINDS, rows[i]["trial"],
+                                      "a block boundary falls somewhere other than immediately "
+                                      "before a change trial")
+            for n, i in enumerate([] if free_cut else change_idx):
                 end = change_idx[n + 1] if n + 1 < len(change_idx) else len(rows)
                 same = all(blocks[j] == blocks[i] for j in range(i, end))
                 checker.check(same, rows[i]["trial"],
