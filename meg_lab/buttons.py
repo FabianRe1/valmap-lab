@@ -7,6 +7,7 @@ list the button names (settings.POSITION_BUTTONS) next to the keyboard keys and 
 runtime treats both alike. As the colleague's experiment in this lab (test_sweeps-2-main,
 hw/check_meg_kbd_test.m, 2026-11-04): the buffer is emptied before each answer window (clear),
 every waiting byte is read, and a byte no task asks for (any but the mapped ones) is ignored.
+A byte repeating the previous one within settings.BUTTON_REPEAT_GAP is the same press (2026-11-05).
 
 Timestamps are taken when the byte is read (polled once per frame), on the same clock as the
 flips (psychopy.core.getTime), so a response time can be late by up to one frame plus the serial
@@ -25,17 +26,37 @@ class ButtonBox:
                                  bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE,
                                  stopbits=serial.STOPBITS_TWO, timeout=0,
                                  xonxoff=False, rtscts=False)   # no flow control, as MATLAB's default
+        self.last_byte, self.last_time = None, float("-inf")
         self.clear()
 
     def read(self):
-        """Every byte that arrived since the last call, as [(key name, read time)]."""
+        """Every new press since the last call, as [(key name, read time)]. A byte equal to the
+        previous byte within BUTTON_REPEAT_GAP of it is a repeat of the same press and dropped
+        (2026-11-05, see settings.BUTTON_REPEAT_GAP)."""
         n = self.ser.in_waiting
         if not n:
             return []
         t = self.now()
-        return [(f"btn{b}", t) for b in self.ser.read(n)]
+        out = []
+        for b in self.ser.read(n):
+            if not self._repeat(b, t):
+                out.append((f"btn{b}", t))
+        return out
+
+    def _repeat(self, b, t):
+        """True if byte b at time t continues the previous byte; remembers b either way."""
+        rep = b == self.last_byte and t - self.last_time < cfg.BUTTON_REPEAT_GAP
+        self.last_byte, self.last_time = b, t
+        return rep
 
     def clear(self):
+        """Drop every waiting byte (before an answer or continue window), but remember the last
+        one, so the rest of a press that was already under way is still recognised as a repeat."""
+        n = self.ser.in_waiting
+        if n:
+            data = self.ser.read(n)
+            if data:
+                self.last_byte, self.last_time = data[-1], self.now()
         self.ser.reset_input_buffer()
 
     def close(self):

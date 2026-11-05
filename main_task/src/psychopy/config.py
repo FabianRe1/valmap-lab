@@ -377,16 +377,24 @@ CONTINUE_TEXT_KEY = "press_space"   # the footer on self-paced screens (the scan
 # 2026-11-04 from RepChanges, run on the same scanner (config_shared.py:35-38 and its button
 # check, instruction_texts_shared.py:4-7), which sent and logged these keys:
 #   b = blue, right index    -> LEFT option
-#   z = yellow, right middle -> MIDDLE option
-#   r = green, left index    -> RIGHT option
+#   z = yellow, right middle -> RIGHT option
+#   r = green, left index    -> MIDDLE option
 #   g = red, left middle     -> no answer (RepChanges never used it for answers either)
-# Same three buttons, in the same order, as RepChanges' localizer (left, right picture, neither)
-# and its three-option code (utils_shared.py:810-827, b/z/r = left/middle/right). The user's
-# "b, y, g" (2026-10-26) are the colors blue, yellow, green, i.e. keys b, z, r; "g" is the red
-# button, so it no longer answers. "y" stays on the middle option ONLY as a layout fallback (a
-# German layout is the one place y and z swap; no other button sends y). Any button or the space
-# bar advances a screen, as in RepChanges; no letters under the options.
-MRI_OPTION_KEYS = (("b",), ("z", "y"), ("r",))
+# 2026-11-05, the user: the MRI localizer and main task take the old experiment's pattern.
+# RepChanges' localizer (1_localizer_oddball/loc_1_utils.py:119-137, loc_1_instruction_texts.py:
+# 66-67): right index (b) = left picture, right middle (z) = right picture, left index (r) =
+# neither. Its main task had no three-way choice (a slider: b left, z right, r confirm). So here,
+# as in the MRI localizer: b left, z right, and the left index takes the third answer, the middle
+# picture (in the localizer "neither"). Before 2026-11-05: z middle, r right (from a commented-out
+# block in RepChanges, utils_shared.py:810-827). The user's "b, y, g" (2026-10-26) are the colors
+# blue, yellow, green, i.e. keys b, z, r; "g" is the red button, so it does not answer. "y" stays
+# with z ONLY as a layout fallback (a German layout is the one place y and z swap; no other
+# button sends y). Any button or the space bar advances a screen, as in RepChanges; no letters
+# under the options.
+MRI_OPTION_KEYS = (("b",), ("r",), ("z", "y"))     # left, middle, right option
+# the button check asks for them in RepChanges' order (blue, yellow, left index), as the MRI
+# localizer's check: option indices left, right, middle
+MRI_BUTTON_CHECK_ORDER = (0, 2, 1)
 MRI_OPTION_LABELS = ("", "", "")
 MRI_CONTINUE_KEYS = ("b", "z", "y", "r", "g", "space")
 # MEG response box (--button-box, 2026-10-14): its buttons are read next to the keyboard (J, K, L

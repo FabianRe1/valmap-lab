@@ -23,8 +23,8 @@ INSTRUCTIONS = [
     "passt. Das kann genau dasselbe Bild sein oder ein anderes Bild desselben Aliens, "
     "Raumschiffs, Planeten oder Schatzes.\n\n"
     "Linke (blaue) Taste: linkes Bild\n"
-    "Rechte (rote) Taste: rechtes Bild\n"
-    "Mittlere Taste: keines der beiden Bilder passt",
+    "Mittlere Taste: keines der beiden Bilder passt\n"
+    "Rechte (rote) Taste: rechtes Bild",
 ]
 
 CHECK_INTRO = "Wir testen kurz die Tasten."

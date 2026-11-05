@@ -39,12 +39,13 @@ are worth the time.
 9. Markers: class coded, 8 bit, sent right after the flip that shows the event. Picture = class
    1..12 (aliens_1-3 = 1-3, spaceships_1-3 = 4-6, planets_1-3 = 7-9, money 10, gold 11,
    diamonds 12); ITI fixation 20; probe fixation 30; probe 40 match / 41 neither; response
-   50 left / 51 right / 52 neither (when the key is read); feedback 60 correct / 61 wrong;
+   50 left / 51 neither (middle button) / 52 right (when the key is read; the same button
+   has the same code in the main task since 2026-11-05); feedback 60 correct / 61 wrong;
    timeout 62; block start 100 + block (at t0); block end 110 + block (was 200 + block; changed 2026-10-14, see 13). Backends from the main
    task (dummy, parallel 0x378, serial, LSL); if the backend fails the operator must confirm.
 10. NO photodiode.
 11. Keys as MRI (b / z / r plus j / k / l), changed only in `config.py` once the MEG response
-    pad's key names are known.
+    pad's key names are known. Superseded by 17 and 18.
 12. Picture 0.33 screen height (MRI 0.50), as FASTIMAGES, after the code review; probe pictures
     stay 0.30. Breaks unchanged (6 blocks of about 5.2 min), decided after the code review.
 13. MEG lab hardware (technician's mail and a colleague's MATLAB code, 2026-10-14): stimulus PC
@@ -100,6 +101,13 @@ are worth the time.
     `POSITION_BUTTONS`); the German instructions and button check name the blue, red and middle
     button. Agrees with the technician's spec of 13 except the pulse: the colleague holds 2 ms
     (its older autosave 20 ms), we keep the technician's 20 ms (reasons in `../meg_lab/README.md`).
+18. Unified with the MEG main task (2026-11-05): one button, one key and one code mean the same
+    position in both MEG tasks, left to right. Blue / J = left (code 50), middle / K = middle,
+    here "neither" (51), red / L = right (52). Before: code 51 right, 52 neither, and the keyboard
+    J left, K right, L neither plus the MRI's b / z / r. The button check now runs left, middle,
+    right, as the main task's. The online practice (`../Localizer_MRI/online_practice`) and the MRI
+    localizer keep their own order (K right, L neither; b / z / r), so the MRI stays as RepChanges.
+    The shared response box code ignores a held button's repeated bytes (`../meg_lab/buttons.py`).
 
 Kept from MRI without a separate question: 5 s lead-in and lead-out fixation per block,
 30 s planned breaks, timeout message, bonus file. German texts: scanner wording removed, plus one

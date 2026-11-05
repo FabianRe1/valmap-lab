@@ -1208,8 +1208,10 @@ def run_lab_intro(pres, resume_after=0):
     check: the participant presses the left, middle and right answer button in turn (only that
     button continues), so the fingers are on the right buttons before the task. Logged in its
     own block, one row per screen with the button that ended it."""
-    # the scanner names each button by finger and color (2026-11-04, as RepChanges did)
-    sfx = "_mri" if pres.modality == "fmri" else ""
+    # the scanner names each button by finger and color (2026-11-04, as RepChanges did); the MEG
+    # box by color, worded as the MEG localizer's button check (2026-11-05)
+    sfx = ("_mri" if pres.modality == "fmri"
+           else "_meg" if pres.buttons is not None else "")
     pres.logger.open_block("lab_intro", 0)
     pres.t0 = pres.now()
     pres.logger.write_event(0.0, 0.0, "block_start", stimulus=datalog_mod.wallclock(),
@@ -1219,8 +1221,11 @@ def run_lab_intro(pres, resume_after=0):
         pressed = pres.show_message(strings.get(pres.lang, key, t_probe=int(cfg.T_PROBE)))
         pres.logger.write_event(onset - pres.t0, pres.now() - onset, "lab_refresher",
                                 trial_type="lab_intro", stimulus=key, response=pressed)
-    for key, keys in zip(("button_check_left" + sfx, "button_check_middle" + sfx,
-                          "button_check_right" + sfx), OPTION_KEYS):
+    checks = list(zip(("button_check_left" + sfx, "button_check_middle" + sfx,
+                       "button_check_right" + sfx), OPTION_KEYS))
+    if pres.modality == "fmri":       # blue, yellow, left index, as RepChanges (2026-11-05)
+        checks = [checks[i] for i in cfg.MRI_BUTTON_CHECK_ORDER]
+    for key, keys in checks:
         onset = pres.now()
         pressed = pres.show_message(strings.get(pres.lang, key), keys=keys, footer=False)
         pres.logger.write_event(onset - pres.t0, pres.now() - onset, "button_check",
@@ -1660,7 +1665,8 @@ def main():
     profile = cfg.apply_timing_profile(cfg.profile_for_modality(session["modality"]))
     # videos (online, MRI, MEG since 2026-10-28) or stills: sets T_VIDEO too, so the plan below is right
     stimulus_mode = cfg.apply_stimulus_mode(session["modality"])
-    # the scanner's buttons b, z, r for the three answers (fMRI, as RepChanges); J, K, L elsewhere
+    # the scanner's buttons b, r, z for the left, middle, right answer (fMRI, as RepChanges'
+    # localizer, 2026-11-05); J, K, L elsewhere
     response_keys = cfg.apply_response_keys(session["modality"])
     global OPTION_KEYS
     OPTION_KEYS = (cfg.KEY_OPTION_1, cfg.KEY_OPTION_2, cfg.KEY_OPTION_3)
@@ -1718,6 +1724,10 @@ def main():
         cfg.CONTINUE_TEXT_KEY = "press_button"
         from meg_lab.buttons import make_button_box
         buttons = make_button_box()
+        if buttons is not None:
+            # no J K L under the options: the participant answers with the box (2026-11-05, as the
+            # scanner and the MEG localizer, which shows no labels either)
+            cfg.KEY_OPTION_LABELS = ("", "", "")
         if buttons is None:
             print("\n*** The MEG response box did not open: only the KEYBOARD is read.")
             if input("*** Type 'yes' to continue anyway: ").strip().lower() != "yes":
@@ -1752,7 +1762,7 @@ def main():
         "button_box": buttons is not None,
         # the MRI plays the pictures' and treasures' videos, every other modality the stills
         "stimulus_mode": stimulus_mode,
-        "response_keys": response_keys,          # scanner_buttons (b, z, r) or keyboard (J, K, L)
+        "response_keys": response_keys,          # scanner_buttons (b, r, z = left, middle, right) or keyboard (J, K, L)
         "lab_intro": bool(lab_session),          # refresher + button check instead of the full intro
         "photodiode": bool(cfg.PHOTODIODE and session["modality"] == "meg"),
         # the timing profile is the ONLY thing the modality changes about the session, so it is

@@ -1,7 +1,7 @@
 # ValMap lab sessions (MEG, MRI)
 
 Private. Built by `make_lab_repo.py` in the main task project; do not edit here, rebuild there.
-Content as of 2026-11-04: main task commit afbea5d. Tested with PsychoPy 2023.2.3 (standalone).
+Content as of 2026-11-05: main task commit 9f0b7ff. Tested with PsychoPy 2023.2.3 (standalone).
 
 ## Before every session
     git pull
@@ -42,10 +42,10 @@ Add instructions, breaks between blocks and set-up.
    (after a crash: add `--start-block B`)
 2. `main_task`: `PY src/psychopy/run_task.py --steps 3 --session mri --schedule N --participant CODE --modality fmri`
    Opens with a short refresher, the button check and the starting overview, then 6 blocks,
-   each started by the scanner's trigger "t". Buttons as in RepChanges (2026-11-04): left answer
-   b (blue, right index), middle z (yellow, right middle; y also accepted), right r (left
-   index); the localizer uses the same three for left picture, right picture, neither. The box
-   must send letters and "t" (check before the session).
+   each started by the scanner's trigger "t". Buttons as RepChanges' localizer (2026-11-05):
+   left answer b (blue, right index), right answer z (yellow, right middle; y also accepted),
+   middle answer r (left index); the localizer uses the same three for left picture, right
+   picture, neither. The box must send letters and "t" (check before the session).
    (after a crash: add `--start-run R`; a check without a window: add `--plan-only`)
 
 ## MEG session (the lab hardware is set in `meg_lab/settings.py`; first `PY test_meg_io.py` in `Localizer_MEG`)

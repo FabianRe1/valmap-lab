@@ -64,9 +64,11 @@ MARKER_CODES = {
     "probe_fixation": 30,
     "probe_match": 40,
     "probe_neither": 41,
+    # one code per button in both MEG tasks (2026-11-05): 50 left (blue), 51 middle, 52 right (red);
+    # here the middle button means "neither picture" (before 2026-11-05: 51 right, 52 neither)
     "response_left": 50,
-    "response_right": 51,
-    "response_neither": 52,
+    "response_neither": 51,
+    "response_right": 52,
     "feedback_correct": SHARED_CODES["feedback_correct"],
     "feedback_incorrect": SHARED_CODES["feedback_incorrect"],
     "timeout": SHARED_CODES["timeout"],
@@ -80,7 +82,7 @@ MARKER_CODES = {
 # ---------------------------------------------------------------------------
 # MEG response box (technician, 2026-10-14): 4 buttons on COM2 (Linux /dev/ttyS1), 19200 baud,
 # no parity, 8 data bits, 2 stop bits; each press sends one byte, its number, read as "btn<n>"
-# (responses.py). The keyboard keys (MRI button box b / z / r, laptop J / K / L) always work too.
+# (responses.py). The keyboard keys J / K / L always work too.
 # THE ONE PLACE TO CHANGE WHICH BUTTON ANSWERS WHAT (keys below). Since 2026-11-04 as the
 # experiment that currently runs in this lab (Evie Coxon's test_sweeps-2-main, run_sweeps_test.m:
 # 109-110): left picture = BLUE button (byte 4), right picture = RED button (byte 1), neither =
@@ -91,16 +93,20 @@ BUTTON_BOX = False          # True in the MEG: also read the serial response box
 BUTTON_SERIAL_PORT = lab.BUTTON_SERIAL_PORT
 BUTTON_BAUDRATE = lab.BUTTON_BAUDRATE
 BUTTONS = lab.BUTTONS
-KEY_LEFT = ("b", "j") + lab.POSITION_BUTTONS["left"]          # left picture: blue (left) button
-KEY_RIGHT = ("z", "k") + lab.POSITION_BUTTONS["right"]        # right picture: red (right) button
-KEY_NEITHER = ("r", "l") + lab.POSITION_BUTTONS["middle"]     # neither picture: a middle button
-KEY_CONTINUE = ("b", "z", "r", "g", "space") + BUTTONS   # participant-paced screens (any button)
+# Unified with the MEG main task (2026-11-05): the same button and the same key mean the same
+# position in both tasks, left to right: blue / J = left, middle / K = middle ("neither" here),
+# red / L = right (before: J left, K right, L neither, plus the MRI's b / z / r, which the MEG
+# keyboard never needs).
+KEY_LEFT = ("j",) + lab.POSITION_BUTTONS["left"]              # left picture: blue (left) button
+KEY_NEITHER = ("k",) + lab.POSITION_BUTTONS["middle"]         # neither picture: a middle button
+KEY_RIGHT = ("l",) + lab.POSITION_BUTTONS["right"]            # right picture: red (right) button
+KEY_CONTINUE = ("space", "j", "k", "l") + BUTTONS   # participant-paced screens (any button)
 KEY_OPERATOR = ("space",)   # operator screens before each block (keyboard only)
 TRIGGER_KEYS = ("t",)       # the experimenter's start key; the first one of a block is its t0
 KEY_QUIT = ("escape",)
 # button check before block 1: (instruction string key, accepted keys) in order
-BUTTON_CHECK = (("check_left", KEY_LEFT), ("check_right", KEY_RIGHT),
-                ("check_neither", KEY_NEITHER))
+BUTTON_CHECK = (("check_left", KEY_LEFT), ("check_neither", KEY_NEITHER),
+                ("check_right", KEY_RIGHT))       # left to right, as the main task's check
 
 KEYBOARD_BACKEND = "ptb"    # 'ptb' (best timing; fine on Linux) or 'event' (no macOS permission needed)
 

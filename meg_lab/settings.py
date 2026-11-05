@@ -63,6 +63,13 @@ BUTTONS = ("btn1", "btn2", "btn3", "btn4")   # a byte b arrives as the key name 
 # (run_sweeps_test.m:109-110, "BLUE (LEFT)" and "RED (RIGHT)" in hw/meg_responsebox_test.m).
 # The colleague uses no third button, so middle accepts EITHER remaining button (bytes 2 and 3):
 # confirm in the lab with test_meg_io.py and drop the one nobody uses. Both tasks follow.
+# A held or bouncing button (2026-11-05): the colleague's instruction code flushes the port after
+# each press "so held button doesn't auto-repeat" (instr/showInstructionBlockNav.m:72-75), so a box
+# may send the same byte more than once per press. A byte equal to the previous one that comes
+# less than this long after it is dropped (chained, so a steady repeat stays dropped until the
+# button is let go). No person presses one button twice within 0.15 s. test_meg_io.py shows
+# whether this box repeats at all (hold a button there).
+BUTTON_REPEAT_GAP = 0.15
 POSITION_BUTTONS = {
     "left": ("btn4",),              # blue (colleague: codeLeft = 4)
     "middle": ("btn2", "btn3"),     # the buttons between blue and red; bytes not yet seen in the lab

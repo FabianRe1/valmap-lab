@@ -39,6 +39,8 @@ DRY_RUN_SCALE = 0.02        # --dry-run multiplies every duration by this
 # 2026-10-26 "b / y / g" are the colors blue, yellow, green (keys b, z, r); g is the red left
 # middle button, which RepChanges never used for answers, so it no longer means "neither". "y"
 # stays as a layout fallback only (the one key a German layout swaps; no other button sends it).
+# 2026-11-05: the main task's MRI answers now follow this same pattern (b left, z right, r the
+# third answer, there the middle picture), so a button means the same in both MRI tasks.
 KEY_LEFT = ("b", "j")            # left picture
 KEY_RIGHT = ("z", "y", "k")      # right picture
 KEY_NEITHER = ("r", "l")         # neither picture

@@ -14,7 +14,8 @@ copy it along whenever the tasks are copied.
 | `buttons.py` | the serial response box; a byte b arrives as the key name `btn<b>` |
 
 Each task keeps its own event codes (its config) and its own mapping of answers to positions, built
-from `POSITION_BUTTONS`.
+from `POSITION_BUTTONS`. Since 2026-11-05 the two MEG tasks agree on every button: blue / J = left
+(answer code 50), middle / K = middle (51; "neither" in the localizer), red / L = right (52).
 
 ## Aligned with the colleague's MEG experiment (2026-11-04)
 Source: Evie Coxon's SWEEPs (MATLAB/Psychtoolbox), which currently runs in this lab,
@@ -24,7 +25,7 @@ Source: Evie Coxon's SWEEPs (MATLAB/Psychtoolbox), which currently runs in this 
 |---|---|---|
 | response box | `serial('COM2','BaudRate',19200,'Stopbits',2,'Databits',8)`, run_sweeps_test.m:78 | same port (`/dev/ttyS1` under Linux), 19200 8N2, no flow control |
 | button bytes | blue = left = 4, red = right = 1, run_sweeps_test.m:109-110, hw/meg_responsebox_test.m:25 | left option btn4, right option btn1; middle btn2 or btn3 (the colleague uses no third button) |
-| reading | flush, then read every waiting byte, hw/check_meg_kbd_test.m:16-43 | the box is emptied before each answer or continue window and read only there |
+| reading | flush, then read every waiting byte, hw/check_meg_kbd_test.m:16-43; flush again after a press "so held button doesn't auto-repeat", instr/showInstructionBlockNav.m:72-75 | the box is emptied before each answer or continue window and read only there; a byte repeating the previous one within 0.15 s is dropped (`BUTTON_REPEAT_GAP`) |
 | trigger port | io64 on 0x378, run_sweeps_test.m:81-83 | LPT1: `/dev/parport0` (Linux), 0x378 if run under Windows |
 | pulse | code, 2 ms, then 0, hw/send_trigger_test.m:5-7 (its older .asv: 20 ms) | code, 20 ms, then 0 (technician), see below |
 | codes | 5..79 plus a 127 test code, config/sweeps_defaults_test.m | 1..127 |
