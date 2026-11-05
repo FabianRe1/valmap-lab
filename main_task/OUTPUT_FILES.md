@@ -24,9 +24,9 @@ alone and checks it against itself (section 4).
 
 ---
 
-## 1. The 28 columns
+## 1. The 43 columns
 
-The first three name the row, the next eight say what happened, the last seventeen are the
+The first three name the row, the next eight say what happened, the last thirty two are the
 schedule columns kept on every trial row.
 
 | column | content |
@@ -57,6 +57,9 @@ schedule columns kept on every trial row.
 | `probe_options` | the three option clips in display order, left to right (keys J, K, L); all at one step, one per route |
 | `probe_correct_video` | the correct option |
 | `probe_cue_video` | the cue still above a same-sequence probe; blank on preference probes |
+| `loser_column` | on a value change: the route that dropped from 100 to 50 (since 2026-11-05) |
+| `observed_route` | on a structure change: the route whose new transition was shown; on a structure control: the route walked (since 2026-11-05) |
+| `gained_videos` ... `untouched_reward` | the change labels by stimulus name, on V and S trials (since 2026-11-05; session sets only, n/a with the Prolific set): `gained_videos`/`_reward`, `lost_videos`/`_reward`, `observed_transition`, `observed_next`, `observed_videos`/`_reward`, `alternative_transition`, `alternative_videos`/`_reward`, `untouched_videos`/`_reward`. Definitions in SCHEDULE_COLUMNS.md, columns 63-75 |
 
 Everything else in a schedule row is derivable, so it is not repeated on every row:
 

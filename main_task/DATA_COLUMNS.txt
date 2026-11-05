@@ -3,7 +3,7 @@ DATA FILE COLUMNS: what every column of a participant's data file shows
 
 Applies to the files downloaded from Pavlovia (ValMap_<id>_score<pct>pct_SESSION_<date>.csv,
 comma separated) and to the local files (sub-<code>_task-gridvalstruct_<stamp>.tsv, tab
-separated). Both have the same 28 columns. Written 2026-10-09 for the 3-step task (aliens,
+separated). Both have the same 43 columns (28 before 2026-11-05). Written 2026-10-09 for the 3-step task (aliens,
 spaceships, planets); the task itself is explained in TASK_OVERVIEW.txt, more detail in
 OUTPUT_FILES.md and SCHEDULE_COLUMNS.md.
 
@@ -17,7 +17,7 @@ HOW THE FILE IS ORGANIZED
   copied from the design.
 * Each main-task block has its own clock: 0.0 is the moment the block was started with the key
   "t". Onsets are therefore comparable within a block only.
-* Every row of a main-task trial repeats that trial's design columns (columns 12 to 28), so any
+* Every row of a main-task trial repeats that trial's design columns (columns 12 to 43), so any
   single row of a trial tells you what the trial was.
 * Intro rows (familiarization, practice, gate questions, overviews) are in the same file; filter
   on trial_type to keep the main task only.
@@ -92,7 +92,7 @@ THE 28 COLUMNS
    On "response" and "feedback" rows: 1 = correct, 0 = wrong. A missed question has a
    "no_response" row instead (counted as wrong in the score).
 
---- columns 12 to 28: the design of the trial, repeated on every row of the trial ---
+--- columns 12 to 43: the design of the trial, repeated on every row of the trial ---
 
 12. kind
    The trial type in short: EST, V, S, CV, CS, TV, TS, T (meanings as in trial_type above).
@@ -176,6 +176,32 @@ THE 28 COLUMNS
 28. probe_cue_video
    The picture shown above a structure question ("which belongs to the same journey as this?").
    n/a on value questions, which show only the options.
+
+29. loser_column
+   On a value change: the route that dropped from 100 to 50.
+
+30. observed_route
+   On a structure change: the route whose new transition was shown. On a structure control: the
+   route walked.
+
+31 to 43. What a change did, by stimulus name (since 2026-11-05; n/a on all other trials, and in
+   the Prolific online data). Names are the file names: aliens_3 is the picture aliens_3.png and
+   the localizer video aliens_3.mp4; rewards are money, gold, diamonds. Lists are separated by |
+   in step order (alien, spaceship, planet).
+   On a value change:
+     31 gained_videos, 32 gained_reward   the route that went from 50 to 100, and its reward
+     33 lost_videos, 34 lost_reward       the route that went from 100 to 50, and its reward
+   On a structure change:
+     35 observed_transition   the two pictures shown
+     36 observed_next         what follows them on the same route: the next picture, or the
+                              route's reward when the pair ends at the planet
+     37 observed_videos, 38 observed_reward          the whole observed route after the swap
+     39 alternative_transition  the other swapped route's new transition at the same steps
+                                (never shown)
+     40 alternative_videos, 41 alternative_reward    that whole route after the swap
+   On both:
+     42 untouched_videos, 43 untouched_reward  the route the change did not involve (on a value
+                              change the third route at 50, on a structure change the 100 route)
 
 
 EVENT VALUES (column 6) AND WHAT stimulus HOLDS

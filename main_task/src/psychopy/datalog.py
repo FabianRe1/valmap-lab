@@ -29,6 +29,13 @@ KEPT_SCHEDULE_COLUMNS = [
     "shown_videos", "hidden_videos",
     "route_A_videos", "route_B_videos", "route_C_videos", "reactivation_targets",
     "probe_type", "probe_subtype", "probe_options", "probe_correct_video", "probe_cue_video",
+    # analysis labels of the change trials, by stimulus name (2026-11-05, user; session sets only,
+    # n/a with the Prolific set): see ../../analysis_columns.py and SCHEDULE_COLUMNS.md 63-75
+    "loser_column", "observed_route",
+    "gained_videos", "gained_reward", "lost_videos", "lost_reward",
+    "observed_transition", "observed_next", "observed_videos", "observed_reward",
+    "alternative_transition", "alternative_videos", "alternative_reward",
+    "untouched_videos", "untouched_reward",
 ]
 # constant per participant: written once as meta rows, never on an event row
 META_SCHEDULE_COLUMNS = list(cfg.CELLS) + ["reward_image_A", "reward_image_B", "reward_image_C"]
