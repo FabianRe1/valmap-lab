@@ -32,6 +32,7 @@ import datalog as datalog_mod
 from datalog import NA, DataLogger, next_free_schedule_number
 from iti import gaps_for_block, start_gaps_for_block, hash32
 from schedule import ScheduleError, load_schedule, run_duration, ends_on_outcome, n_events
+import schedule as schedule_mod
 from stimuli import (StimulusError, build_stimulus_map, load_manifest, resolve_feedback,
                      resolve_reward, resolve_reward_frames)
 
@@ -1102,8 +1103,11 @@ def run_trial(pres, trial, run_number, phase, schedule_number, is_practice):
         rec[f"onset_clip{i + 1}"] = f"{onset - pres.t0:.4f}"
         rec[f"dur_clip{i + 1}"] = f"{dur:.4f}"
         log_screen(onset, dur, f"clip{i + 1}", stimulus=video_id)
-        gap_onset, gap_dur = pres.show_fixation(gaps[i], cfg.MARKER_CODES["fixation"], "fixation")
-        log_screen(gap_onset, gap_dur, "fixation_gap", stimulus=f"scheduled={gaps[i]:.4f}")
+        # a gap only where the trial has one: the session sets store gaps BETWEEN events only
+        # (2026-11-05), so nothing follows the last event; the Prolific set has one after each
+        if i < len(gaps):
+            gap_onset, gap_dur = pres.show_fixation(gaps[i], cfg.MARKER_CODES["fixation"], "fixation")
+            log_screen(gap_onset, gap_dur, "fixation_gap", stimulus=f"scheduled={gaps[i]:.4f}")
 
     if trial["terminal_amount"] is not None:
         onset, dur = pres.show_outcome(trial["terminal_image"], trial["terminal_amount"],
@@ -1112,10 +1116,11 @@ def run_trial(pres, trial, run_number, phase, schedule_number, is_practice):
         rec["dur_outcome"] = f"{dur:.4f}"
         log_screen(onset, dur, "outcome",
                    stimulus=f"{trial['terminal_image']}+{trial['terminal_amount']}")
-        gap_onset, gap_dur = pres.show_fixation(gaps[len(trial["shown_videos"])],
-                                                cfg.MARKER_CODES["fixation"], "fixation")
-        log_screen(gap_onset, gap_dur, "fixation_gap",
-                   stimulus=f"scheduled={gaps[len(trial['shown_videos'])]:.4f}")
+        if len(gaps) > len(trial["shown_videos"]):           # the Prolific set only
+            gap_onset, gap_dur = pres.show_fixation(gaps[len(trial["shown_videos"])],
+                                                    cfg.MARKER_CODES["fixation"], "fixation")
+            log_screen(gap_onset, gap_dur, "fixation_gap",
+                       stimulus=f"scheduled={gaps[len(trial['shown_videos'])]:.4f}")
 
     # --- rest window: ADDED after the trial's last gap; fixation only, nothing preloaded ---
     if trial["break_20s"]:
@@ -1165,7 +1170,22 @@ def run_trial(pres, trial, run_number, phase, schedule_number, is_practice):
 
 
 def attach_block_gaps(trials, schedule_number, block_index):
-    """Draw jitter for a practice/familiarization block (main runs get theirs in schedule.py)."""
+    """Jitter of a practice (801) or familiarization (900 + attempt) block. Session sets read it
+       from intro_itis.json (make_itis.py, 2026-11-05); only the Prolific set still draws it."""
+    intro = schedule_mod.load_intro_itis()
+    if intro is not None:
+        entry = intro[str(schedule_number)]
+        block = (entry["practice"] if block_index == 801
+                 else entry["familiarization"][str(block_index - 900)])
+        if len(block) != len(trials):
+            raise ScheduleError(f"intro_itis.json: {len(block)} practice/familiarization ITIs for "
+                                f"{len(trials)} trials (block {block_index})")
+        for trial, it in zip(trials, block):
+            if len(it["gaps"]) != max(n_events(trial) - 1, 0):
+                raise ScheduleError(f"intro_itis.json: {len(it['gaps'])} gaps for "
+                                    f"{n_events(trial)} events (block {block_index})")
+            trial["start_gap"], trial["gaps"] = it["start"], list(it["gaps"])
+        return
     counts = [n_events(t) for t in trials]
     flags = [ends_on_outcome(t) for t in trials]
     gaps = gaps_for_block(schedule_number, block_index, counts, flags, cfg)
@@ -1548,6 +1568,12 @@ def run_main(pres, runs, session, start_run=1):
         for trial in run["trials"]:
             run_trial(pres, trial, run["run"], "main", session["schedule"], is_practice=False)
 
+        # Lead-out (2026-11-05): a fixation after the last trial, before the block-end marker and
+        # the break screen (scaled like everything else in a dry run)
+        if getattr(cfg, "T_BLOCK_LEAD_OUT", 0.0) > 0:
+            onset, dur = pres.show_fixation(cfg.T_BLOCK_LEAD_OUT)
+            pres.logger.write_event(onset - pres.t0, dur, "block_lead_out")
+
         pres.marker.send(cfg.MARKER_CODES["block_end"] + run["run"], f"run_{run['run']}_end")
         pres.logger.write_event(pres.now() - pres.t0, 0.0, "block_end",
                                 stimulus=f"dropped_frames={pres.win.nDroppedFrames - dropped_at_start}")
@@ -1778,6 +1804,7 @@ def main():
             "ITI_USE_NUMPY": cfg.ITI_USE_NUMPY,
             "LONG_ISI": cfg.LONG_ISI,
             "LONG_ISI_RANGE": list(cfg.LONG_ISI_RANGE) if cfg.LONG_ISI_RANGE else None,
+            "T_BLOCK_LEAD_IN": cfg.T_BLOCK_LEAD_IN, "T_BLOCK_LEAD_OUT": cfg.T_BLOCK_LEAD_OUT,
         },
         "n_runs": cfg.N_RUNS,
         "trials_per_run": [len(r["trials"]) for r in runs],

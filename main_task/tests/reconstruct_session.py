@@ -49,6 +49,8 @@ def describe(e):
         return f"fixation cross (ISI, {st})"
     if ev == "block_lead_in":
         return "fixation cross (block lead-in)"
+    if ev == "block_lead_out":
+        return "fixation cross (block lead-out)"
     if ev == "rest_readout":
         return "fixation cross (REST, readout window)"
     if ev == "probe":

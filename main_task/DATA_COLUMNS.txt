@@ -209,6 +209,7 @@ EVENT VALUES (column 6) AND WHAT stimulus HOLDS
 meta              a session fact, stimulus = key=value (list below)
 block_start       the "t" key that starts a block; onset 0.0; stimulus = date and time
 block_lead_in     the 3 s fixation before the block's first trial
+block_lead_out    the 7 s fixation after the block's last trial, before block_end (since 2026-11-05)
 fixation_start    the big cross that opens every trial; stimulus = scheduled=<seconds>
                   (the planned duration; duration column = what it really took)
 clip1, clip2, clip3   a picture on screen; stimulus = its clip id

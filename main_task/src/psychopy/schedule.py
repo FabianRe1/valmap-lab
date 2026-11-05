@@ -155,16 +155,57 @@ def load_schedule(schedule_number, validate=True):
         raise ScheduleError(f"{path.name}: {len(run_lists)} blocks, expected {cfg.N_RUNS}")
 
     runs = []
+    stored = all(c in rows[0] for c in ITI_COLUMNS)
+    if not stored and cfg.SESSION_SET:
+        raise ScheduleError(f"{path.name}: no precomputed ITIs ({', '.join(ITI_COLUMNS)}); "
+                            "run make_itis.py. Jitter is never drawn at run time for a session set.")
     for block, run_trials in run_lists:      # the run number IS the schedule's block number
-        counts = [n_events(t) for t in run_trials]
-        flags = [ends_on_outcome(t) for t in run_trials]
-        gaps = gaps_for_block(schedule_number, block, counts, flags, cfg)
-        starts = start_gaps_for_block(schedule_number, block, len(run_trials), cfg)
-        for trial, trial_gaps, start in zip(run_trials, gaps, starts):
-            trial["gaps"] = trial_gaps
-            trial["start_gap"] = start
+        if stored:                           # read, never drawn (make_itis.py, 2026-11-05)
+            for trial in run_trials:
+                trial["start_gap"], trial["gaps"] = stored_itis(trial["raw"], n_events(trial),
+                                                                f"{path.name} trial {trial['trial']}")
+        else:                                # the Prolific set only (collected before 2026-11-05)
+            counts = [n_events(t) for t in run_trials]
+            flags = [ends_on_outcome(t) for t in run_trials]
+            gaps = gaps_for_block(schedule_number, block, counts, flags, cfg)
+            starts = start_gaps_for_block(schedule_number, block, len(run_trials), cfg)
+            for trial, trial_gaps, start in zip(run_trials, gaps, starts):
+                trial["gaps"] = trial_gaps
+                trial["start_gap"] = start
         runs.append({"run": block, "trials": run_trials})
     return runs
+
+
+# Precomputed jitter (2026-11-05, user): make_itis.py draws every fixation with the lab's makeITI,
+# per trial, and stores it in the session schedules; the task only reads it. iti_start opens the
+# trial, iti_k follows its k-th shown event (clip or outcome).
+# Gaps lie only BETWEEN a trial's events (2026-11-05): n events, n - 1 gaps (iti_1..iti_3).
+ITI_COLUMNS = ["iti_start", "iti_1", "iti_2", "iti_3"]
+
+
+def stored_itis(raw, n, where):
+    """(start, [gap after event 1..n-1]) from a schedule row; an error if any is missing."""
+    m = max(n - 1, 0)
+    try:
+        start = float(raw["iti_start"])
+        gaps = [float(raw[f"iti_{k}"]) for k in range(1, m + 1)]
+    except (KeyError, ValueError) as exc:
+        raise ScheduleError(f"{where}: precomputed ITIs missing or unreadable ({exc})")
+    if any(raw.get(f"iti_{k}", "") not in ("", None) for k in range(m + 1, len(ITI_COLUMNS))):
+        raise ScheduleError(f"{where}: more ITIs than the {m} gaps between its {n} events")
+    return start, gaps
+
+
+def load_intro_itis():
+    """<schedule dir>/intro_itis.json (make_itis.py) or None for the Prolific set."""
+    import json
+    path = Path(cfg.SCHEDULE_DIR) / "intro_itis.json"
+    if not path.exists():
+        if cfg.SESSION_SET:
+            raise ScheduleError(f"{path} is missing: run make_itis.py")
+        return None
+    with open(path, encoding="utf-8") as fh:
+        return json.load(fh)["schedules"]
 
 
 def trial_duration(trial, is_practice=False):
@@ -186,6 +227,6 @@ def run_duration(trials, dry_run=False, is_practice=False, lead_in=False):
     """Planned block duration. `lead_in` charges the fixation held between the block trigger and
        the first trial; the intro blocks have no trigger and so no lead-in."""
     total = sum(trial_duration(t, is_practice) for t in trials)
-    if lead_in:
-        total += cfg.T_BLOCK_LEAD_IN
+    if lead_in:                                  # a main block: lead-in and lead-out
+        total += cfg.T_BLOCK_LEAD_IN + getattr(cfg, "T_BLOCK_LEAD_OUT", 0.0)
     return total * (cfg.DRY_RUN_SCALE if dry_run else 1.0)

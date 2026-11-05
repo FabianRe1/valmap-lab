@@ -153,9 +153,22 @@ TIMING_PROFILES = {
         "LONGEST_GAP_BEFORE_OUTCOME": False,   # superseded by the random long-ISI slot
         "CLIP_GAP_EXTRA": 0.0,
     },
+    # MEG (2026-11-05, user): the same intervals as the MRI (~1 s plus exactly one ~3 s per trial);
+    # only the rest is 5 s, and the trial after a question gets no extra 4 s (fMRI only, see
+    # make_itis.py). The session sets' intervals are precomputed (make_itis.py); these values
+    # describe them and drive the Prolific set's run-time draw only.
+    "meg": {
+        "GAP_MEAN": 1.0,
+        "GAP_RANGE": (0.5, 1.5),
+        "LONG_ISI": 3.0,
+        "LONG_ISI_RANGE": (2.5, 3.5),
+        "T_REST": 5.0,
+        "LONGEST_GAP_BEFORE_OUTCOME": False,
+        "CLIP_GAP_EXTRA": 0.0,
+    },
 }
 
-MODALITY_PROFILE = {"behavioral": "online_meg", "meg": "online_meg", "fmri": "mri"}
+MODALITY_PROFILE = {"behavioral": "online_meg", "meg": "meg", "fmri": "mri"}
 DEFAULT_TIMING_PROFILE = "online_meg"
 
 
@@ -292,6 +305,10 @@ TRIGGER_GATED_BLOCKS = True     # set False only for an unattended session with 
 # same settled baseline. It sits INSIDE the block clock: t0 is still the key press, the lead-in
 # runs from 0.0 to T_BLOCK_LEAD_IN, and trial 1 starts after it.
 T_BLOCK_LEAD_IN = 3.0
+# Lead-out (2026-11-05, user): a fixation after the block's last trial, before the block-end marker
+# and the break screen, so the last events are followed by a settled baseline before the scanner
+# is paused. Mirrors T_BLOCK_LEAD_OUT in ../jspsych/config.js.
+T_BLOCK_LEAD_OUT = 7.0
 # fMRI: the site's scanner records its own dummy volumes and sends the trigger key ONCE, after
 # them, so nothing is waited out here (decided 2026-09-10): the trigger is t0 and the lead-in
 # fixation follows at once. Raise this only for a scanner that sends a pulse on every volume

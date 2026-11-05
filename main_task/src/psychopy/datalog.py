@@ -66,6 +66,7 @@ EVENT_NAMES = (
     "fixation_start",           # the fixation that opens every trial; stimulus = the scheduled draw
     "fixation_gap",             # every jittered gap inside a trial; stimulus = the scheduled draw
     "block_lead_in",            # fixation between the block trigger and the block's first trial
+    "block_lead_out",           # fixation after the block's last trial, before block_end (2026-11-05)
     "rest_readout",             # the replay readout window (additive, after the last gap)
     "probe",
     "response",                 # instantaneous: the moment an option key was pressed

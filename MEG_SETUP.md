@@ -102,7 +102,9 @@ Afterwards delete the TEST files in `Localizer_MEG/data/`, `main_task/src/psycho
    Dialog: MEG, Localizer, the participant code (e.g. `27985.cb`, as in their online link), N from
    the subject sheet, age, gender, handedness. Before each block an operator screen (space), then
    the waiting screen: start the MEG acquisition, then press `t`.
-4. **Main task** (about 48 min, 6 blocks of about 8 min with 5 s rests): the same command with
+4. **Main task** (about 51 min, 6 blocks of about 8 to 9 min with 5 s rests; the same
+   fixation intervals as in the MRI, all precomputed in the design; each block ends on a 7 s
+   fixation before the break screen): the same command with
    `_main` in the log name, part Main task. It opens with a short refresher, the button check and
    the starting overview; each block starts with `t` on the waiting screen.
 5. **After a crash**: start again with the same details and enter the crashed block as the
@@ -133,7 +135,7 @@ All MEG hardware settings live in ONE file shared by both tasks: `meg_lab/settin
 | Main-task-only codes | trial start by type: establish 21, value change 22, structure change 23, value control 24, structure control 25, walk 26; rest 30; question by type 40-43 | `main_task/src/psychopy/config.py` (`MARKER_CODES` line 326, `TRIAL_START_CODES`, `PROBE_CODES`) |
 | List of every code sent | printed by the test | `Localizer_MEG/test_meg_io.py`; main task: `main_task/src/psychopy/triggers.py` (`all_codes`, line 54) |
 | Which screen, full screen? | screen 0, full screen | `Localizer_MEG/config.py` lines 116-117; `main_task/src/psychopy/config.py` lines 420-421 |
-| Picture and timing settings | localizer: each video 1 s (`T_STIM`, line 34); main task: MEG uses the `online_meg` profile, 5 s rests | `Localizer_MEG/config.py`; `main_task/src/psychopy/config.py` line 132 (`TIMING_PROFILES`) |
+| Picture and timing settings | localizer: each video 1 s (`T_STIM`, line 34); main task: every fixation precomputed in the design (`iti_start`, `iti_1`..`iti_3` in `main_task/schedules_meg/`; lead-in 3 s and lead-out 7 s: `T_BLOCK_LEAD_IN`, `T_BLOCK_LEAD_OUT`), the MRI's intervals with 5 s rests (`TIMING_PROFILES["meg"]` in `main_task/src/psychopy/config.py`) | `Localizer_MEG/config.py`; `main_task/src/psychopy/config.py` line 132 (`TIMING_PROFILES`) |
 | Start key for a block | `t` | `Localizer_MEG/config.py` line 105; `main_task/src/psychopy/config.py` line 289 |
 | How a session is started | the dialog adds `--marker-backend parallel --button-box` for MEG | `start_session.py` lines 45-65 |
 | Where the data go | one file per part, every screen with its measured onset, every answer with rt | `Localizer_MEG/data/`, `main_task/src/psychopy/data/`; columns in `main_task/DATA_COLUMNS.txt` |

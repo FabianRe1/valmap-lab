@@ -43,6 +43,10 @@ sched = list(csv.DictReader(open(ROOT / _SDIR / f"sub-{sched_n:03d}_schedule.csv
 nrow = max(int(k[1]) for k in sched[0] if len(k) == 2 and k[0] in "ABC" and k[1].isdigit())
 events = load(path)
 meta = meta_from_events(events)
+# the planned lead-out, from the timings meta row ("...|T_BLOCK_LEAD_OUT=7.0|..."), if the session has one
+import re as _re
+_m = _re.search(r"T_BLOCK_LEAD_OUT=([0-9.]+)", str(meta.get("timings", "")))
+meta_timings = {"T_BLOCK_LEAD_OUT": float(_m.group(1))} if _m else {}
 trials = trials_from_events(events)
 main = sorted([t for t in trials if t["phase"] == "main"], key=lambda t: int(t["trial"]))
 by_trial = {t["trial"]: t for t in main}
@@ -122,17 +126,25 @@ for src in sched:
 # 3. ISI structure per timing profile
 profile = meta.get("timing_profile")
 scale = 0.02 if "dryrun" in path.name else 1.0
-long_threshold = 2.0 * scale
+# counted on the SCHEDULED values (stimulus "scheduled=x"), so a slow frame on a test laptop is not
+# taken for a long ISI (2026-11-05); the measured durations are checked against them elsewhere
+long_threshold = 2.0
 long_slots = collections.Counter(); n_long = collections.Counter()
 for t in main:
-    gaps = [float(r["duration"]) for r in t["events"] if r["event"] == "fixation_gap"]
+    gaps = [float(str(r["stimulus"]).split("=", 1)[1]) for r in t["events"] if r["event"] == "fixation_gap"]
     longs = [i for i, g in enumerate(gaps) if g > long_threshold]
     n_long[len(longs)] += 1
     for i in longs: long_slots[i] += 1
-if profile == "mri":
+if profile in ("mri", "meg"):          # the MEG has the MRI's intervals since 2026-11-05
+    # exactly one long ISI per trial that HAS gaps; since 2026-11-05 the session sets have gaps only
+    # between events, so a one-event trial (a value change or control) has none
+    n_long = collections.Counter()
+    for t in main:
+        gaps = [float(str(r["stimulus"]).split("=", 1)[1]) for r in t["events"] if r["event"] == "fixation_gap"]
+        if gaps: n_long[sum(g > long_threshold for g in gaps)] += 1
     wrong = {n: c for n, c in n_long.items() if n != 1}
-    if wrong: fails.append(f"fMRI: trials whose long-ISI count is not exactly 1: {wrong}")
-    if len(long_slots) < 2: fails.append(f"fMRI: the long ISI always lands in slot {list(long_slots)}")
+    if wrong: fails.append(f"{profile}: trials whose long-ISI count is not exactly 1: {wrong}")
+    if len(long_slots) < 2: fails.append(f"{profile}: the long ISI always lands in slot {list(long_slots)}")
 elif profile:
     if any(n for n in n_long if n): fails.append(f"{profile}: long ISIs outside fMRI: {dict(n_long)}")
 print(f"timing profile: {profile} | long ISIs per trial: {dict(n_long)}" + (f" | slots: {dict(sorted(long_slots.items()))}" if long_slots else ""))
@@ -142,6 +154,14 @@ for b in blocks_from_events(events):
     on = [float(e["onset"]) for e in b["events"] if val(e["onset"]) is not None]
     if on != sorted(on): fails.append(f"block {b['block']}: onsets not monotonic")
     # the trigger is the block's clock zero (2026-11-04): the lead-in starts within 0.1 s of it
+    # the lead-out (2026-11-05), where the session has one: the block's last screen before block_end
+    outs = [e for e in b["events"] if e["event"] == "block_lead_out"]
+    names = [e["event"] for e in b["events"]]
+    if meta_timings.get("T_BLOCK_LEAD_OUT") and "block_lead_in" in names:   # main blocks only
+        if len(outs) != 1 or names.index("block_lead_out") != names.index("block_end") - 1:
+            fails.append(f"block {b['block']}: no lead-out right before block_end")
+        elif abs(float(outs[0]["duration"]) - meta_timings["T_BLOCK_LEAD_OUT"] * scale) > 0.05 * max(1, scale * 50):
+            fails.append(f"block {b['block']}: lead-out {outs[0]['duration']} s, want {meta_timings['T_BLOCK_LEAD_OUT'] * scale:.3f}")
     lead = [float(e["onset"]) for e in b["events"] if e["event"] == "block_lead_in"]
     if lead and not 0.0 <= lead[0] < 0.1:
         fails.append(f"block {b['block']}: lead-in {lead[0]:.3f} s after the trigger, not within 0.1 s")
@@ -150,7 +170,7 @@ if rest_secs:
     lo_r, hi_r = min(rest_secs), max(rest_secs)
     if hi_r - lo_r > 0.03: fails.append(f"rest durations vary by more than a frame: {lo_r} to {hi_r}")
     mean_r = sum(rest_secs) / len(rest_secs)
-    nominal = {round(5.0 * scale, 3): "online_meg (5 s)", round(20.0 * scale, 3): "mri (20 s)"}
+    nominal = {round(5.0 * scale, 3): "online_meg or meg (5 s)", round(20.0 * scale, 3): "mri (20 s)"}
     match = [v for k, v in nominal.items() if abs(mean_r - k) < 0.02 * max(1, scale * 50)]
     if not match: fails.append(f"rest length {mean_r:.3f} s matches no timing profile")
     print(f"rest length in the log: {mean_r:.3f} s -> {match[0] if match else 'UNKNOWN'}")
