@@ -1,7 +1,7 @@
 # ValMap lab sessions (MEG, MRI)
 
 Private. Built by `make_lab_repo.py` in the main task project; do not edit here, rebuild there.
-Content as of 2026-11-06: main task commit c61f93e. Tested with PsychoPy 2023.2.3 (standalone).
+Content as of 2026-11-06: main task commit 4a2834a. Tested with PsychoPy 2023.2.3 (standalone).
 
 ## Before every session
     git pull
@@ -33,10 +33,10 @@ e.g. 27985.cb (letters, digits, dots), the same code as in their online link, so
 and MRI files match. N and the code are in the lab's subject sheet.
 
 ## Planned durations (upper bounds, from `--plan-only`)
-MRI: localizer about 54 min, main task about 74 min (6 runs of about 11 to 14 min, 20 s rests, 7 s lead-out).
-MEG: localizer about 43 min, main task about 51 min (6 blocks of about 8 to 9 min, 5 s rests; the MRI's intervals).
+MRI: localizer about 54 min, main task about 71 min (6 runs of about 9.5 to 13.5 min, 20 s rests, 7 s lead-out).
+MEG: localizer about 43 min, main task about 44 min (6 blocks of about 6.5 to 8 min, 5 s rests; the MRI's intervals).
 All fixations (ITIs) are precomputed in the designs; nothing is drawn during a session. In the MRI the
-trial after a question opens on a fixation 4 s longer (a pause after each answer). Every block
+trial after a question opens on a fixation 7 s longer (a pause after each answer). Every block
 ends on a 7 s fixation (lead-out) before the break screen.
 Add instructions, breaks between blocks and set-up.
 

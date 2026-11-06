@@ -136,12 +136,23 @@ for t in main:
     n_long[len(longs)] += 1
     for i in longs: long_slots[i] += 1
 if profile in ("mri", "meg"):          # the MEG has the MRI's intervals since 2026-11-05
-    # exactly one long ISI per trial that HAS gaps; since 2026-11-05 the session sets have gaps only
-    # between events, so a one-event trial (a value change or control) has none
+    # exactly one long interval per trial. In the session sets (precomputed ITIs, 2026-11-06) the
+    # opening fixation counts as one of the trial's intervals (without the MRI's 7 s pause after a
+    # question); in the Prolific set only the gaps, one after every event
+    rows_by_trial = {str(r["trial"]): r for r in sched}
+    stored = "iti_start" in sched[0]
     n_long = collections.Counter()
     for t in main:
         gaps = [float(str(r["stimulus"]).split("=", 1)[1]) for r in t["events"] if r["event"] == "fixation_gap"]
-        if gaps: n_long[sum(g > long_threshold for g in gaps)] += 1
+        vals = gaps
+        if stored:
+            row = rows_by_trial[str(t["trial"])]
+            prev = rows_by_trial.get(str(int(t["trial"]) - 1))
+            start = [float(str(r["stimulus"]).split("=", 1)[1]) for r in t["events"] if r["event"] == "fixation_start"]
+            pause = 7.0 if (profile == "mri" and prev and prev["probe"] == "1"
+                            and prev["block"] == row["block"]) else 0.0
+            vals = [start[0] - pause] + gaps if start else gaps
+        if vals: n_long[sum(g > long_threshold for g in vals)] += 1
     wrong = {n: c for n, c in n_long.items() if n != 1}
     if wrong: fails.append(f"{profile}: trials whose long-ISI count is not exactly 1: {wrong}")
     if len(long_slots) < 2: fails.append(f"{profile}: the long ISI always lands in slot {list(long_slots)}")

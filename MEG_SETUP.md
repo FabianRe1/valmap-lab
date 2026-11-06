@@ -102,7 +102,7 @@ Afterwards delete the TEST files in `Localizer_MEG/data/`, `main_task/src/psycho
    Dialog: MEG, Localizer, the participant code (e.g. `27985.cb`, as in their online link), N from
    the subject sheet, age, gender, handedness. Before each block an operator screen (space), then
    the waiting screen: start the MEG acquisition, then press `t`.
-4. **Main task** (about 51 min, 6 blocks of about 8 to 9 min with 5 s rests; the same
+4. **Main task** (about 44 min, 6 blocks of about 6.5 to 8 min with 5 s rests; the same
    fixation intervals as in the MRI, all precomputed in the design; each block ends on a 7 s
    fixation before the break screen): the same command with
    `_main` in the log name, part Main task. It opens with a short refresher, the button check and
