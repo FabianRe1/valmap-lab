@@ -50,7 +50,7 @@ sub-025,1,48,48,aliens_3,videos/aliens_3.mp4,aliens_2,3.784597,0,,,,,,,,,,,
 sub-025,1,49,49,spaceships_2,videos/spaceships_2.mp4,aliens_3,2.877509,0,,,,,,,,,,,
 sub-025,1,50,50,diamonds,videos/diamonds.mp4,spaceships_2,4.482364,0,,,,,,,,,,,
 sub-025,1,51,51,aliens_1,videos/aliens_1.mp4,diamonds,2.724,0,,,,,,,,,,,
-sub-025,1,52,52,diamonds,videos/diamonds.mp4,aliens_1,2.368442,1,5.031475,match,left,diamonds,alt,alternatives_grey/diamonds_alt1.png,planets_1,alt,alternatives_grey/planets_1_alt1.png,1.5,2.0
+sub-025,1,52,52,diamonds,videos/diamonds.mp4,aliens_1,2.368442,1,5.031475,match,left,diamonds,alt,alternatives_grey/diamonds_alt1.png,planets_1,alt,alternatives_grey/planets_1_alt2.png,1.5,2.0
 sub-025,1,53,53,spaceships_3,videos/spaceships_3.mp4,diamonds,2.204802,0,,,,,,,,,,,
 sub-025,1,54,54,money,videos/money.mp4,spaceships_3,3.507081,0,,,,,,,,,,,
 sub-025,1,55,55,gold,videos/gold.mp4,money,2.402366,0,,,,,,,,,,,
@@ -59,18 +59,18 @@ sub-025,1,57,57,aliens_2,videos/aliens_2.mp4,money,4.724958,0,,,,,,,,,,,
 sub-025,1,58,58,planets_2,videos/planets_2.mp4,aliens_2,4.636782,0,,,,,,,,,,,
 sub-025,1,59,59,aliens_2,videos/aliens_2.mp4,planets_2,2.624694,0,,,,,,,,,,,
 sub-025,1,60,60,planets_3,videos/planets_3.mp4,aliens_2,2.56667,0,,,,,,,,,,,
-sub-025,1,61,61,spaceships_2,videos/spaceships_2.mp4,planets_3,3.718473,1,2.647741,match,right,planets_2,task,probe/planets_2.png,spaceships_2,alt,alternatives_grey/spaceships_2_alt1.png,1.5,2.0
+sub-025,1,61,61,spaceships_2,videos/spaceships_2.mp4,planets_3,3.718473,1,2.647741,match,right,planets_2,task,probe/planets_2.png,spaceships_2,alt,alternatives_grey/spaceships_2_alt3.png,1.5,2.0
 sub-025,1,62,62,spaceships_1,videos/spaceships_1.mp4,spaceships_2,3.956109,0,,,,,,,,,,,
 sub-025,1,63,63,planets_2,videos/planets_2.mp4,spaceships_1,2.099114,0,,,,,,,,,,,
 sub-025,1,64,64,aliens_1,videos/aliens_1.mp4,planets_2,4.664536,0,,,,,,,,,,,
-sub-025,1,65,65,aliens_2,videos/aliens_2.mp4,aliens_1,3.497616,1,2.874294,match,right,planets_3,alt,alternatives_grey/planets_3_alt1.png,aliens_2,alt,alternatives_grey/aliens_2_alt1.png,1.5,2.0
+sub-025,1,65,65,aliens_2,videos/aliens_2.mp4,aliens_1,3.497616,1,2.874294,match,right,planets_3,alt,alternatives_grey/planets_3_alt1.png,aliens_2,alt,alternatives_grey/aliens_2_alt3.png,1.5,2.0
 sub-025,1,66,66,diamonds,videos/diamonds.mp4,aliens_2,2.137028,0,,,,,,,,,,,
 sub-025,1,67,67,spaceships_2,videos/spaceships_2.mp4,diamonds,2.920044,0,,,,,,,,,,,
 sub-025,1,68,68,planets_3,videos/planets_3.mp4,spaceships_2,3.974169,0,,,,,,,,,,,
 sub-025,1,69,69,gold,videos/gold.mp4,planets_3,3.083212,0,,,,,,,,,,,
 sub-025,1,70,70,spaceships_1,videos/spaceships_1.mp4,gold,6.398787,0,,,,,,,,,,,
 sub-025,1,71,71,diamonds,videos/diamonds.mp4,spaceships_1,3.310376,0,,,,,,,,,,,
-sub-025,1,72,72,spaceships_1,videos/spaceships_1.mp4,diamonds,7.0,1,2.619887,neither,neither,aliens_1,task,probe/aliens_1.png,aliens_3,alt,alternatives_grey/aliens_3_alt2.png,1.5,2.0
+sub-025,1,72,72,spaceships_1,videos/spaceships_1.mp4,diamonds,7.0,1,2.619887,neither,neither,aliens_1,task,probe/aliens_1.png,aliens_3,alt,alternatives_grey/aliens_3_alt3.png,1.5,2.0
 sub-025,1,73,73,planets_1,videos/planets_1.mp4,spaceships_1,3.662079,0,,,,,,,,,,,
 sub-025,1,74,74,aliens_3,videos/aliens_3.mp4,planets_1,2.262876,0,,,,,,,,,,,
 sub-025,1,75,75,planets_1,videos/planets_1.mp4,aliens_3,2.42426,0,,,,,,,,,,,
@@ -89,7 +89,7 @@ sub-025,1,87,87,spaceships_1,videos/spaceships_1.mp4,planets_3,2.542247,0,,,,,,,
 sub-025,1,88,88,planets_3,videos/planets_3.mp4,spaceships_1,2.665615,0,,,,,,,,,,,
 sub-025,1,89,89,diamonds,videos/diamonds.mp4,planets_3,3.702567,0,,,,,,,,,,,
 sub-025,1,90,90,planets_1,videos/planets_1.mp4,diamonds,3.933814,0,,,,,,,,,,,
-sub-025,1,91,91,money,videos/money.mp4,planets_1,2.381249,1,3.025635,neither,neither,spaceships_1,alt,alternatives_grey/spaceships_1_alt2.png,aliens_2,task,probe/aliens_2.png,1.5,2.0
+sub-025,1,91,91,money,videos/money.mp4,planets_1,2.381249,1,3.025635,neither,neither,spaceships_1,alt,alternatives_grey/spaceships_1_alt3.png,aliens_2,task,probe/aliens_2.png,1.5,2.0
 sub-025,1,92,92,aliens_3,videos/aliens_3.mp4,money,6.90656,0,,,,,,,,,,,
 sub-025,1,93,93,planets_2,videos/planets_2.mp4,aliens_3,2.222482,0,,,,,,,,,,,
 sub-025,1,94,94,spaceships_1,videos/spaceships_1.mp4,planets_2,2.367821,0,,,,,,,,,,,
@@ -174,7 +174,7 @@ sub-025,2,172,61,planets_2,videos/planets_2.mp4,spaceships_2,2.209957,0,,,,,,,,,
 sub-025,2,173,62,aliens_3,videos/aliens_3.mp4,planets_2,3.053873,0,,,,,,,,,,,
 sub-025,2,174,63,money,videos/money.mp4,aliens_3,3.634899,0,,,,,,,,,,,
 sub-025,2,175,64,spaceships_2,videos/spaceships_2.mp4,money,3.234317,0,,,,,,,,,,,
-sub-025,2,176,65,money,videos/money.mp4,spaceships_2,4.075648,1,2.440401,neither,neither,spaceships_1,task,probe/spaceships_1.png,spaceships_2,alt,alternatives_grey/spaceships_2_alt2.png,1.5,2.0
+sub-025,2,176,65,money,videos/money.mp4,spaceships_2,4.075648,1,2.440401,neither,neither,spaceships_1,task,probe/spaceships_1.png,spaceships_2,alt,alternatives_grey/spaceships_2_alt3.png,1.5,2.0
 sub-025,2,177,66,diamonds,videos/diamonds.mp4,money,2.585551,0,,,,,,,,,,,
 sub-025,2,178,67,gold,videos/gold.mp4,diamonds,3.71604,0,,,,,,,,,,,
 sub-025,2,179,68,aliens_2,videos/aliens_2.mp4,gold,3.45389,0,,,,,,,,,,,
@@ -219,7 +219,7 @@ sub-025,2,217,106,money,videos/money.mp4,aliens_2,3.325469,1,2.055046,neither,ne
 sub-025,2,218,107,planets_2,videos/planets_2.mp4,money,2.659436,0,,,,,,,,,,,
 sub-025,2,219,108,money,videos/money.mp4,planets_2,2.567523,0,,,,,,,,,,,
 sub-025,2,220,109,planets_2,videos/planets_2.mp4,money,2.12524,0,,,,,,,,,,,
-sub-025,2,221,110,diamonds,videos/diamonds.mp4,planets_2,4.433808,1,3.657018,neither,neither,gold,task,probe/gold.png,aliens_2,alt,alternatives_grey/aliens_2_alt2.png,1.5,2.0
+sub-025,2,221,110,diamonds,videos/diamonds.mp4,planets_2,4.433808,1,3.657018,neither,neither,gold,task,probe/gold.png,aliens_2,alt,alternatives_grey/aliens_2_alt3.png,1.5,2.0
 sub-025,2,222,111,aliens_1,videos/aliens_1.mp4,diamonds,2.583203,0,,,,,,,,,,,
 sub-025,3,223,1,aliens_1,videos/aliens_1.mp4,,3.091012,0,,,,,,,,,,,
 sub-025,3,224,2,spaceships_1,videos/spaceships_1.mp4,aliens_1,2.844559,0,,,,,,,,,,,
@@ -269,7 +269,7 @@ sub-025,3,267,45,aliens_2,videos/aliens_2.mp4,spaceships_2,4.857761,0,,,,,,,,,,,
 sub-025,3,268,46,gold,videos/gold.mp4,aliens_2,3.932127,0,,,,,,,,,,,
 sub-025,3,269,47,aliens_2,videos/aliens_2.mp4,gold,4.405643,0,,,,,,,,,,,
 sub-025,3,270,48,planets_2,videos/planets_2.mp4,aliens_2,2.243142,0,,,,,,,,,,,
-sub-025,3,271,49,spaceships_1,videos/spaceships_1.mp4,planets_2,3.917264,1,3.306273,match,right,planets_3,alt,alternatives_grey/planets_3_alt1.png,spaceships_1,alt,alternatives_grey/spaceships_1_alt1.png,1.5,2.0
+sub-025,3,271,49,spaceships_1,videos/spaceships_1.mp4,planets_2,3.917264,1,3.306273,match,right,planets_3,alt,alternatives_grey/planets_3_alt1.png,spaceships_1,alt,alternatives_grey/spaceships_1_alt3.png,1.5,2.0
 sub-025,3,272,50,aliens_2,videos/aliens_2.mp4,spaceships_1,3.509014,0,,,,,,,,,,,
 sub-025,3,273,51,aliens_1,videos/aliens_1.mp4,aliens_2,2.912462,0,,,,,,,,,,,
 sub-025,3,274,52,aliens_3,videos/aliens_3.mp4,aliens_1,4.301825,0,,,,,,,,,,,
@@ -327,7 +327,7 @@ sub-025,3,325,103,spaceships_3,videos/spaceships_3.mp4,planets_1,3.108777,0,,,,,
 sub-025,3,326,104,money,videos/money.mp4,spaceships_3,2.727374,0,,,,,,,,,,,
 sub-025,3,327,105,gold,videos/gold.mp4,money,2.320367,0,,,,,,,,,,,
 sub-025,3,328,106,spaceships_1,videos/spaceships_1.mp4,gold,3.643317,0,,,,,,,,,,,
-sub-025,3,329,107,planets_2,videos/planets_2.mp4,spaceships_1,2.95392,1,4.866022,match,left,planets_2,task,probe/planets_2.png,aliens_1,alt,alternatives_grey/aliens_1_alt1.png,1.5,2.0
+sub-025,3,329,107,planets_2,videos/planets_2.mp4,spaceships_1,2.95392,1,4.866022,match,left,planets_2,task,probe/planets_2.png,aliens_1,alt,alternatives_grey/aliens_1_alt3.png,1.5,2.0
 sub-025,3,330,108,money,videos/money.mp4,planets_2,2.072055,0,,,,,,,,,,,
 sub-025,3,331,109,spaceships_3,videos/spaceships_3.mp4,money,6.371146,0,,,,,,,,,,,
 sub-025,3,332,110,spaceships_1,videos/spaceships_1.mp4,spaceships_3,2.699736,0,,,,,,,,,,,
@@ -358,7 +358,7 @@ sub-025,4,356,23,planets_1,videos/planets_1.mp4,diamonds,2.158696,0,,,,,,,,,,,
 sub-025,4,357,24,gold,videos/gold.mp4,planets_1,3.60114,0,,,,,,,,,,,
 sub-025,4,358,25,spaceships_2,videos/spaceships_2.mp4,gold,2.940348,0,,,,,,,,,,,
 sub-025,4,359,26,spaceships_3,videos/spaceships_3.mp4,spaceships_2,2.726795,0,,,,,,,,,,,
-sub-025,4,360,27,spaceships_2,videos/spaceships_2.mp4,spaceships_3,2.135206,1,3.073891,match,left,spaceships_2,task,probe/spaceships_2.png,aliens_3,alt,alternatives_grey/aliens_3_alt1.png,1.5,2.0
+sub-025,4,360,27,spaceships_2,videos/spaceships_2.mp4,spaceships_3,2.135206,1,3.073891,match,left,spaceships_2,task,probe/spaceships_2.png,aliens_3,alt,alternatives_grey/aliens_3_alt3.png,1.5,2.0
 sub-025,4,361,28,gold,videos/gold.mp4,spaceships_2,2.463522,0,,,,,,,,,,,
 sub-025,4,362,29,planets_2,videos/planets_2.mp4,gold,4.213382,0,,,,,,,,,,,
 sub-025,4,363,30,spaceships_2,videos/spaceships_2.mp4,planets_2,3.870026,0,,,,,,,,,,,
@@ -411,7 +411,7 @@ sub-025,4,409,76,spaceships_3,videos/spaceships_3.mp4,planets_3,5.409726,1,2.865
 sub-025,4,410,77,planets_3,videos/planets_3.mp4,spaceships_3,2.642853,0,,,,,,,,,,,
 sub-025,4,411,78,planets_2,videos/planets_2.mp4,planets_3,3.31611,0,,,,,,,,,,,
 sub-025,4,412,79,planets_3,videos/planets_3.mp4,planets_2,2.268107,0,,,,,,,,,,,
-sub-025,4,413,80,planets_2,videos/planets_2.mp4,planets_3,4.197591,1,6.641931,neither,neither,aliens_3,alt,alternatives_grey/aliens_3_alt2.png,gold,alt,alternatives_grey/gold_alt1.png,1.5,2.0
+sub-025,4,413,80,planets_2,videos/planets_2.mp4,planets_3,4.197591,1,6.641931,neither,neither,aliens_3,alt,alternatives_grey/aliens_3_alt3.png,gold,alt,alternatives_grey/gold_alt1.png,1.5,2.0
 sub-025,4,414,81,aliens_2,videos/aliens_2.mp4,planets_2,5.288518,0,,,,,,,,,,,
 sub-025,4,415,82,planets_3,videos/planets_3.mp4,aliens_2,2.621925,0,,,,,,,,,,,
 sub-025,4,416,83,money,videos/money.mp4,planets_3,2.610038,0,,,,,,,,,,,
@@ -419,7 +419,7 @@ sub-025,4,417,84,gold,videos/gold.mp4,money,2.242792,0,,,,,,,,,,,
 sub-025,4,418,85,money,videos/money.mp4,gold,3.522742,0,,,,,,,,,,,
 sub-025,4,419,86,spaceships_2,videos/spaceships_2.mp4,money,2.048628,0,,,,,,,,,,,
 sub-025,4,420,87,diamonds,videos/diamonds.mp4,spaceships_2,3.760162,0,,,,,,,,,,,
-sub-025,4,421,88,aliens_2,videos/aliens_2.mp4,diamonds,3.369682,1,2.375646,match,right,planets_1,task,probe/planets_1.png,aliens_2,alt,alternatives_grey/aliens_2_alt1.png,1.5,2.0
+sub-025,4,421,88,aliens_2,videos/aliens_2.mp4,diamonds,3.369682,1,2.375646,match,right,planets_1,task,probe/planets_1.png,aliens_2,alt,alternatives_grey/aliens_2_alt3.png,1.5,2.0
 sub-025,4,422,89,aliens_1,videos/aliens_1.mp4,aliens_2,2.136519,0,,,,,,,,,,,
 sub-025,4,423,90,aliens_2,videos/aliens_2.mp4,aliens_1,3.160037,0,,,,,,,,,,,
 sub-025,4,424,91,planets_3,videos/planets_3.mp4,aliens_2,3.947801,0,,,,,,,,,,,
@@ -435,7 +435,7 @@ sub-025,4,433,100,money,videos/money.mp4,aliens_2,2.899706,0,,,,,,,,,,,
 sub-025,4,434,101,spaceships_3,videos/spaceships_3.mp4,money,3.154462,0,,,,,,,,,,,
 sub-025,4,435,102,planets_1,videos/planets_1.mp4,spaceships_3,2.286835,0,,,,,,,,,,,
 sub-025,4,436,103,planets_2,videos/planets_2.mp4,planets_1,2.030571,0,,,,,,,,,,,
-sub-025,4,437,104,aliens_3,videos/aliens_3.mp4,planets_2,3.059717,1,4.035219,match,right,spaceships_3,alt,alternatives_grey/spaceships_3_alt1.png,aliens_3,task,probe/aliens_3.png,1.5,2.0
+sub-025,4,437,104,aliens_3,videos/aliens_3.mp4,planets_2,3.059717,1,4.035219,match,right,spaceships_3,alt,alternatives_grey/spaceships_3_alt3.png,aliens_3,task,probe/aliens_3.png,1.5,2.0
 sub-025,4,438,105,aliens_1,videos/aliens_1.mp4,aliens_3,2.286427,0,,,,,,,,,,,
 sub-025,4,439,106,aliens_2,videos/aliens_2.mp4,aliens_1,3.485253,0,,,,,,,,,,,
 sub-025,4,440,107,spaceships_1,videos/spaceships_1.mp4,aliens_2,6.132865,0,,,,,,,,,,,
@@ -448,7 +448,7 @@ sub-025,5,446,2,planets_2,videos/planets_2.mp4,spaceships_3,3.672466,0,,,,,,,,,,
 sub-025,5,447,3,aliens_2,videos/aliens_2.mp4,planets_2,7.0,0,,,,,,,,,,,
 sub-025,5,448,4,aliens_3,videos/aliens_3.mp4,aliens_2,2.40796,0,,,,,,,,,,,
 sub-025,5,449,5,aliens_2,videos/aliens_2.mp4,aliens_3,3.632561,0,,,,,,,,,,,
-sub-025,5,450,6,planets_1,videos/planets_1.mp4,aliens_2,2.804499,1,4.272911,match,left,planets_1,alt,alternatives_grey/planets_1_alt1.png,spaceships_2,alt,alternatives_grey/spaceships_2_alt1.png,1.5,2.0
+sub-025,5,450,6,planets_1,videos/planets_1.mp4,aliens_2,2.804499,1,4.272911,match,left,planets_1,alt,alternatives_grey/planets_1_alt2.png,spaceships_2,alt,alternatives_grey/spaceships_2_alt3.png,1.5,2.0
 sub-025,5,451,7,planets_3,videos/planets_3.mp4,planets_1,2.742028,0,,,,,,,,,,,
 sub-025,5,452,8,gold,videos/gold.mp4,planets_3,7.0,0,,,,,,,,,,,
 sub-025,5,453,9,spaceships_3,videos/spaceships_3.mp4,gold,2.998407,0,,,,,,,,,,,
@@ -520,7 +520,7 @@ sub-025,5,518,74,money,videos/money.mp4,gold,5.193369,0,,,,,,,,,,,
 sub-025,5,519,75,spaceships_1,videos/spaceships_1.mp4,money,4.589831,0,,,,,,,,,,,
 sub-025,5,520,76,spaceships_2,videos/spaceships_2.mp4,spaceships_1,2.284943,0,,,,,,,,,,,
 sub-025,5,521,77,planets_2,videos/planets_2.mp4,spaceships_2,2.190573,0,,,,,,,,,,,
-sub-025,5,522,78,spaceships_3,videos/spaceships_3.mp4,planets_2,4.033179,1,3.906331,match,right,planets_3,alt,alternatives_grey/planets_3_alt1.png,spaceships_3,alt,alternatives_grey/spaceships_3_alt2.png,1.5,2.0
+sub-025,5,522,78,spaceships_3,videos/spaceships_3.mp4,planets_2,4.033179,1,3.906331,match,right,planets_3,alt,alternatives_grey/planets_3_alt1.png,spaceships_3,alt,alternatives_grey/spaceships_3_alt3.png,1.5,2.0
 sub-025,5,523,79,diamonds,videos/diamonds.mp4,spaceships_3,2.325246,0,,,,,,,,,,,
 sub-025,5,524,80,money,videos/money.mp4,diamonds,2.780546,0,,,,,,,,,,,
 sub-025,5,525,81,planets_1,videos/planets_1.mp4,money,2.359721,0,,,,,,,,,,,
@@ -581,14 +581,14 @@ sub-025,6,579,24,spaceships_3,videos/spaceships_3.mp4,spaceships_1,3.794054,0,,,
 sub-025,6,580,25,aliens_1,videos/aliens_1.mp4,spaceships_3,2.807039,0,,,,,,,,,,,
 sub-025,6,581,26,planets_2,videos/planets_2.mp4,aliens_1,2.428314,0,,,,,,,,,,,
 sub-025,6,582,27,aliens_2,videos/aliens_2.mp4,planets_2,4.097466,0,,,,,,,,,,,
-sub-025,6,583,28,aliens_3,videos/aliens_3.mp4,aliens_2,4.572527,1,3.191733,match,right,aliens_2,alt,alternatives_grey/aliens_2_alt2.png,aliens_3,task,probe/aliens_3.png,1.5,2.0
+sub-025,6,583,28,aliens_3,videos/aliens_3.mp4,aliens_2,4.572527,1,3.191733,match,right,aliens_2,alt,alternatives_grey/aliens_2_alt3.png,aliens_3,task,probe/aliens_3.png,1.5,2.0
 sub-025,6,584,29,diamonds,videos/diamonds.mp4,aliens_3,2.218258,0,,,,,,,,,,,
 sub-025,6,585,30,gold,videos/gold.mp4,diamonds,7.0,0,,,,,,,,,,,
 sub-025,6,586,31,spaceships_3,videos/spaceships_3.mp4,gold,2.290066,0,,,,,,,,,,,
 sub-025,6,587,32,aliens_3,videos/aliens_3.mp4,spaceships_3,3.604008,0,,,,,,,,,,,
 sub-025,6,588,33,spaceships_3,videos/spaceships_3.mp4,aliens_3,3.404736,0,,,,,,,,,,,
 sub-025,6,589,34,planets_2,videos/planets_2.mp4,spaceships_3,2.103226,0,,,,,,,,,,,
-sub-025,6,590,35,planets_3,videos/planets_3.mp4,planets_2,2.932766,1,2.175412,neither,neither,aliens_1,alt,alternatives_grey/aliens_1_alt2.png,planets_1,alt,alternatives_grey/planets_1_alt1.png,1.5,2.0
+sub-025,6,590,35,planets_3,videos/planets_3.mp4,planets_2,2.932766,1,2.175412,neither,neither,aliens_1,alt,alternatives_grey/aliens_1_alt3.png,planets_1,alt,alternatives_grey/planets_1_alt2.png,1.5,2.0
 sub-025,6,591,36,spaceships_3,videos/spaceships_3.mp4,planets_3,2.684016,0,,,,,,,,,,,
 sub-025,6,592,37,planets_1,videos/planets_1.mp4,spaceships_3,2.208312,0,,,,,,,,,,,
 sub-025,6,593,38,spaceships_2,videos/spaceships_2.mp4,planets_1,6.136567,0,,,,,,,,,,,
@@ -661,7 +661,7 @@ sub-025,6,659,104,money,videos/money.mp4,gold,5.427098,0,,,,,,,,,,,
 sub-025,6,660,105,planets_2,videos/planets_2.mp4,money,2.314529,0,,,,,,,,,,,
 sub-025,6,661,106,planets_1,videos/planets_1.mp4,planets_2,4.046988,0,,,,,,,,,,,
 sub-025,6,662,107,gold,videos/gold.mp4,planets_1,2.806081,0,,,,,,,,,,,
-sub-025,6,663,108,aliens_3,videos/aliens_3.mp4,gold,3.497757,1,3.948322,match,right,aliens_2,alt,alternatives_grey/aliens_2_alt3.png,aliens_3,alt,alternatives_grey/aliens_3_alt1.png,1.5,2.0
+sub-025,6,663,108,aliens_3,videos/aliens_3.mp4,gold,3.497757,1,3.948322,match,right,aliens_2,alt,alternatives_grey/aliens_2_alt3.png,aliens_3,alt,alternatives_grey/aliens_3_alt3.png,1.5,2.0
 sub-025,6,664,109,spaceships_1,videos/spaceships_1.mp4,aliens_3,4.37508,0,,,,,,,,,,,
 sub-025,6,665,110,money,videos/money.mp4,spaceships_1,2.566734,0,,,,,,,,,,,
 sub-025,6,666,111,spaceships_1,videos/spaceships_1.mp4,money,3.466682,0,,,,,,,,,,,

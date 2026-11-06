@@ -35,6 +35,11 @@ onset, as the old study actually ran.
 Each design is checked against the time budget (scanning plus breaks at most SESSION_CAP_S) and
 redrawn if it is over.
 
+Since 2026-11-06 every class has ONE replacement view (aliens and spaceships alt3, planets_1 alt2,
+the others their only one): the manifests list just that file, and the existing designs were
+remapped to it by file name only (order, timing and probes unchanged; backup
+../localizer_backup_before_one_alternative_2026-11-06.tgz).
+
 Usage:  python3 generate_localizer_designs.py [--n 60] [--seed 20261013]
 Writes designs/sub-XXX_localizer.csv (never overwrites; pass --force to replace).
 """

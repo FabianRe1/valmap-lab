@@ -41,6 +41,11 @@ Each design is checked against the time budget (blocks plus breaks at most SESSI
 46 min since the videos, 2026-10-28, user; the 60 designs are unchanged, every one was accepted at
 its first draw under either budget).
 
+Since 2026-11-06 every class has ONE replacement view (aliens and spaceships alt3, planets_1 alt2,
+the others their only one): the manifests list just that file, and the existing designs were
+remapped to it by file name only (order, timing and probes unchanged; backup
+../localizer_backup_before_one_alternative_2026-11-06.tgz).
+
 Usage:  python3 generate_localizer_designs.py [--n 60] [--seed 20261014] [--first 1]
 Writes designs/sub-XXX_localizer_meg.csv (never overwrites; pass --force to replace).
 """

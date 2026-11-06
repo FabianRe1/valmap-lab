@@ -27,7 +27,7 @@ sub-900,1,25,25,planets_1,videos/planets_1.mp4,spaceships_2,3.072189,0,,,,,,,,,,
 sub-900,1,26,26,gold,videos/gold.mp4,planets_1,4.78236,0,,,,,,,,,,,
 sub-900,1,27,27,planets_3,videos/planets_3.mp4,gold,3.841694,0,,,,,,,,,,,
 sub-900,1,28,28,aliens_1,videos/aliens_1.mp4,planets_3,2.164716,0,,,,,,,,,,,
-sub-900,1,29,29,spaceships_3,videos/spaceships_3.mp4,aliens_1,2.22606,1,4.040164,neither,neither,gold,task,probe/gold.png,aliens_3,alt,alternatives_grey/aliens_3_alt2.png,1.5,2.0
+sub-900,1,29,29,spaceships_3,videos/spaceships_3.mp4,aliens_1,2.22606,1,4.040164,neither,neither,gold,task,probe/gold.png,aliens_3,alt,alternatives_grey/aliens_3_alt3.png,1.5,2.0
 sub-900,1,30,30,planets_2,videos/planets_2.mp4,spaceships_3,3.297599,0,,,,,,,,,,,
 sub-900,2,31,1,spaceships_2,videos/spaceships_2.mp4,,4.784385,0,,,,,,,,,,,
 sub-900,2,32,2,aliens_2,videos/aliens_2.mp4,spaceships_2,2.886516,0,,,,,,,,,,,

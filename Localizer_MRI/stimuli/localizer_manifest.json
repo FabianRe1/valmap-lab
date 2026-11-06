@@ -5,8 +5,6 @@
    "category": "aliens",
    "task": "task/aliens_1.png",
    "alternatives": [
-    "alternatives/aliens_1_alt1.png",
-    "alternatives/aliens_1_alt2.png",
     "alternatives/aliens_1_alt3.png"
    ],
    "source": "alien_images/localizer/whale.png"
@@ -15,8 +13,6 @@
    "category": "aliens",
    "task": "task/aliens_2.png",
    "alternatives": [
-    "alternatives/aliens_2_alt1.png",
-    "alternatives/aliens_2_alt2.png",
     "alternatives/aliens_2_alt3.png"
    ],
    "source": "alien_images/localizer/bird.png"
@@ -25,8 +21,6 @@
    "category": "aliens",
    "task": "task/aliens_3.png",
    "alternatives": [
-    "alternatives/aliens_3_alt1.png",
-    "alternatives/aliens_3_alt2.png",
     "alternatives/aliens_3_alt3.png"
    ],
    "source": "alien_images/localizer/lizard.png"
@@ -35,8 +29,6 @@
    "category": "spaceships",
    "task": "task/spaceships_1.png",
    "alternatives": [
-    "alternatives/spaceships_1_alt1.png",
-    "alternatives/spaceships_1_alt2.png",
     "alternatives/spaceships_1_alt3.png"
    ],
    "source": "alien_images/localizer/boat.png"
@@ -45,8 +37,6 @@
    "category": "spaceships",
    "task": "task/spaceships_2.png",
    "alternatives": [
-    "alternatives/spaceships_2_alt1.png",
-    "alternatives/spaceships_2_alt2.png",
     "alternatives/spaceships_2_alt3.png"
    ],
    "source": "alien_images/localizer/car.png"
@@ -55,8 +45,6 @@
    "category": "spaceships",
    "task": "task/spaceships_3.png",
    "alternatives": [
-    "alternatives/spaceships_3_alt1.png",
-    "alternatives/spaceships_3_alt2.png",
     "alternatives/spaceships_3_alt3.png"
    ],
    "source": "alien_images/localizer/rocket.png"
@@ -65,7 +53,6 @@
    "category": "planets",
    "task": "task/planets_1.png",
    "alternatives": [
-    "alternatives/planets_1_alt1.png",
     "alternatives/planets_1_alt2.png"
    ],
    "source": "alien_images/localizer/vulcano.png"
