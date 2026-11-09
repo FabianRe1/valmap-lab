@@ -612,8 +612,8 @@ SWAP_DIAGRAM_ARROW_HEAD = 0.014
 MARK_SEEN_COLOR = "#F2C230"
 MARK_INFERRED_COLOR = "#4C9BE8"
 OVERVIEW_STILL_HEIGHT = 0.12        # the overview: three rows of stills, treasure and points
-OVERVIEW_ROW_Y0 = 0.13
-OVERVIEW_ROW_DY = 0.20
+OVERVIEW_ROW_Y0 = 0.06             # 0.13 before 2026-11-09: on a 4:3 screen (MRI, 1280 x 960) the caption's last line touched the first row
+OVERVIEW_ROW_DY = 0.16             # 0.20 before 2026-11-09 (rows closer, so all three still fit above the footer)
 
 RUN_FAMILIARIZATION = True
 # Familiarization: passes through the three identity routes with their rewards, each walked in full
