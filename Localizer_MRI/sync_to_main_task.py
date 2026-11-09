@@ -13,9 +13,9 @@ Copied, keeping the layout the module expects (base = 'localizer_intro/'):
   stimuli/localizer_manifest.json and stimuli/localizer_manifest_video.json with every file the
   intro shows from them (videos_grey/*.mp4 among them), stimuli/feedback/*.png
 
-Pictures larger than ONLINE_PX are written scaled down to ONLINE_PX (2026-11-09): the Pavlovia
-server is slow (one 1080 px picture, 175 KB, took 9.6 s) and the intro shows them at most about
-30 % of the screen height. Same file names; the scanner localizers keep the full-size files here.
+Every file is copied at full resolution. ONLINE_PX can scale pictures down (it was 540 for one
+pilot on 2026-11-09, against a slow connection); set back to None the same day, since the pilot
+looked low resolution and the loading problem was the participant's connection.
 """
 import io
 import json
@@ -24,7 +24,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ONLINE_PX = 540
+ONLINE_PX = None        # None: full resolution; a number scales larger pictures down to it
 DEST = HERE.parent / "files (5)" / "localizer_intro"
 README = """# localizer_intro (generated, do not edit)
 
@@ -55,7 +55,7 @@ def files_to_copy():
 def content(rel):
     """The bytes the copy should hold: a picture larger than ONLINE_PX scaled down, else the file."""
     src = HERE / rel
-    if src.suffix.lower() == ".png":
+    if ONLINE_PX and src.suffix.lower() == ".png":
         from PIL import Image
         im = Image.open(src)
         if max(im.size) > ONLINE_PX:

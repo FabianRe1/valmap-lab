@@ -6,7 +6,7 @@
 #   PY=/Applications/PsychoPy.app/Contents/MacOS/python bash run_session.sh mri
 # On a Linux PC without the wrapper: bash setup_env_linux.sh once, then this script uses it.
 
-PSYCHOPY_VERSION=2023.2.3
+PSYCHOPY_VERSION=2026.2.4   # since 2026-11-09 (2023.2.3 before)
 
 echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 echo '~~~~~~~~~~~~~~~~~~~~      ValMap      ~~~~~~~~~~~~~~~~~~~'

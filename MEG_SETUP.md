@@ -2,7 +2,7 @@
 
 Written 2026-11-05. Paths are relative to the lab repo folder (`valmap-lab`). Commands go into a
 terminal on the MEG stimulus PC (Linux). `PY` means the Python the tasks run with: after step 3 it
-is `$(cat .valmap_python)` from the lab repo folder, or `PSYCHOPY --version 2023.2.3 python3`
+is `$(cat .valmap_python)` from the lab repo folder, or `PSYCHOPY --version 2026.2.4 python3`
 if the lab's PsychoPy wrapper exists.
 
 ---

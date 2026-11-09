@@ -1,6 +1,6 @@
 #!/bin/bash
 # setup_env_linux.sh: build a Python environment for the ValMap lab sessions on a Linux lab PC
-# (2026-11-04), for when the CBS `PSYCHOPY --version 2023.2.3` wrapper is not available or lacks
+# (2026-11-04), for when the CBS `PSYCHOPY --version 2026.2.4` wrapper is not available or lacks
 # the MEG hardware packages. Needs no root rights: everything goes to your home folder.
 #
 # Usage, from the lab repo's root:   bash setup_env_linux.sh
@@ -8,10 +8,10 @@
 #   environment by itself, because this script writes its python's path to .valmap_python.
 #   Rerunning the script is safe; `bash setup_env_linux.sh --check` only runs the checks.
 #
-# What it installs (the versions of the PsychoPy 2023.2.3 standalone the code was tested with):
-#   Python 3.8, PsychoPy 2023.2.3, numpy 1.23.5, scipy 1.10.1, pandas 2.0.2, pillow 9.5.0,
-#   pyglet 1.5.27, wxPython (the start dialog), psychtoolbox 3.0.18.2 (keyboard timing),
-#   pyserial 3.5 (MEG response box), pyparallel (MEG triggers via /dev/parport0).
+# What it installs (2026-11-09: PsychoPy 2026.2.4, the version the lab runs; 2023.2.3 before):
+#   Python 3.11, PsychoPy 2026.2.4 with its own requirements (numpy 2, PyQt6 for the start
+#   dialog, psychtoolbox for keyboard timing, pyglet), pyserial (MEG response box), pyparallel
+#   (MEG triggers via /dev/parport0). An environment from the 2023 version is replaced.
 # Where: micromamba in ~/.valmap/bin, the environment in ~/.valmap/env (change with VALMAP_HOME).
 
 set -u
@@ -38,32 +38,25 @@ install_env() {
       | tar -xj -C "$VALMAP_HOME" bin/micromamba || { echo "Download failed (internet?)"; exit 1; }
   fi
   export MAMBA_ROOT_PREFIX="$VALMAP_HOME/mamba"
+  # an environment from the PsychoPy 2023 version (Python 3.8) cannot take 2026.2.4: start anew
+  if [ -x "$PYTHON" ] && ! "$PYTHON" -c 'import sys; sys.exit(sys.version_info[:2] != (3, 11))'; then
+    say "Replacing the old environment in $ENV (Python 3.8, PsychoPy 2023)"
+    rm -rf "$ENV"
+  fi
   if [ ! -x "$PYTHON" ]; then
     say "Creating the environment in $ENV (conda-forge; takes a few minutes)"
-    # conda only for Python and wxPython (a prebuilt GUI library that pip would have to compile)
-    "$MAMBA" create -y -p "$ENV" -c conda-forge python=3.8 wxpython pip \
+    "$MAMBA" create -y -p "$ENV" -c conda-forge python=3.11 pip \
       || { echo "Creating the environment failed"; exit 1; }
   fi
-  # conda's wxPython brings its own OpenGL loader (libglvnd); PsychoPy would then load it instead
-  # of the PC's graphics driver and fail ("invalid enumerant", found 2026-11-04). Remove it so the
-  # system's OpenGL is used; wxPython does not need it.
+  # a conda OpenGL loader (libglvnd) in the environment would be loaded instead of the PC's
+  # graphics driver and fail ("invalid enumerant", found 2026-11-04): remove any, so the
+  # system's OpenGL is used.
   rm -f "$ENV"/lib/libGL.so* "$ENV"/lib/libGLX.so* "$ENV"/lib/libGLdispatch.so* \
         "$ENV"/lib/libEGL.so* "$ENV"/lib/libOpenGL.so*
-  say "Installing PsychoPy 2023.2.3 and the hardware packages (pip)"
+  say "Installing PsychoPy 2026.2.4 and the hardware packages (pip)"
   "$PYTHON" -m pip install --upgrade pip >/dev/null
-  # pinned first, so PsychoPy's own requirements do not pull newer versions
-  PINS="numpy==1.23.5 scipy==1.10.1 pandas==2.0.2 pillow==9.5.0 pyglet==1.5.27 pyserial==3.5 psychtoolbox==3.0.18.2"
-  "$PYTHON" -m pip install $PINS pyparallel \
-    || { echo "pip failed for the pinned packages"; exit 1; }
-  # PsychoPy 2023.2.3 lists pypi-search, which has left PyPI, so pip cannot resolve it: install
-  # PsychoPy alone and then the packages the lab code needs (visual, keyboard, gui, parallel)
-  "$PYTHON" -m pip install --no-deps "psychopy==2023.2.3" || { echo "pip failed for psychopy"; exit 1; }
-  "$PYTHON" -m pip install $PINS "matplotlib<3.8" "setuptools<=66.1.1" pyyaml freetype-py \
-    python-bidi arabic-reshaper psutil requests future python-xlib msgpack msgpack-numpy ujson \
-    pyzmq imageio openpyxl json-tricks esprima \
-    || { echo "pip failed for PsychoPy's packages"; exit 1; }
-  echo "(pip's lines 'psychopy 2023.2.3 requires ..., which is not installed' are expected: those"
-  echo " packages serve PsychoPy's Builder and online tools, not these experiments.)"
+  "$PYTHON" -m pip install "psychopy==2026.2.4" PyQt6 psychtoolbox pyserial pyparallel python-xlib \
+    || { echo "pip failed"; exit 1; }
   echo "$PYTHON" > "$REPO/.valmap_python"
   echo "Wrote $REPO/.valmap_python: run_session.sh now uses this environment."
 }
@@ -73,9 +66,9 @@ check_env() {
   say "Python packages"
   "$PYTHON" - <<'EOF' || ok=0
 import importlib, sys
-want = {"psychopy": "2023.2.3", "numpy": "1.23.5", "pyglet": "1.5.27", "serial": "3.5",
-        "wx": None, "psychtoolbox": "3.0.18.2", "parallel": None, "pandas": "2.0.2",
-        "scipy": "1.10.1", "PIL": "9.5.0"}
+want = {"psychopy": "2026.2.4", "numpy": None, "pyglet": None, "serial": None,
+        "PyQt6": None, "psychtoolbox": None, "parallel": None, "pandas": None,
+        "scipy": None, "PIL": None}
 bad = 0
 for name, version in want.items():
     try:
