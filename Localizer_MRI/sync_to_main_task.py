@@ -12,15 +12,19 @@ Copied, keeping the layout the module expects (base = 'localizer_intro/'):
   online_practice/localizer_practice.js, online_practice/practice_designs.json,
   stimuli/localizer_manifest.json and stimuli/localizer_manifest_video.json with every file the
   intro shows from them (videos_grey/*.mp4 among them), stimuli/feedback/*.png
+
+Pictures larger than ONLINE_PX are written scaled down to ONLINE_PX (2026-11-09): the Pavlovia
+server is slow (one 1080 px picture, 175 KB, took 9.6 s) and the intro shows them at most about
+30 % of the screen height. Same file names; the scanner localizers keep the full-size files here.
 """
-import filecmp
+import io
 import json
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+ONLINE_PX = 540
 DEST = HERE.parent / "files (5)" / "localizer_intro"
 README = """# localizer_intro (generated, do not edit)
 
@@ -48,17 +52,33 @@ def files_to_copy():
     return out
 
 
+def content(rel):
+    """The bytes the copy should hold: a picture larger than ONLINE_PX scaled down, else the file."""
+    src = HERE / rel
+    if src.suffix.lower() == ".png":
+        from PIL import Image
+        im = Image.open(src)
+        if max(im.size) > ONLINE_PX:
+            scale = ONLINE_PX / max(im.size)
+            im = im.resize((round(im.size[0] * scale), round(im.size[1] * scale)), Image.LANCZOS)
+            buf = io.BytesIO()
+            im.save(buf, "PNG", optimize=True)
+            return buf.getvalue()
+    return src.read_bytes()
+
+
 def main():
     check = "--check" in sys.argv
     stale = []
     for rel in files_to_copy():
-        src, dst = HERE / rel, DEST / rel
-        if dst.exists() and filecmp.cmp(src, dst, shallow=False):
+        dst = DEST / rel
+        data = content(rel)
+        if dst.exists() and dst.read_bytes() == data:
             continue
         stale.append(rel)
         if not check:
             dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(src, dst)
+            dst.write_bytes(data)
     readme = DEST / "README.md"
     if not readme.exists() or readme.read_text() != README:
         stale.append("README.md")
