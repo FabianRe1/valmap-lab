@@ -135,6 +135,10 @@ def ask(initial):
         data = dlg.show()
         if not dlg.OK:
             return None
+        # PsychoPy 2023 returns a list, newer versions a dict keyed by the field labels
+        # (2026-11-09: with 2026.2.4 every entry failed the checks); both keep the field order
+        if isinstance(data, dict):
+            data = list(data.values())
         values = dict(zip(("session", "part", "code", "subject_n", "age", "gender", "handedness",
                            "start_block", "notes"), (str(x) for x in data)))
         d, problems = check_details(values)

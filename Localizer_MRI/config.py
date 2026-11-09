@@ -31,13 +31,13 @@ DRY_RUN_SCALE = 0.02        # --dry-run multiplies every duration by this
 # Keys
 # ---------------------------------------------------------------------------
 # Scanner button box as in the old RepChanges study (config_shared.py): b = blue, right index;
-# z = yellow, right middle; r = green, left index; g = red, left middle (unused). J/K/L also work,
+# z = yellow, right middle; r = red, left index; g = green (unused; colors per the user 2026-11-09). J/K/L also work,
 # for a laptop. THE ONE PLACE TO CHANGE THE RESPONSE KEYS.
 # Settled 2026-11-04 from RepChanges on the same scanner (config_shared.py:35-38, its button
 # check in instruction_texts_shared.py:4-7, loc_1_utils.py:119-133): every session's check passed
 # on b, z, r and g in turn, so these are four different buttons and the box sends z, not y. The
-# 2026-10-26 "b / y / g" are the colors blue, yellow, green (keys b, z, r); g is the red left
-# middle button, which RepChanges never used for answers, so it no longer means "neither". "y"
+# button colors (user, 2026-11-09): b blue, z yellow, r red, g green. g was never an answer in
+# RepChanges, so it does not mean "neither"; it only advances screens. "y"
 # stays as a layout fallback only (the one key a German layout swaps; no other button sends it).
 # 2026-11-05: the main task's MRI answers now follow this same pattern (b left, z right, r the
 # third answer, there the middle picture), so a button means the same in both MRI tasks.

@@ -376,7 +376,7 @@ PROBE_CODES = {
 KEYBOARD_BACKEND = "ptb"
 
 # Direct 3AFC mapping, left to right = options 1/2/3. Formerly the number row, JKL and the MRI
-# button box in parallel (blue 'b', yellow 'z', green 'r' from the lab's RepChanges setup), so the
+# button box in parallel (blue 'b', yellow 'z', red 'r' from the lab's RepChanges setup), so the
 # same build runs on a laptop and in the scanner unchanged.
 # THE ONE PLACE TO CHANGE THE RESPONSE KEYS (decided 2026-09-10: J, K, L only for now). Each
 # option accepts every key in its tuple, so to add a scanner button box just append its key
@@ -395,16 +395,16 @@ CONTINUE_TEXT_KEY = "press_space"   # the footer on self-paced screens (the scan
 # check, instruction_texts_shared.py:4-7), which sent and logged these keys:
 #   b = blue, right index    -> LEFT option
 #   z = yellow, right middle -> RIGHT option
-#   r = green, left index    -> MIDDLE option
-#   g = red, left middle     -> no answer (RepChanges never used it for answers either)
+#   r = red, left index      -> MIDDLE option
+#   g = green, left middle   -> no answer (RepChanges never used it for answers either)
 # 2026-11-05, the user: the MRI localizer and main task take the old experiment's pattern.
 # RepChanges' localizer (1_localizer_oddball/loc_1_utils.py:119-137, loc_1_instruction_texts.py:
 # 66-67): right index (b) = left picture, right middle (z) = right picture, left index (r) =
 # neither. Its main task had no three-way choice (a slider: b left, z right, r confirm). So here,
 # as in the MRI localizer: b left, z right, and the left index takes the third answer, the middle
 # picture (in the localizer "neither"). Before 2026-11-05: z middle, r right (from a commented-out
-# block in RepChanges, utils_shared.py:810-827). The user's "b, y, g" (2026-10-26) are the colors
-# blue, yellow, green, i.e. keys b, z, r; "g" is the red button, so it does not answer. "y" stays
+# block in RepChanges, utils_shared.py:810-827). Button colors (user, 2026-11-09): b blue, z yellow,
+# r red (the middle answer), g green, which does not answer. "y" stays
 # with z ONLY as a layout fallback (a German layout is the one place y and z swap; no other
 # button sends y). Any button or the space bar advances a screen, as in RepChanges; no letters
 # under the options.
