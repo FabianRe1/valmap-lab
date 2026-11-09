@@ -213,90 +213,90 @@ STRINGS = {
     "de": {
         "instr_welcome": "Willkommen und vielen Dank, dass du teilnimmst!\n\nIn diesem Experiment begleitest du drei Aliens auf ihren Reisen durch das All: Jedes Alien steigt in ein Raumschiff, das Raumschiff fliegt es zu einem Planeten, und auf diesem Planeten wartet ein Schatz. Jede Reise ist also eine Abfolge von {n_clips} Bildern (ein Alien, ein Raumschiff, ein Planet) und endet immer bei einem Schatz.",
         "instr_plan": (
-            "SO LAEUFT DIE EINFUEHRUNG AB\n\nDie naechsten Bildschirme erklaeren alles, was du "
+            "SO LÄUFT DIE EINFÜHRUNG AB\n\nDie nächsten Bildschirme erklären alles, was du "
             "wissen musst.\n\n{intro_plan}"),
-        "instr_world": "Es gibt drei Reisen.\n\nJede Reise beginnt mit einem Alien. Das Alien steigt in ein Raumschiff, das Raumschiff fliegt es zu einem Planeten, und auf diesem Planeten wartet ein Schatz: Geld, ein goldenes Relikt oder ein Diamant. Jede Reise hat also dieselbe Reihenfolge: zuerst ein Alien, dann ein Raumschiff, dann ein Planet, dann der Schatz.\n\nEs gibt drei Aliens, drei Raumschiffe und drei Planeten, und jede Reise hat ihr eigenes Alien, Raumschiff und ihren eigenen Planeten.\n\nJeder Schatz wartet am Ende einer Reise. Wenn sich die Reisen aendern (mehr dazu unten), bleibt ein Schatz immer auf seinem Planeten. Du lernst die drei Reisen vor der Hauptaufgabe kennen.",
+        "instr_world": "Es gibt drei Reisen.\n\nJede Reise beginnt mit einem Alien. Das Alien steigt in ein Raumschiff, das Raumschiff fliegt es zu einem Planeten, und auf diesem Planeten wartet ein Schatz: Geld, ein goldenes Relikt oder ein Diamant. Jede Reise hat also dieselbe Reihenfolge: zuerst ein Alien, dann ein Raumschiff, dann ein Planet, dann der Schatz.\n\nEs gibt drei Aliens, drei Raumschiffe und drei Planeten, und jede Reise hat ihr eigenes Alien, Raumschiff und ihren eigenen Planeten.\n\nJeder Schatz wartet am Ende einer Reise. Wenn sich die Reisen ändern (mehr dazu unten), bleibt ein Schatz immer auf seinem Planeten. Du lernst die drei Reisen vor der Hauptaufgabe kennen.",
         "instr_worth": (
             "Eine Reise ist aktuell 100 Punkte wert. Die anderen beiden sind je 50 Punkte "
             "wert.\n\nWenn du eine Reise bis zum Ende siehst, siehst du ihren Schatz und wie "
             "viele Punkte sie gerade wert ist.\n\n"
-            "Wichtig: WELCHE Reise 100 Punkte wert ist, aendert sich von Zeit zu Zeit."),
-        "instr_short": "Die meisten Durchgaenge zeigen eine ganze Reise: jedes Bild vom ersten bis zum letzten, dann ihren Schatz und wie viele Punkte sie wert ist.\n\nManche Durchgaenge sind KURZ, und es gibt zwei Arten. Manche zeigen nur einen Schatz mit seinen Punkten und gar keine Bilder: Sie betreffen die Reise, die gerade bei diesem Schatz endet. Andere zeigen nur zwei Bilder hintereinander und keinen Schatz.\n\nEin kurzer Durchgang kann etwas Neues zeigen oder einfach etwas, das du schon weisst. Auf dem Bildschirm siehst du nicht, was davon zutrifft: Das verraet dir nur dein Wissen ueber die Reisen.",
-        "instr_value_change": "Wenn die 100 Punkte zu einer anderen Reise wandern, siehst du einen kurzen Durchgang mit nur einem Schatz und \"100\", ohne Bilder. Die 100 gehoeren jetzt zu der Reise, die gerade bei diesem Schatz endet.\n\nWar diese Reise bisher nur 50 wert, sind die 100 Punkte zu ihr gewandert, und die Reise, die vorher 100 wert war, ist jetzt nur noch 50 wert. War sie schon 100 wert, hat sich nichts geaendert.\n\nKeines der Bilder dieser Reise wird gezeigt. Nutze dein Wissen, um herauszufinden, welches Alien, welches Raumschiff und welcher Planet gerade zu diesem Schatz fuehren.",
-        "instr_structure_change": "Auch die Reisen selbst koennen sich aendern: Manchmal steigt ein Alien in ein NEUES Raumschiff, oder ein Raumschiff fliegt zu einem NEUEN Planeten.\n\nDann siehst du einen kurzen Durchgang mit nur diesen beiden Bildern hintereinander und keinem Schatz. Folgte das zweite Bild schon immer auf das erste, hat sich nichts geaendert. Ist es neu, ersetzt diese Verbindung ab jetzt die alte: Die beiden beteiligten Reisen tauschen ihre restlichen Teile. Steigt zum Beispiel ein Alien jetzt in das Raumschiff eines anderen Aliens, uebernimmt dieses andere Alien das alte Raumschiff des ersten. Die Schaetze bleiben auf ihren Planeten.\n\nDu siehst immer nur eine Haelfte eines solchen Tauschs. Die andere Haelfte aendert sich ebenfalls, ohne gezeigt zu werden, und du musst erschliessen, wie sie jetzt aussehen muss. Diese Aenderungen bleiben bestehen, bis sich wieder etwas aendert.",
-        "instr_unseen": "WAS DU NICHT SIEHST, ZAEHLT\n\nJede Reise besteht aus {n_clips} Bildern. Wenn ein kurzer Durchgang also nur zwei Bilder hintereinander zeigt, hat die Reise noch {pair_rest}. Dieser Teil wurde dir nicht gezeigt. Er gehoert zur selben Reise, und ist die Verbindung der beiden Bilder neu, haben sich auch die ungesehenen Teile beider beteiligten Reisen verschoben. Ein Durchgang mit nur einem Schatz zeigt keines der Bilder seiner Reise: Sie sind alle ungesehen.\n\nDie Fragen beziehen sich oft genau auf diese ungesehenen Teile: welche Bilder gerade zur selben Reise gehoeren und was eine Aenderung, die du nur zum Teil gesehen hast, fuer den Rest bedeutet. Achte deshalb genau auf jeden kurzen Durchgang, und nutze die Pausen, um zu erschliessen, was er fuer die nicht gezeigten Teile bedeutet.",
-        "instr_rest": "In der Aufgabe gibt es viele laengere Pausen, in denen nur ein Kreuz in der Bildschirmmitte zu sehen ist.\n\nNutze diese Pausen, um darueber nachzudenken, wie die Dinge gerade stehen: welche Reise 100 wert ist und welche Bilder zu welcher Reise gehoeren. Nach einer Aenderung nutzt du sie, um herauszufinden, was daraus folgt, zum Beispiel aus welchen Bildern die Reise besteht, die jetzt 100 wert ist, oder wie die nicht gezeigte Haelfte eines Tauschs jetzt aussehen muss.\n\nSchau dabei die ganze Zeit auf das Kreuz. Ein GROESSERES Kreuz bedeutet, dass gleich ein neuer Durchgang beginnt.",
+            "Wichtig: WELCHE Reise 100 Punkte wert ist, ändert sich von Zeit zu Zeit."),
+        "instr_short": "Die meisten Durchgänge zeigen eine ganze Reise: jedes Bild vom ersten bis zum letzten, dann ihren Schatz und wie viele Punkte sie wert ist.\n\nManche Durchgänge sind KURZ, und es gibt zwei Arten. Manche zeigen nur einen Schatz mit seinen Punkten und gar keine Bilder: Sie betreffen die Reise, die gerade bei diesem Schatz endet. Andere zeigen nur zwei Bilder hintereinander und keinen Schatz.\n\nEin kurzer Durchgang kann etwas Neues zeigen oder einfach etwas, das du schon weißt. Auf dem Bildschirm siehst du nicht, was davon zutrifft: Das verrät dir nur dein Wissen über die Reisen.",
+        "instr_value_change": "Wenn die 100 Punkte zu einer anderen Reise wandern, siehst du einen kurzen Durchgang mit nur einem Schatz und \"100\", ohne Bilder. Die 100 gehören jetzt zu der Reise, die gerade bei diesem Schatz endet.\n\nWar diese Reise bisher nur 50 wert, sind die 100 Punkte zu ihr gewandert, und die Reise, die vorher 100 wert war, ist jetzt nur noch 50 wert. War sie schon 100 wert, hat sich nichts geändert.\n\nKeines der Bilder dieser Reise wird gezeigt. Nutze dein Wissen, um herauszufinden, welches Alien, welches Raumschiff und welcher Planet gerade zu diesem Schatz führen.",
+        "instr_structure_change": "Auch die Reisen selbst können sich ändern: Manchmal steigt ein Alien in ein NEUES Raumschiff, oder ein Raumschiff fliegt zu einem NEUEN Planeten.\n\nDann siehst du einen kurzen Durchgang mit nur diesen beiden Bildern hintereinander und keinem Schatz. Folgte das zweite Bild schon immer auf das erste, hat sich nichts geändert. Ist es neu, ersetzt diese Verbindung ab jetzt die alte: Die beiden beteiligten Reisen tauschen ihre restlichen Teile. Steigt zum Beispiel ein Alien jetzt in das Raumschiff eines anderen Aliens, übernimmt dieses andere Alien das alte Raumschiff des ersten. Die Schätze bleiben auf ihren Planeten.\n\nDu siehst immer nur eine Hälfte eines solchen Tauschs. Die andere Hälfte ändert sich ebenfalls, ohne gezeigt zu werden, und du musst erschließen, wie sie jetzt aussehen muss. Diese Änderungen bleiben bestehen, bis sich wieder etwas ändert.",
+        "instr_unseen": "WAS DU NICHT SIEHST, ZÄHLT\n\nJede Reise besteht aus {n_clips} Bildern. Wenn ein kurzer Durchgang also nur zwei Bilder hintereinander zeigt, hat die Reise noch {pair_rest}. Dieser Teil wurde dir nicht gezeigt. Er gehört zur selben Reise, und ist die Verbindung der beiden Bilder neu, haben sich auch die ungesehenen Teile beider beteiligten Reisen verschoben. Ein Durchgang mit nur einem Schatz zeigt keines der Bilder seiner Reise: Sie sind alle ungesehen.\n\nDie Fragen beziehen sich oft genau auf diese ungesehenen Teile: welche Bilder gerade zur selben Reise gehören und was eine Änderung, die du nur zum Teil gesehen hast, für den Rest bedeutet. Achte deshalb genau auf jeden kurzen Durchgang, und nutze die Pausen, um zu erschließen, was er für die nicht gezeigten Teile bedeutet.",
+        "instr_rest": "In der Aufgabe gibt es viele längere Pausen, in denen nur ein Kreuz in der Bildschirmmitte zu sehen ist.\n\nNutze diese Pausen, um darüber nachzudenken, wie die Dinge gerade stehen: welche Reise 100 wert ist und welche Bilder zu welcher Reise gehören. Nach einer Änderung nutzt du sie, um herauszufinden, was daraus folgt, zum Beispiel aus welchen Bildern die Reise besteht, die jetzt 100 wert ist, oder wie die nicht gezeigte Hälfte eines Tauschs jetzt aussehen muss.\n\nSchau dabei die ganze Zeit auf das Kreuz. Ein GRÖSSERES Kreuz bedeutet, dass gleich ein neuer Durchgang beginnt.",
         "instr_probe": (
-            "Von Zeit zu Zeit wird dir eine Frage gestellt, mit drei Bildern als moeglichen "
-            "Antworten.\n\nManche Fragen fragen, welches Bild du bevorzugst (waehle ein "
+            "Von Zeit zu Zeit wird dir eine Frage gestellt, mit drei Bildern als möglichen "
+            "Antworten.\n\nManche Fragen fragen, welches Bild du bevorzugst (wähle ein "
             "Bild der Reise, die gerade am meisten wert ist). Andere zeigen dir ein Bild und "
-            "fragen, welches der drei Bilder zur selben Reise gehoert wie dieses, also gerade Teil "
+            "fragen, welches der drei Bilder zur selben Reise gehört wie dieses, also gerade Teil "
             "derselben Abfolge ist.\n\n"
             "Antworte mit den drei Antworttasten: linke Taste = linkes Bild, mittlere "
             "Taste = mittleres Bild, rechte Taste = rechtes Bild. Du hast {t_probe:.0f} "
             "Sekunden. Antworten beziehen sich immer auf den JETZIGEN Stand, nach allen "
-            "bisherigen Aenderungen."),
-        "instr_summary": "Zusammengefasst:\n\n1. Drei Reisen, jede aus einem Alien, einem Raumschiff und einem Planeten, die beim Schatz dieses Planeten endet.\n2. Eine Reise ist 100 wert, die anderen 50, und das aendert sich.\n3. Verbindungen koennen sich aendern; du siehst nur die Haelfte jedes Tauschs, und Schaetze bleiben auf ihren Planeten.\n4. Kurze Durchgaenge zeigen nur einen Schatz mit seinen Punkten oder nur zwei Bilder. Sie koennen etwas Neues zeigen oder nicht.\n5. Schau in den Pausen auf das Kreuz und denk durch, was 100 wert ist und was jetzt zusammengehoert.\n6. Antworte zum AKTUELLEN Stand, so gut du kannst.\n\n{practice_line}",
+            "bisherigen Änderungen."),
+        "instr_summary": "Zusammengefasst:\n\n1. Drei Reisen, jede aus einem Alien, einem Raumschiff und einem Planeten, die beim Schatz dieses Planeten endet.\n2. Eine Reise ist 100 wert, die anderen 50, und das ändert sich.\n3. Verbindungen können sich ändern; du siehst nur die Hälfte jedes Tauschs, und Schätze bleiben auf ihren Planeten.\n4. Kurze Durchgänge zeigen nur einen Schatz mit seinen Punkten oder nur zwei Bilder. Sie können etwas Neues zeigen oder nicht.\n5. Schau in den Pausen auf das Kreuz und denk durch, was 100 wert ist und was jetzt zusammengehört.\n6. Antworte zum AKTUELLEN Stand, so gut du kannst.\n\n{practice_line}",
         "practice_intro": (
             "SO FUNKTIONIERT ES\n\nZuerst ein kurzer Durchgang mit farbigen Formen. Diese Formen "
-            "gehoeren NICHT zur Hauptaufgabe: Sie zeigen nur, wie eine Reise aufgebaut ist, wie "
-            "kurze Durchgaenge aussehen und wie die beiden Arten von Aenderung aussehen.\n\nJede "
-            "Reise hat ihre eigene Farbe und laeuft immer {shape_list}. Achte darauf, was "
-            "mit dem Schatz am Ende und mit den Punkten passiert. Du musst nichts druecken."),
+            "gehören NICHT zur Hauptaufgabe: Sie zeigen nur, wie eine Reise aufgebaut ist, wie "
+            "kurze Durchgänge aussehen und wie die beiden Arten von Änderung aussehen.\n\nJede "
+            "Reise hat ihre eigene Farbe und läuft immer {shape_list}. Achte darauf, was "
+            "mit dem Schatz am Ende und mit den Punkten passiert. Du musst nichts drücken."),
         "practice_note_same_value": (
             "Das war ein KURZER Durchgang: eine einzelne GELBE Form, dann die Geldscheine der "
             "GELBEN Reise mit \"100\".\n\nDie GELBE Reise war schon 100 wert, also hat sich nichts "
-            "geaendert. Kurze Durchgaenge bringen oft gar nichts Neues. Vergleiche immer, "
-            "was du siehst, mit dem, was du schon weisst."),
+            "geändert. Kurze Durchgänge bringen oft gar nichts Neues. Vergleiche immer, "
+            "was du siehst, mit dem, was du schon weißt."),
         "practice_note_value": (
             "Wieder ein kurzer Durchgang, und diesmal mit einer Neuigkeit.\n\nEr zeigte eine "
-            "einzelne BLAUE Form, dann die GOLDMUENZEN mit \"100\". Die blaue Reise war bisher nur "
+            "einzelne BLAUE Form, dann die GOLDMÜNZEN mit \"100\". Die blaue Reise war bisher nur "
             "50 wert, also sind die 100 Punkte gewandert: Die blaue Reise ist jetzt 100 wert, und"
             " die gelbe, die vorher 100 wert war, nur noch 50.\n\nDer Rest der blauen Reise wurde "
-            "nicht gezeigt. Den erschliesst du aus deinem Wissen."),
+            "nicht gezeigt. Den erschließt du aus deinem Wissen."),
         "practice_note_same_structure": (
             "Ein kurzer Durchgang mit zwei Formen hintereinander, dann die Diamanten der LILA "
             "Reise mit \"50\".\n\nDiese beiden LILA Formen folgten schon immer aufeinander, also hat "
-            "sich nichts geaendert."),
+            "sich nichts geändert."),
         "practice_note_structure": (
             "Wieder zwei Formen hintereinander, aber diesmal ist die Verbindung NEU: Die GELBE "
-            "Form fuehrt jetzt zu einer LILA Form. Ab jetzt fuehrt die GELBE Reise in die LILA "
+            "Form führt jetzt zu einer LILA Form. Ab jetzt führt die GELBE Reise in die LILA "
             "Reise und endet deshalb beim Schatz der LILA Reise, den Diamanten.\n\nDamit kennst du"
-            " auch die andere Haelfte, die NICHT gezeigt wurde: Die LILA Reise muss jetzt in die "
-            "GELBE fuehren. Die beiden Reisen tauschen ihre restlichen Teile, und genau diese "
-            "nicht gezeigte Haelfte selbst zu erschliessen ist die Aufgabe."),
+            " auch die andere Hälfte, die NICHT gezeigt wurde: Die LILA Reise muss jetzt in die "
+            "GELBE führen. Die beiden Reisen tauschen ihre restlichen Teile, und genau diese "
+            "nicht gezeigte Hälfte selbst zu erschließen ist die Aufgabe."),
         "practice_map_structure": (
             "So verlaufen die beiden Reisen jetzt, von Anfang bis Ende."),
-        "practice_map_shown": "Gezeigt: Die GELBE Reise fuehrt jetzt in die LILA Reise",
+        "practice_map_shown": "Gezeigt: Die GELBE Reise führt jetzt in die LILA Reise",
         "practice_map_hidden": (
-            "Nicht gezeigt, aber daraus folgt: Die LILA Reise fuehrt jetzt in die GELBE Reise"),
+            "Nicht gezeigt, aber daraus folgt: Die LILA Reise führt jetzt in die GELBE Reise"),
         "practice_done": (
-            "Uebung beendet.\n\nDruecke {continue_key}, um weiterzumachen, oder P, um die "
-            "Uebung zu wiederholen."),
-        "familiarization_intro": "DIE DREI ECHTEN REISEN\n\nDu siehst jetzt die drei echten Reisen der Hauptaufgabe, jede einmal von Anfang bis Ende, mit dem Schatz am Ende und den Punkten, die sie wert ist.\n\nLerne, in welches Raumschiff jedes Alien steigt, zu welchem Planeten jedes Raumschiff fliegt, bei welchem Schatz jede Reise endet und welche Reise 100 wert ist. Die 100 bleibt in diesem Block bei derselben Reise, damit du sie lernen kannst. Nur zuschauen; du musst nichts druecken.",
+            "Übung beendet.\n\nDrücke {continue_key}, um weiterzumachen, oder P, um die "
+            "Übung zu wiederholen."),
+        "familiarization_intro": "DIE DREI ECHTEN REISEN\n\nDu siehst jetzt die drei echten Reisen der Hauptaufgabe, jede einmal von Anfang bis Ende, mit dem Schatz am Ende und den Punkten, die sie wert ist.\n\nLerne, in welches Raumschiff jedes Alien steigt, zu welchem Planeten jedes Raumschiff fliegt, bei welchem Schatz jede Reise endet und welche Reise 100 wert ist. Die 100 bleibt in diesem Block bei derselben Reise, damit du sie lernen kannst. Nur zuschauen; du musst nichts drücken.",
         "familiarization_done": "Fertig. Es folgen einige Fragen zu dem, was du gesehen hast.",
         # the practice on the real journeys (2026-10-01)
-        "intro_plan_real": "Nach diesen Erklaerungen lernst du die drei Reisen kennen und siehst Beispiele, die zeigen, wie die Aufgabe aussieht, auch fuer beide Arten von Aenderung.",
-        "intro_plan_shapes": "Nach diesen Erklaerungen zeigt eine kurze Uebung mit Formen, wie die Aufgabe funktioniert.",
-        "practice_line_shapes": "Zuerst uebst du mit Formen, die nicht zur Hauptaufgabe gehoeren.",
-        "practice_line_real": "Zuerst lernst du die drei Reisen kennen, und dann siehst du an ihnen Beispiele fuer beide Arten von Aenderung.",
-        "familiarization_done_real": "Fertig. Als Naechstes siehst du alle drei Reisen auf einem Bildschirm, um sie zu lernen, und dann Beispiele fuer die Aenderungen an diesen Reisen.",
-        "practice_intro_real": "BEISPIELE FUER DIE AENDERUNGEN\n\nZuerst siehst du alle drei Reisen auf einem Bildschirm, um sie zu lernen. Dann folgen kurze Durchgaenge und beide Arten von Aenderung als Beispiele an diesen Reisen. Nach jedem Beispiel zeigt ein Bildschirm die beteiligten Reisen und erklaert, was passiert ist. Nach dem Tausch beantwortest du drei Fragen dazu, ohne Zeitlimit, und siehst danach die richtigen Antworten erklaert.\n\nDie Beispiele sind nur Uebung: Danach wird alles wieder so, wie du es gelernt hast.",
-        "real_note_same_value": "Das war ein KURZER Durchgang: nur ein Schatz mit \"100\", keine Bilder. Die Reise, die bei diesem Schatz endet, war schon 100 wert, also hat sich nichts geaendert. Kurze Durchgaenge bringen oft nichts Neues: Vergleiche immer, was du siehst, mit dem, was du weisst.",
-        "real_note_value": "Noch ein kurzer Durchgang, und diesmal mit einer Neuigkeit: dieser Schatz mit \"100\". Die Reise, die bei ihm endet, war bisher nur 50 wert, also sind die 100 zu ihr gewandert, und die untere Reise ist jetzt nur noch 50 wert. Keines ihrer Bilder wurde gezeigt: Du erschliesst aus dem, was du weisst, welche Bilder zu diesem Schatz fuehren.",
+        "intro_plan_real": "Nach diesen Erklärungen lernst du die drei Reisen kennen und siehst Beispiele, die zeigen, wie die Aufgabe aussieht, auch für beide Arten von Änderung.",
+        "intro_plan_shapes": "Nach diesen Erklärungen zeigt eine kurze Übung mit Formen, wie die Aufgabe funktioniert.",
+        "practice_line_shapes": "Zuerst übst du mit Formen, die nicht zur Hauptaufgabe gehören.",
+        "practice_line_real": "Zuerst lernst du die drei Reisen kennen, und dann siehst du an ihnen Beispiele für beide Arten von Änderung.",
+        "familiarization_done_real": "Fertig. Als Nächstes siehst du alle drei Reisen auf einem Bildschirm, um sie zu lernen, und dann Beispiele für die Änderungen an diesen Reisen.",
+        "practice_intro_real": "BEISPIELE FÜR DIE ÄNDERUNGEN\n\nZuerst siehst du alle drei Reisen auf einem Bildschirm, um sie zu lernen. Dann folgen kurze Durchgänge und beide Arten von Änderung als Beispiele an diesen Reisen. Nach jedem Beispiel zeigt ein Bildschirm die beteiligten Reisen und erklärt, was passiert ist. Nach dem Tausch beantwortest du drei Fragen dazu, ohne Zeitlimit, und siehst danach die richtigen Antworten erklärt.\n\nDie Beispiele sind nur Übung: Danach wird alles wieder so, wie du es gelernt hast.",
+        "real_note_same_value": "Das war ein KURZER Durchgang: nur ein Schatz mit \"100\", keine Bilder. Die Reise, die bei diesem Schatz endet, war schon 100 wert, also hat sich nichts geändert. Kurze Durchgänge bringen oft nichts Neues: Vergleiche immer, was du siehst, mit dem, was du weißt.",
+        "real_note_value": "Noch ein kurzer Durchgang, und diesmal mit einer Neuigkeit: dieser Schatz mit \"100\". Die Reise, die bei ihm endet, war bisher nur 50 wert, also sind die 100 zu ihr gewandert, und die untere Reise ist jetzt nur noch 50 wert. Keines ihrer Bilder wurde gezeigt: Du erschließt aus dem, was du weißt, welche Bilder zu diesem Schatz führen.",
         "real_label_value_new": "Die Reise, die bei diesem Schatz endet: jetzt 100 wert",
         "real_label_value_old": "Vorher 100 wert, jetzt nur noch 50",
-        "real_note_same_structure": "Ein kurzer Durchgang mit nur zwei Bildern hintereinander und keinem Schatz. In dieser Reise folgten diese beiden Bilder schon immer aufeinander, also hat sich nichts geaendert.",
-        "real_note_structure": "Wieder zwei Bilder hintereinander, aber diese Verbindung ist NEU. Die obere Reise fuehrt jetzt in das Ende einer anderen Reise weiter und endet deshalb jetzt bei deren Schatz. Die andere Haelfte wurde dir NICHT gezeigt, aber sie folgt daraus: Jene andere Reise fuehrt jetzt in das alte Ende der oberen Reise weiter. Die beiden tauschen ihre restlichen Teile.",
+        "real_note_same_structure": "Ein kurzer Durchgang mit nur zwei Bildern hintereinander und keinem Schatz. In dieser Reise folgten diese beiden Bilder schon immer aufeinander, also hat sich nichts geändert.",
+        "real_note_structure": "Wieder zwei Bilder hintereinander, aber diese Verbindung ist NEU. Die obere Reise führt jetzt in das Ende einer anderen Reise weiter und endet deshalb jetzt bei deren Schatz. Die andere Hälfte wurde dir NICHT gezeigt, aber sie folgt daraus: Jene andere Reise führt jetzt in das alte Ende der oberen Reise weiter. Die beiden tauschen ihre restlichen Teile.",
         "real_label_shown": "Gezeigt: Diese Reise geht jetzt anders weiter",
         "real_label_hidden": "Nicht gezeigt, aber es folgt: Diese Reise tauscht ihr Ende ebenfalls",
-        "real_swap_explain": "WAS EIN TAUSCH BEWIRKT\n\nDu kannst dir die Reisen als Wege vorstellen, die ihre Verbindungen aendern. Jeder Rahmen umfasst eine Reise. Vor der Aenderung verlaufen die Rahmen gerade, danach kreuzen sie sich: Die gelbe Reise fuehrt jetzt in das Ende der anderen weiter (das wurde dir gezeigt), die blaue Reise in das alte Ende der gelben (das musstest du erschliessen).",
-        "real_label_before": "VOR der Aenderung",
-        "real_label_after": "NACH der Aenderung",
-        "real_reset": "DAS WAREN NUR BEISPIELE\n\nDie Aenderungen sind rueckgaengig gemacht. Die Reisen und ihre Punkte sind wieder genau so, wie du sie gelernt hast, wie unten gezeigt. Hier beginnt die Hauptaufgabe.",
+        "real_swap_explain": "WAS EIN TAUSCH BEWIRKT\n\nDu kannst dir die Reisen als Wege vorstellen, die ihre Verbindungen ändern. Jeder Rahmen umfasst eine Reise. Vor der Änderung verlaufen die Rahmen gerade, danach kreuzen sie sich: Die gelbe Reise führt jetzt in das Ende der anderen weiter (das wurde dir gezeigt), die blaue Reise in das alte Ende der gelben (das musstest du erschließen).",
+        "real_label_before": "VOR der Änderung",
+        "real_label_after": "NACH der Änderung",
+        "real_reset": "DAS WAREN NUR BEISPIELE\n\nDie Änderungen sind rückgängig gemacht. Die Reisen und ihre Punkte sind wieder genau so, wie du sie gelernt hast, wie unten gezeigt. Hier beginnt die Hauptaufgabe.",
         "names_intro_aliens": "DIE ALIENS\n\nDas sind die drei Aliens der Aufgabe, jedes mit seinem Namen.",
         "names_intro_spaceships": "DIE RAUMSCHIFFE\n\nDas sind die drei Raumschiffe, mit denen die Aliens reisen.",
-        "names_intro_planets": "DIE PLANETEN\n\nDas sind die drei Planeten, zu denen die Raumschiffe fliegen. Diese Bildschirme zeigen nicht die Reisen: In welches Raumschiff welches Alien steigt und wohin es fliegt, siehst du als Naechstes.",
+        "names_intro_planets": "DIE PLANETEN\n\nDas sind die drei Planeten, zu denen die Raumschiffe fliegen. Diese Bildschirme zeigen nicht die Reisen: In welches Raumschiff welches Alien steigt und wohin es fliegt, siehst du als Nächstes.",
         "name_aliens_1": "Wal",
         "name_aliens_2": "Vogel",
         "name_aliens_3": "Echse",
@@ -306,47 +306,47 @@ STRINGS = {
         "name_planets_1": "Vulkan",
         "name_planets_2": "Stadt",
         "name_planets_3": "Wald",
-        "real_study": "LERNE DIE REISEN\n\nDas sind die drei Reisen, die du gerade gegangen bist, jede von Anfang bis Ende mit dem Schatz, bei dem sie endet, und den Punkten, die sie wert ist. Alles Weitere baut darauf auf, nimm dir also so viel Zeit, wie du brauchst, um sie gut zu lernen. Mach weiter, wenn du dich sicher fuehlst.",
-        "real_questions_intro": "DREI FRAGEN ZU DIESEM TAUSCH\n\nDie zwei Bilder, die du gerade gesehen hast, waren eine NEUE Verbindung: ein Tausch. Die naechsten drei Fragen betreffen Teile der Reisen, die dieser Durchgang NICHT gezeigt hat, die der Tausch aber veraendert hat. Erschliesse, was daraus folgt.\n\nNimm dir Zeit: Hier gibt es kein Zeitlimit. Nach jeder Antwort siehst du, ob sie richtig war, und danach werden die richtigen Antworten erklaert.",
-        "real_answer_shown": "FRAGE {number} VON 3: DIE RICHTIGE ANTWORT\n\nDie richtige Antwort hat den gruenen Rahmen. Das Bild oben beginnt die Reise, die du im Tausch-Durchgang gesehen hast. Dieser Durchgang zeigte, wie die Reise in ein Bild einer anderen Reise weiterfuehrt: eine neue Verbindung. Von dort an verlaeuft sie also entlang dieser anderen Reise, bis zu deren Ende.",
-        "real_answer_hidden_next": "FRAGE {number} VON 3: DIE RICHTIGE ANTWORT\n\nDie richtige Antwort hat den gruenen Rahmen. Das Bild oben beginnt die ANDERE Reise des Tauschs, die dir nicht gezeigt wurde. Es folgt trotzdem: Ihre alte Fortsetzung wurde uebernommen, also fuehrt diese Reise jetzt dorthin weiter, wohin die gesehene Reise frueher ging. Die beiden Reisen tauschen ihre restlichen Teile.",
-        "real_answer_hidden_end": "FRAGE {number} VON 3: DIE RICHTIGE ANTWORT\n\nDie richtige Antwort hat den gruenen Rahmen. Dieselbe Reise wie in Frage 2, die dir nicht gezeigt wurde. Ab dem Tausch verlaeuft sie entlang des alten restlichen Teils der gesehenen Reise und endet deshalb jetzt dort, wo jene Reise frueher endete.",
+        "real_study": "LERNE DIE REISEN\n\nDas sind die drei Reisen, die du gerade gegangen bist, jede von Anfang bis Ende mit dem Schatz, bei dem sie endet, und den Punkten, die sie wert ist. Alles Weitere baut darauf auf, nimm dir also so viel Zeit, wie du brauchst, um sie gut zu lernen. Mach weiter, wenn du dich sicher fühlst.",
+        "real_questions_intro": "DREI FRAGEN ZU DIESEM TAUSCH\n\nDie zwei Bilder, die du gerade gesehen hast, waren eine NEUE Verbindung: ein Tausch. Die nächsten drei Fragen betreffen Teile der Reisen, die dieser Durchgang NICHT gezeigt hat, die der Tausch aber verändert hat. Erschließe, was daraus folgt.\n\nNimm dir Zeit: Hier gibt es kein Zeitlimit. Nach jeder Antwort siehst du, ob sie richtig war, und danach werden die richtigen Antworten erklärt.",
+        "real_answer_shown": "FRAGE {number} VON 3: DIE RICHTIGE ANTWORT\n\nDie richtige Antwort hat den grünen Rahmen. Das Bild oben beginnt die Reise, die du im Tausch-Durchgang gesehen hast. Dieser Durchgang zeigte, wie die Reise in ein Bild einer anderen Reise weiterführt: eine neue Verbindung. Von dort an verläuft sie also entlang dieser anderen Reise, bis zu deren Ende.",
+        "real_answer_hidden_next": "FRAGE {number} VON 3: DIE RICHTIGE ANTWORT\n\nDie richtige Antwort hat den grünen Rahmen. Das Bild oben beginnt die ANDERE Reise des Tauschs, die dir nicht gezeigt wurde. Es folgt trotzdem: Ihre alte Fortsetzung wurde übernommen, also führt diese Reise jetzt dorthin weiter, wohin die gesehene Reise früher ging. Die beiden Reisen tauschen ihre restlichen Teile.",
+        "real_answer_hidden_end": "FRAGE {number} VON 3: DIE RICHTIGE ANTWORT\n\nDie richtige Antwort hat den grünen Rahmen. Dieselbe Reise wie in Frage 2, die dir nicht gezeigt wurde. Ab dem Tausch verläuft sie entlang des alten restlichen Teils der gesehenen Reise und endet deshalb jetzt dort, wo jene Reise früher endete.",
         "real_your_answer": "Deine Antwort",
         "real_no_answer": "Du hast diese Frage nicht beantwortet.",
         "gate_intro": (
             "Einige Fragen zu den Reisen, die du gerade gesehen hast.\n\n"
-            "Hier gibt es kein Zeitlimit, und du erfaehrst, ob deine Antwort richtig war. Alle "
+            "Hier gibt es kein Zeitlimit, und du erfährst, ob deine Antwort richtig war. Alle "
             "Antworten beziehen sich auf den JETZIGEN Stand."),
-        "gate_passed": "Alles richtig! Als Naechstes beginnt die Hauptaufgabe.",
+        "gate_passed": "Alles richtig! Als Nächstes beginnt die Hauptaufgabe.",
         "gate_failed": (
             "Noch nicht alles war richtig.\n\nDu siehst die Reisen noch einmal und danach "
             "wieder die Fragen."),
         "gate_exhausted": "Weiter geht es mit der Hauptaufgabe.",
         "structure_overview": (
             "DER AUSGANGSPUNKT\n\nSo stehen die {n_journeys} Reisen jetzt, jede von Anfang bis "
-            "Ende mit dem Schatz am Ende und den Punkten, die sie wert ist. Ab jetzt aendert sich "
-            "das laufend: Reisen werden umgebaut und die 100 wandert, immer eine Aenderung nach "
-            "der anderen, und du siehst jeweils nur einen Teil jeder Aenderung."),
+            "Ende mit dem Schatz am Ende und den Punkten, die sie wert ist. Ab jetzt ändert sich "
+            "das laufend: Reisen werden umgebaut und die 100 wandert, immer eine Änderung nach "
+            "der anderen, und du siehst jeweils nur einen Teil jeder Änderung."),
         "main_intro": (
             "Jetzt beginnt die Hauptaufgabe. Sie ist in {n_runs} Teile mit Pausen dazwischen "
-            "gegliedert.\n\nDenk daran: Aenderungen bleiben bestehen, du siehst immer nur "
-            "eine Haelfte jedes Tauschs, und die Fragen beziehen sich auf den JETZIGEN "
+            "gegliedert.\n\nDenk daran: Änderungen bleiben bestehen, du siehst immer nur "
+            "eine Hälfte jedes Tauschs, und die Fragen beziehen sich auf den JETZIGEN "
             "Stand.\n\n{feedback_note}"),
-        "feedback_note_on": "Nach jeder Frage erfaehrst du, ob deine Antwort richtig war.",
-        "feedback_note_off": "Ab jetzt gibt es keine Rueckmeldung mehr.",
+        "feedback_note_on": "Nach jeder Frage erfährst du, ob deine Antwort richtig war.",
+        "feedback_note_off": "Ab jetzt gibt es keine Rückmeldung mehr.",
         "break_screen": (
-            "Teil {run} von {n_runs} geschafft.\n\nMach eine kurze Pause. Druecke "
+            "Teil {run} von {n_runs} geschafft.\n\nMach eine kurze Pause. Drücke "
             "die Taste, wenn du bereit bist."),
         "wait_trigger": (
             "Teil {run} von {n_runs} ist bereit.\n\n"
             "Das Experiment wartet auf den Trigger \"t\", um zu starten."),
-        "goodbye": "Geschafft! Vielen Dank fuer deine Teilnahme.",
+        "goodbye": "Geschafft! Vielen Dank für deine Teilnahme.",
         "break_score": "In diesem Teil hast du {n_correct} von {n_questions} Fragen richtig beantwortet.",
         "final_score": "Du hast {n_correct} von {n_questions} Fragen richtig beantwortet.",
         "aborted": "Die Sitzung wurde abgebrochen. Bitte wende dich an die Versuchsleitung.",
 
         "probe_preference": "Welches dieser Bilder bevorzugst du?",
-        "probe_same_sequence": "Welches dieser Bilder gehoert zur selben Reise wie dieses Bild?",
+        "probe_same_sequence": "Welches dieser Bilder gehört zur selben Reise wie dieses Bild?",
 
         "feedback_correct": "Richtig!",
         "feedback_wrong": "Falsch.",
@@ -354,25 +354,25 @@ STRINGS = {
 
         "press_space": "Weiter mit der LEERTASTE",
         "press_button": "Weiter mit einer der Tasten",
-        "lab_refresher_1": "KURZE WIEDERHOLUNG\n\nDu kennst die Aufgabe schon aus der Online-Sitzung. Zur Erinnerung:\n\n1. Drei Reisen, jede aus einem Alien, einem Raumschiff und einem Planeten, die beim Schatz dieses Planeten endet.\n2. Eine Reise ist 100 wert, die anderen beiden 50, und das aendert sich im Lauf der Aufgabe.\n3. Verbindungen koennen sich aendern: Zwei Reisen tauschen ihre Enden. Du siehst immer nur eine Haelfte jedes Tauschs.",
-        "lab_refresher_1b": "4. Kurze Durchgaenge zeigen nur einen Schatz mit seinen Punkten oder nur zwei Bilder. Sie koennen etwas Neues zeigen oder nicht.\n5. Schau in den Pausen auf das Kreuz und denk durch, was jetzt 100 wert ist und was zusammengehoert.\n6. Die Fragen beziehen sich immer auf den AKTUELLEN Stand.",
-        "lab_refresher_2": "Heute beginnen die Reisen wieder so, wie du sie gelernt hast. Welche Reise am Anfang 100 wert ist, kann aber anders sein als beim letzten Mal: Das siehst du gleich auf einer Uebersicht.\n\nDu antwortest mit drei Tasten: linke Taste = linkes Bild, mittlere Taste = mittleres Bild, rechte Taste = rechtes Bild. Du hast {t_probe} Sekunden Zeit.\n\nZuerst pruefen wir kurz die Tasten.",
-        "button_check_left": "TASTEN-CHECK\n\nLeg deine Finger auf die drei Tasten.\n\nDruecke jetzt die LINKE Taste.",
-        "button_check_middle": "Gut. Druecke jetzt die MITTLERE Taste.",
-        "button_check_right": "Gut. Druecke jetzt die RECHTE Taste.",
-        "lab_refresher_2_mri": "Heute beginnen die Reisen wieder so, wie du sie gelernt hast. Welche Reise am Anfang 100 wert ist, kann aber anders sein als beim letzten Mal: Das siehst du gleich auf einer Uebersicht.\n\nDu antwortest mit drei Tasten:\nrechter Zeigefinger (blau) = linkes Bild\nrechter Mittelfinger (gelb) = rechtes Bild\nlinker Zeigefinger = mittleres Bild\nDu hast {t_probe} Sekunden Zeit.\n\nZuerst pruefen wir kurz die Tasten.",
-        "button_check_left_mri": "TASTEN-CHECK\n\nBitte druecke die blaue Taste unter deinem rechten Zeigefinger.\n\n(linkes Bild)",
+        "lab_refresher_1": "KURZE WIEDERHOLUNG\n\nDu kennst die Aufgabe schon aus der Online-Sitzung. Zur Erinnerung:\n\n1. Drei Reisen, jede aus einem Alien, einem Raumschiff und einem Planeten, die beim Schatz dieses Planeten endet.\n2. Eine Reise ist 100 wert, die anderen beiden 50, und das ändert sich im Lauf der Aufgabe.\n3. Verbindungen können sich ändern: Zwei Reisen tauschen ihre Enden. Du siehst immer nur eine Hälfte jedes Tauschs.",
+        "lab_refresher_1b": "4. Kurze Durchgänge zeigen nur einen Schatz mit seinen Punkten oder nur zwei Bilder. Sie können etwas Neues zeigen oder nicht.\n5. Schau in den Pausen auf das Kreuz und denk durch, was jetzt 100 wert ist und was zusammengehört.\n6. Die Fragen beziehen sich immer auf den AKTUELLEN Stand.",
+        "lab_refresher_2": "Heute beginnen die Reisen wieder so, wie du sie gelernt hast. Welche Reise am Anfang 100 wert ist, kann aber anders sein als beim letzten Mal: Das siehst du gleich auf einer Übersicht.\n\nDu antwortest mit drei Tasten: linke Taste = linkes Bild, mittlere Taste = mittleres Bild, rechte Taste = rechtes Bild. Du hast {t_probe} Sekunden Zeit.\n\nZuerst prüfen wir kurz die Tasten.",
+        "button_check_left": "TASTEN-CHECK\n\nLeg deine Finger auf die drei Tasten.\n\nDrücke jetzt die LINKE Taste.",
+        "button_check_middle": "Gut. Drücke jetzt die MITTLERE Taste.",
+        "button_check_right": "Gut. Drücke jetzt die RECHTE Taste.",
+        "lab_refresher_2_mri": "Heute beginnen die Reisen wieder so, wie du sie gelernt hast. Welche Reise am Anfang 100 wert ist, kann aber anders sein als beim letzten Mal: Das siehst du gleich auf einer Übersicht.\n\nDu antwortest mit drei Tasten:\nrechter Zeigefinger (blau) = linkes Bild\nrechter Mittelfinger (gelb) = rechtes Bild\nlinker Zeigefinger = mittleres Bild\nDu hast {t_probe} Sekunden Zeit.\n\nZuerst prüfen wir kurz die Tasten.",
+        "button_check_left_mri": "TASTEN-CHECK\n\nBitte drücke die blaue Taste unter deinem rechten Zeigefinger.\n\n(linkes Bild)",
         "button_check_middle_mri": "Gut. Jetzt die Taste unter deinem linken Zeigefinger.\n\n(mittleres Bild)",
         "button_check_right_mri": "Gut. Jetzt die gelbe Taste unter deinem rechten Mittelfinger.\n\n(rechtes Bild)",
-        "lab_refresher_2_meg": "Heute beginnen die Reisen wieder so, wie du sie gelernt hast. Welche Reise am Anfang 100 wert ist, kann aber anders sein als beim letzten Mal: Das siehst du gleich auf einer Uebersicht.\n\nDu antwortest mit drei Tasten:\nlinke (blaue) Taste = linkes Bild\nmittlere Taste = mittleres Bild\nrechte (rote) Taste = rechtes Bild\nDu hast {t_probe} Sekunden Zeit.\n\nZuerst pruefen wir kurz die Tasten.",
-        "button_check_left_meg": "TASTEN-CHECK\n\nBitte druecke die linke, blaue Taste.\n\n(linkes Bild)",
+        "lab_refresher_2_meg": "Heute beginnen die Reisen wieder so, wie du sie gelernt hast. Welche Reise am Anfang 100 wert ist, kann aber anders sein als beim letzten Mal: Das siehst du gleich auf einer Übersicht.\n\nDu antwortest mit drei Tasten:\nlinke (blaue) Taste = linkes Bild\nmittlere Taste = mittleres Bild\nrechte (rote) Taste = rechtes Bild\nDu hast {t_probe} Sekunden Zeit.\n\nZuerst prüfen wir kurz die Tasten.",
+        "button_check_left_meg": "TASTEN-CHECK\n\nBitte drücke die linke, blaue Taste.\n\n(linkes Bild)",
         "button_check_middle_meg": "Gut. Jetzt die mittlere Taste.\n\n(mittleres Bild)",
         "button_check_right_meg": "Gut. Jetzt die rechte, rote Taste.\n\n(rechtes Bild)",
         "button_check_done": "Alles bereit. Gleich siehst du die Reisen, wie sie zu Beginn dieser Sitzung stehen.",
         "button_check_done_resume": "Alles bereit. Gleich siehst du die Reisen, wie sie jetzt stehen, am Ende von Teil {run}.",
-        "press_space_again": "Noch einmal die LEERTASTE, um den naechsten Teil zu starten",
-        "press_button_again": "Noch einmal eine der Tasten, um den naechsten Teil zu starten",
-        "break_overview": "DER AKTUELLE STAND\n\nSo stehen die {n_journeys} Reisen am Ende von Teil {run}, jede von Anfang bis Ende mit dem Schatz, bei dem sie endet, und den Punkten, die sie wert ist. Nimm dir einen Moment, um das mit deinem Bild der Reisen zu vergleichen. Ab jetzt aendert es sich wieder, eine Aenderung nach der anderen.",
+        "press_space_again": "Noch einmal die LEERTASTE, um den nächsten Teil zu starten",
+        "press_button_again": "Noch einmal eine der Tasten, um den nächsten Teil zu starten",
+        "break_overview": "DER AKTUELLE STAND\n\nSo stehen die {n_journeys} Reisen am Ende von Teil {run}, jede von Anfang bis Ende mit dem Schatz, bei dem sie endet, und den Punkten, die sie wert ist. Nimm dir einen Moment, um das mit deinem Bild der Reisen zu vergleichen. Ab jetzt ändert es sich wieder, eine Änderung nach der anderen.",
     },
 }
 
@@ -390,7 +390,7 @@ PROBE_PROMPT_KEYS = {
 # ../jspsych/strings.js.
 NUMBER_WORDS = {
     "en": {1: "one", 2: "two", 3: "three", 4: "four", 5: "five"},
-    "de": {1: "ein", 2: "zwei", 3: "drei", 4: "vier", 5: "fuenf"},
+    "de": {1: "ein", 2: "zwei", 3: "drei", 4: "vier", 5: "fünf"},
 }
 PAIR_REST = {
     "en": {3: "one more picture, before or after them",
