@@ -1025,7 +1025,12 @@ class Presenter:
            clock's zero. Used before every block in every modality: in the scanner the pulse
            arrives on its own, outside it the experimenter presses T. The screen names the key,
            because outside the scanner somebody has to press it."""
-        self.message.text = strings.get(self.lang, "wait_trigger", run=run, n_runs=n_runs)
+        # as the localizers (2026-11-09): first the experimenter's screen (space, keyboard only),
+        # then the wait for the trigger, so both tasks of a session look the same
+        self.show_message(strings.get(self.lang, "wait_operator", run=run, n_runs=n_runs),
+                          keys=cfg.KEY_OPERATOR, footer=False)
+        key = "wait_trigger" if self.modality == "fmri" else "wait_trigger_meg"
+        self.message.text = strings.get(self.lang, key)
         self.message.pos = (0, 0)
         self.clear_responses()
         while True:

@@ -1,7 +1,8 @@
 """
 Crash-safe output: ONE file per subject (decided 2026-09-10).
 
-`sub-<code>_task-gridvalstruct_<stamp>[_dryrun].tsv` holds everything: a few `meta` rows at the
+`n-<NN>_sub-<code>_task-gridvalstruct_<stamp>[_dryrun].tsv` (N the schedule = subject number; the
+n- prefix since 2026-11-09) holds everything: a few `meta` rows at the
 top (the session facts that never change), then one row per screen change for the whole session
 in time order, with the answer on the `response` rows, and `session_end` rows at the bottom. It
 is opened once and flushed after every write, so a session that dies mid-run still leaves
@@ -111,7 +112,9 @@ class DataLogger:
         self.language = language
         self.stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         suffix = "_dryrun" if dry_run else ""
-        self.path = cfg.DATA_DIR / f"sub-{participant}_task-{cfg.TASK_NAME}_{self.stamp}{suffix}.tsv"
+        # n-NN first (user, 2026-11-09): the subject number N sorts the files of all tasks
+        self.path = cfg.DATA_DIR / (f"n-{int(schedule_number):02d}_sub-{participant}_task-{cfg.TASK_NAME}_"
+                                    f"{self.stamp}{suffix}.tsv")
         self._fh = open(self.path, "w", newline="", encoding="utf-8")
         self._writer = csv.DictWriter(self._fh, fieldnames=EVENTS_COLUMNS, delimiter="\t",
                                       restval=NA, extrasaction="ignore")
@@ -186,7 +189,7 @@ def next_free_schedule_number(max_number=100):
     """Lowest schedule number with no non-dry-run data yet, read from the meta rows of the
        existing session files."""
     used = set()
-    for path in cfg.DATA_DIR.glob(f"sub-*_task-{cfg.TASK_NAME}_*.tsv"):
+    for path in cfg.DATA_DIR.glob(f"*sub-*_task-{cfg.TASK_NAME}_*.tsv"):   # with or without n-NN_
         if path.name.endswith("_dryrun.tsv"):
             continue
         try:

@@ -341,11 +341,21 @@ class Presenter:
 # Session
 # ---------------------------------------------------------------------------
 
+def file_prefix(subj_id, design):
+    """n-NN_sub-CODE, the start of every data file name (user, 2026-11-09): N the design = subject
+    number, so the files of all tasks sort by subject; CODE the participant code (sub-NNN without one)."""
+    code = subj_id if subj_id.startswith("sub-") else f"sub-{subj_id}"
+    return f"n-{int(design):02d}_{code}"
+
+
 def earlier_probe_results(subj_id, design, start_block):
     """Probe outcomes of blocks before `start_block` from this participant's earlier runs, so the
     bonus after a restart still counts them (latest file wins per trial)."""
     results = {}
-    for p in sorted(cfg.DATA_DIR.glob(f"{subj_id}_design-{design}_localizer_*.tsv")):
+    # the files since 2026-11-09 (n-NN_sub-CODE_...) and before (CODE_...)
+    paths = set(cfg.DATA_DIR.glob(f"{file_prefix(subj_id, design)}_design-{design}_localizer_*.tsv"))
+    paths |= set(cfg.DATA_DIR.glob(f"{subj_id}_design-{design}_localizer_*.tsv"))
+    for p in sorted(paths):
         for row in csv.DictReader(open(p, encoding="utf-8"), delimiter="\t"):
             if row["event"] == "probe" and row["block"] and int(row["block"]) < start_block:
                 results[(int(row["block"]), int(row["trial"]))] = row["correct"]
@@ -380,7 +390,7 @@ def run(args):
     design = f"{int(args.design):03d}"
     stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     tag = "_dryrun" if args.dry_run else ""
-    log = Logger(cfg.DATA_DIR / f"{subj}_design-{design}_localizer_{stamp}{tag}.tsv", subj, design)
+    log = Logger(cfg.DATA_DIR / f"{file_prefix(subj, design)}_design-{design}_localizer_{stamp}{tag}.tsv", subj, design)
     for k, v in (("design_file", path.name), ("start_block", args.start_block),
                  ("dry_run", int(args.dry_run)), ("keyboard_backend", cfg.KEYBOARD_BACKEND),
                  ("started", stamp)):
@@ -457,7 +467,7 @@ def run(args):
         on, dur = pres.present(cfg.FINAL_FIXATION, pres.fixation.draw)
         bonus = bonus_percent(outcomes.values())
         log.meta("bonus_percent", bonus)
-        bonus_file = cfg.DATA_DIR / f"{subj}_design-{design}_bonus_{stamp}{tag}.txt"
+        bonus_file = cfg.DATA_DIR / f"{file_prefix(subj, design)}_design-{design}_bonus_{stamp}{tag}.txt"
         bonus_file.write_text(f"{bonus}\n")
         pres.message(txt.GOODBYE.format(bonus=bonus), keys=cfg.KEY_OPERATOR, footer="")
         log.meta("session_end", "complete")

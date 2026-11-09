@@ -6,7 +6,7 @@ from lab_launcher/), started by run_session.sh through PsychoPy's python.
 One part per start: the dialog asks for the session (MRI or MEG), the part (localizer or main
 task), the participant database code, the subject number N, age, gender, handedness, the starting
 block and notes, then runs that part with the matching command. Every start appends one row to
-data/participant_details/<code>_details.tsv (never overwritten, ignored by git); the task data
+data/participant_details/n-<NN>_sub-<code>_details.tsv (never overwritten, ignored by git); the task data
 files themselves are unchanged.
 
   PY start_session.py [mri|meg]                 # the dialog, session preselected
@@ -100,7 +100,7 @@ def check_details(raw):
 def write_details(d, command, dry_run, exit_code="started"):
     """Append one row to the subject's details file (header on first use); returns its path."""
     DETAILS_DIR.mkdir(parents=True, exist_ok=True)
-    path = DETAILS_DIR / f"{d['code']}_details.tsv"
+    path = DETAILS_DIR / f"n-{int(d['subject_n']):02d}_sub-{d['code']}_details.tsv"   # n- first since 2026-11-09
     row = {**d, "started": datetime.datetime.now().isoformat(timespec="seconds"),
            "dry_run": int(dry_run), "command": " ".join(command[1:]), "exit_code": exit_code}
     new = not path.exists()

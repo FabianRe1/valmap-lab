@@ -299,6 +299,7 @@ DEFAULT_MODALITY = "behavioral"
 # the scanner the pulse arrives on its own; outside it the experimenter presses T. Keeping the
 # gate in all modalities means a behavioral or MEG session has the same block structure and the
 # same t0 definition as a scanned one. 't' comes from the lab's previous fMRI experiment.
+KEY_OPERATOR = ("space",)   # the experimenter's screen before each block (keyboard only), as the localizers
 TRIGGER_KEYS = ("t", "T")
 TRIGGER_GATED_BLOCKS = True     # set False only for an unattended session with no experimenter
 # Fixation held between the trigger and the block's first trial, so every block opens on the
@@ -529,9 +530,11 @@ REVIEW_MAP_LABEL_Y = -0.165
 REVIEW_MAP_ROW_Y0 = -0.225
 REVIEW_MAP_ROW_DY = -0.085
 
-INSTRUCTION_HEIGHT = 0.05
-INSTRUCTION_WRAP = 1.35
-INSTRUCTION_FOOTER_HEIGHT = 0.040
+# as the localizers (2026-11-09; 0.05 / 1.35 / 0.040 before): on the MRI's 1280 x 960 (4:3) screen
+# the text was slightly too large, and a 1.35 line is wider than the 1.33 screen
+INSTRUCTION_HEIGHT = 0.045
+INSTRUCTION_WRAP = 1.3
+INSTRUCTION_FOOTER_HEIGHT = 0.035
 INSTRUCTION_FOOTER_Y = -0.42
 
 # ---------------------------------------------------------------------------

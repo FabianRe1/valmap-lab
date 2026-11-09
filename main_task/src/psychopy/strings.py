@@ -162,9 +162,11 @@ STRINGS = {
             "are ready to continue."),
         # Shown before EVERY block, in every modality. One sentence: it names the key, and
         # outside the scanner the experimenter presses it. See config.TRIGGER_GATED_BLOCKS.
-        "wait_trigger": (
-            "Part {run} of {n_runs} is ready.\n\n"
-            "The experiment waits for the trigger \"t\" to start."),
+        # before EVERY block, as in the localizers (2026-11-09): the experimenter's screen (space),
+        # then the wait for the trigger "t" (the scanner's pulse, or the experimenter outside it)
+        "wait_operator": "Part {run} of {n_runs}\n\nWaiting for the experimenter ...",
+        "wait_trigger": "Waiting for the scanner ...",
+        "wait_trigger_meg": "Starting in a moment ...",
         "goodbye": "Finished! Thank you very much for taking part.",
         # the performance score (2026-10-02)
         "break_score": "In this part you answered {n_correct} of {n_questions} questions correctly.",
@@ -337,9 +339,9 @@ STRINGS = {
         "break_screen": (
             "Teil {run} von {n_runs} geschafft.\n\nMach eine kurze Pause. Drücke "
             "die Taste, wenn du bereit bist."),
-        "wait_trigger": (
-            "Teil {run} von {n_runs} ist bereit.\n\n"
-            "Das Experiment wartet auf den Trigger \"t\", um zu starten."),
+        "wait_operator": "Teil {run} von {n_runs}\n\nWarten auf die Versuchsleitung ...",
+        "wait_trigger": "Warten auf den Scanner ...",
+        "wait_trigger_meg": "Gleich geht es los ...",
         "goodbye": "Geschafft! Vielen Dank für deine Teilnahme.",
         "break_score": "In diesem Teil hast du {n_correct} von {n_questions} Fragen richtig beantwortet.",
         "final_score": "Du hast {n_correct} von {n_questions} Fragen richtig beantwortet.",

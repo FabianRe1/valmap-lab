@@ -4,7 +4,7 @@ Decided 2026-09-10: a session writes exactly ONE file, and both arms write the s
 
 | arm | file | where |
 |---|---|---|
-| PsychoPy | `sub-<code>_task-gridvalstruct_<stamp>.tsv` (`_dryrun` before the extension on a dry run) | `src/psychopy/data/` |
+| PsychoPy | `n-<NN>_sub-<code>_task-gridvalstruct_<stamp>.tsv` (N the subject number = schedule; the `n-` prefix since 2026-11-09, as the localizers' files; `_dryrun` before the extension on a dry run) | `src/psychopy/data/` |
 | browser | `sub-<code>_task-gridvalstruct_<stamp>.tsv` | a download at the end (or posted with `?sink=post|jatos`); a checkpoint of the same rows sits in `localStorage` after every trial |
 | browser on Pavlovia (`?sink=pavlovia`) | `ValMap_<id>_score<pct>pct_SESSION_<date>.csv` (the score since 2026-10-02, for the bonus) | uploaded once, at the end (Pavlovia with credits accepts one upload per session); a tab closed mid-session sends `ValMap_<id>_SESSION_<start>_incomplete.csv` instead, a compact record (meta rows, block starts and ends, every answer; base columns plus `kind`, `probe_slot`), best effort |
 
