@@ -115,7 +115,7 @@ KEYBOARD_BACKEND = "ptb"    # 'ptb' (best timing; fine on Linux) or 'event' (no 
 # ---------------------------------------------------------------------------
 FULLSCREEN = True
 SCREEN = 0
-BACKGROUND_COLOR = (0, 0, 0)   # mid grey (RGB 128), the stimuli's own background (2026-10-26; was black)
+BACKGROUND_COLOR = (0.00392, 0.00392, 0.00392)   # exactly RGB 128, the frames' background, as the main task (2026-11-09; (0, 0, 0) is 127.5 and can render as 127; black before 2026-10-26)
 WINDOW_SIZE = (1280, 720)   # only when not fullscreen
 UNITS = "height"
 
