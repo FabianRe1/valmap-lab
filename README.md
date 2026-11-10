@@ -54,6 +54,7 @@ Add instructions, breaks between blocks and set-up.
 ## MEG session (the lab hardware is set in `meg_lab/settings.py`; first `PY test_meg_io.py` in `Localizer_MEG`)
 1. `Localizer_MEG`: `PY run_localizer.py --design N --participant CODE --marker-backend parallel --button-box`
 2. `main_task`: `PY src/psychopy/run_task.py --steps 3 --session meg --schedule N --participant CODE --modality meg --marker-backend parallel --button-box`
+Trigger codes of both MEG tasks: `meg_lab/MEG_TRIGGER_CODES.txt`.
 
 ## Data
 Written to `main_task/src/psychopy/data/`, `Localizer_MRI/data/`, `Localizer_MEG/data/`, and the

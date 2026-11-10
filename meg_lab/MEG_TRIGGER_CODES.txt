@@ -1,0 +1,153 @@
+MEG TRIGGER CODES: ValMap localizer and main task
+=================================================
+As of 2026-11-10. Sources: meg_lab/codes.py (shared codes), Localizer_MEG/config.py,
+files (5)/src/psychopy/config.py and the places in run_localizer.py / run_task.py that send them.
+
+Hardware
+--------
+- Port: parallel port LPT1 (/dev/parport0), run with --marker-backend parallel
+- Values: 1..127 only (bit 8 of the MEG trigger input is broken)
+- Pulse: each code is held for 20 ms, then the line returns to 0
+- Timing: a code is sent right after the screen flip that shows its event.
+  Response codes are sent when the button press is read.
+- Photodiode: off (meg_lab/settings.py PHOTODIODE = False)
+- Every code that is sent is also logged in the output file
+  (localizer: the "marker" column; main task: the event log).
+
+The codes are shared where possible, so a code means the same thing in both
+recordings. For example, a picture has the same code in the localizer and in
+the main task.
+
+
+SHARED BY BOTH TASKS
+--------------------
+Picture / video onset (the picture's class; the same video in both tasks)
+   1  aliens_1
+   2  aliens_2
+   3  aliens_3
+   4  spaceships_1
+   5  spaceships_2
+   6  spaceships_3
+   7  planets_1
+   8  planets_2
+   9  planets_3
+  10  money       (treasure)
+  11  gold        (treasure)
+  12  diamonds    (treasure)
+
+Other shared events
+  20  fixation cross between pictures
+  50  response: left button  (blue, btn4, or key J)
+  51  response: middle button (btn2/btn3, or key K)
+  52  response: right button (red, btn1, or key L)
+  60  feedback: correct
+  61  feedback: incorrect
+  62  timeout: no answer in time
+ 100 + block   block start, sent at the experimenter's "t" (t0 of the block)
+ 110 + block   block end
+
+
+MEG LOCALIZER (Localizer_MEG)
+-----------------------------
+6 blocks, 930 trials per participant.
+Block start codes: 101..106. Block end codes: 111..116.
+
+Code  Event
+   1..12  video onset of the shown picture (1 s video, see table above)
+  20  fixation (ITI) before each picture
+  30  fixation before a probe (probe ITI)
+  40  probe onset, kind "match": one of the two pictures is the one just seen
+  41  probe onset, kind "neither": neither picture is the one just seen
+  50  response: left picture  (blue button / J)
+  51  response: "neither"     (middle button / K)
+  52  response: right picture (red button / L)
+  60  feedback correct
+  61  feedback incorrect
+  62  timeout screen (no answer within the probe window)
+ 101..106  block start (at "t")
+ 111..116  block end (after the 5 s lead-out fixation)
+
+Order within a block:
+  101+ (t) -> 5 s fixation (no code) ->
+  per trial: 20 fixation -> 1..12 video ->
+    [if a probe follows: 30 probe fixation -> 40/41 probe -> 50/51/52 response
+     -> 60/61 feedback, or 62 timeout]
+  -> 5 s fixation (no code) -> 111+ block end
+
+Note: before 2026-11-05 the localizer used 51 = right and 52 = neither. Since
+then it uses 50 left, 51 neither (middle), 52 right, the same buttons as the main task.
+
+
+MAIN TASK (files (5), modality MEG)
+-----------------------------------
+6 runs. Block start codes: 101..106. Block end codes: 111..116.
+
+Trial start: the fixation that opens every trial carries the trial type
+  19  familiarization trial
+  21  EST  establish (full walk)
+  22  V    value change
+  23  S    structure change
+  24  CV   value control
+  25  CS   structure control
+  26  T    tracking (full walk)
+  27  TV   partial tracking, value format (Prolific set only, not in the lab sessions)
+  28  TS   partial tracking, structure format (Prolific set only, not in the lab sessions)
+  29  practice trial
+
+Within a trial
+   1..9   video onset of each shown clip (aliens 1-3, spaceships 4-6, planets 7-9)
+  13      a practice shape (practice walkthrough only)
+  20      fixation gap between clips (jittered ISI)
+  10..12  outcome screen, coded by its treasure: money 10, gold 11, diamonds 12
+  30      rest window (the fixation-only readout period before a probe)
+
+Probe (question) onset, coded by its type
+  40  value question, unobserved   (value change and its follow-up)
+  41  value question, established  (value control)
+  42  structure question, unobserved  (structure change and its follow-up)
+  43  structure question, established (structure control)
+
+Answer and feedback
+  50  response: left option   (blue button / J)
+  51  response: middle option (middle button / K)
+  52  response: right option  (red button / L)
+  62  no answer in time
+  60  feedback correct
+  61  feedback incorrect (also after a timeout, when the feedback screen shows "no answer")
+
+Runs
+ 101..106  run start (at "t")
+ 111..116  run end
+
+Order within a trial:
+  19/21..29 trial-opening fixation ->
+  per clip: 1..9 clip -> 20 gap (no gap after the last event) ->
+  10/11/12 outcome (if the trial has one) ->
+  [30 rest, if the trial has a rest] ->
+  [40..43 probe -> 50/51/52 response, or 62 timeout -> 60/61 feedback]
+
+Notes
+- The mastery gate questions (intro) send 40..43 and 50..52 as well, but they
+  have no trial-start code. Self-paced intro questions send no timeout code.
+- Feedback is shown in practice and in the main task (MAIN_TASK_FEEDBACK = True).
+- No codes are sent on instruction, operator ("Warten auf die Versuchsleitung")
+  or "Warten auf den Scanner" screens, or on the 5 s lead-in fixation.
+
+
+QUICK LOOKUP: all codes in use
+------------------------------
+  1-12     picture/video/treasure class (both)
+  13       practice shape (main)
+  19       trial start: familiarization (main)
+  20       fixation (both)
+  21-29    trial start by type (main)
+  30       localizer: probe fixation / main: rest
+  40-41    localizer: probe match / neither; main: value question unobserved / established
+  42-43    main: structure question unobserved / established
+  50-52    response left / middle / right (both)
+  60-62    feedback correct / incorrect / timeout (both)
+  101-106  block/run start (both)
+  111-116  block/run end (both)
+
+Caution: 30, 40 and 41 mean different things in the two tasks. The recordings
+are separate files, so this is unambiguous within each recording.
