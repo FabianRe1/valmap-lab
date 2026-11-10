@@ -56,6 +56,27 @@ def ptb_key_time(k, now):
         ptb_key_time.warned = True
     return t_now
 
+def ptb_new_presses(kb, keys, seen):
+    """Presses of `keys` not returned before, held or already released (2026-11-10). PsychoPy
+    2026's getKeys(waitRelease=False) skips a press once its key is up, so a short press (the
+    scanner's button box: down and up within a few ms) released before the next poll was lost;
+    a release also re-adds the press it ends. Both lists are read; `seen` (a deque of KeyPress
+    objects) keeps each press to one report. PsychoPy 2023 returned released presses as well."""
+    out = []
+    for k in kb.getKeys(keys, waitRelease=False) + kb.getKeys(keys, waitRelease=True):
+        if not any(k is s for s in seen):
+            seen.append(k)
+            out.append(k)
+    return out
+
+
+def ptb_mark_held(kb, seen):
+    """After clearEvents: a key still held belongs to the screen before, so its release must not
+    count as a new press on the next one."""
+    for k in list(getattr(getattr(kb, "device", None), "_keysStillDown", []) or []):
+        seen.append(k)
+
+
 class QuitExperiment(Exception):
     """Raised when the experimenter presses the quit key."""
 
@@ -180,6 +201,7 @@ class Presenter:
         # timestamps share it, so onsets, RTs and marker times are directly comparable.
         self.now = core.getTime
         self.kb = keyboard.Keyboard(backend=cfg.KEYBOARD_BACKEND)
+        self._kb_seen = __import__("collections").deque(maxlen=256)   # see ptb_new_presses
         self.core = core
         self.visual = visual
 
@@ -318,7 +340,7 @@ class Presenter:
                if self.buttons is not None and any(k in cfg.lab.BUTTONS for k in wanted)
                else [])
         if cfg.KEYBOARD_BACKEND == "ptb":
-            return [(k.name, ptb_key_time(k, self.now)) for k in self.kb.getKeys(wanted, waitRelease=False)] + box
+            return [(k.name, ptb_key_time(k, self.now)) for k in ptb_new_presses(self.kb, wanted, self._kb_seen)] + box
         from psychopy import event as psyevent
         return [(name, None) for name in psyevent.getKeys(wanted)] + box
 
@@ -326,6 +348,7 @@ class Presenter:
         """Forget earlier presses before an answer or continue window: the keyboard and, in the
         MEG, the response box's waiting bytes (2026-11-04)."""
         self.kb.clearEvents()
+        ptb_mark_held(self.kb, self._kb_seen)
         if self.buttons is not None:
             self.buttons.clear()
 

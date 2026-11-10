@@ -62,6 +62,27 @@ def ptb_key_time(k, now):
         ptb_key_time.warned = True
     return t_now
 
+def ptb_new_presses(kb, keys, seen):
+    """Presses of `keys` not returned before, held or already released (2026-11-10). PsychoPy
+    2026's getKeys(waitRelease=False) skips a press once its key is up, so a short press (the
+    scanner's button box: down and up within a few ms) released before the next poll was lost;
+    a release also re-adds the press it ends. Both lists are read; `seen` (a deque of KeyPress
+    objects) keeps each press to one report. PsychoPy 2023 returned released presses as well."""
+    out = []
+    for k in kb.getKeys(keys, waitRelease=False) + kb.getKeys(keys, waitRelease=True):
+        if not any(k is s for s in seen):
+            seen.append(k)
+            out.append(k)
+    return out
+
+
+def ptb_mark_held(kb, seen):
+    """After clearEvents: a key still held belongs to the screen before, so its release must not
+    count as a new press on the next one."""
+    for k in list(getattr(getattr(kb, "device", None), "_keysStillDown", []) or []):
+        seen.append(k)
+
+
 class QuitExperiment(Exception):
     pass
 
@@ -175,6 +196,7 @@ class Presenter:
         self.win.mouseVisible = False
         self.now = core.getTime          # one timebase: flips; ptb key times via ptb_key_time
         self.kb = keyboard.Keyboard(backend=cfg.KEYBOARD_BACKEND)
+        self._kb_seen = __import__("collections").deque(maxlen=256)   # see ptb_new_presses
         self.frame_dur = self.win.monitorFramePeriod or (1 / 60.0)
         measured = self.win.getActualFrameRate(nIdentical=10, nMaxFrames=120, nWarmUpFrames=10)
         if measured:
@@ -223,7 +245,7 @@ class Presenter:
         if self.dry_run:
             return []
         if cfg.KEYBOARD_BACKEND == "ptb":
-            return [(k.name, ptb_key_time(k, self.now)) for k in self.kb.getKeys(list(keys), waitRelease=False)]
+            return [(k.name, ptb_key_time(k, self.now)) for k in ptb_new_presses(self.kb, list(keys), self._kb_seen)]
         from psychopy import event
         return [(name, self.now()) for name in event.getKeys(list(keys))]
 
@@ -238,6 +260,7 @@ class Presenter:
     def clear_keys(self):
         if not self.dry_run:
             self.kb.clearEvents()
+            ptb_mark_held(self.kb, self._kb_seen)
             from psychopy import event
             event.clearEvents()
 
