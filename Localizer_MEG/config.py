@@ -57,6 +57,11 @@ LSL_STREAM_NAME = "alien_localizer_meg_markers"
 MARKER_PULSE_DURATION = lab.MARKER_PULSE_DURATION
 MARKER_MIN_GAP = lab.MARKER_MIN_GAP
 MARKER_MAX_CODE = lab.MARKER_MAX_CODE
+# Photodiode check (2026-11-11): off by default, on with --photodiode (the start dialog's
+# "Photodiode check"). A white stripe across the top of the screen whose middle third is black for
+# the one flip that sends each code (../meg_lab/photodiode.py, shared with the main task).
+PHOTODIODE = lab.PHOTODIODE
+PHOTODIODE_STRIPE_HEIGHT = lab.PHOTODIODE_STRIPE_HEIGHT
 
 # CLASS_CODES (picture onset = its class, 1..12) come from meg_lab.codes, shared with the main task
 MARKER_CODES = {
@@ -64,7 +69,7 @@ MARKER_CODES = {
     "probe_fixation": 30,
     "probe_match": 40,
     "probe_neither": 41,
-    # one code per button in both MEG tasks (2026-11-05): 50 left (blue), 51 middle, 52 right (red);
+    # one code per button in both MEG tasks (2026-11-05): 50 left (button 1), 51 middle (2), 52 right (3);
     # here the middle button means "neither picture" (before 2026-11-05: 51 right, 52 neither)
     "response_left": 50,
     "response_neither": 51,
@@ -83,23 +88,22 @@ MARKER_CODES = {
 # MEG response box (technician, 2026-10-14): 4 buttons on COM2 (Linux /dev/ttyS1), 19200 baud,
 # no parity, 8 data bits, 2 stop bits; each press sends one byte, its number, read as "btn<n>"
 # (responses.py). The keyboard keys J / K / L always work too.
-# THE ONE PLACE TO CHANGE WHICH BUTTON ANSWERS WHAT (keys below). Since 2026-11-04 as the
-# experiment that currently runs in this lab (Evie Coxon's test_sweeps-2-main, run_sweeps_test.m:
-# 109-110): left picture = BLUE button (byte 4), right picture = RED button (byte 1), neither =
-# either button between them (bytes 2, 3; the colleague uses neither, confirm in the lab). The
-# bytes are in ../meg_lab/settings.py (POSITION_BUTTONS), shared with the main task.
+# THE ONE PLACE TO CHANGE WHICH BUTTON ANSWERS WHAT (keys below). Since 2026-11-11 (user): button 1
+# = left picture, button 2 = neither, button 3 = right picture (2026-11-04 to 11-10: blue byte 4
+# left, red byte 1 right, after the colleague's run_sweeps_test.m). The bytes are in
+# ../meg_lab/settings.py (POSITION_BUTTONS), shared with the main task (1 left, 2 middle, 3 right).
 BUTTON_BOX = False          # True in the MEG: also read the serial response box
 # the box's port and which byte each button sends: ../meg_lab/settings.py (shared)
 BUTTON_SERIAL_PORT = lab.BUTTON_SERIAL_PORT
 BUTTON_BAUDRATE = lab.BUTTON_BAUDRATE
 BUTTONS = lab.BUTTONS
 # Unified with the MEG main task (2026-11-05): the same button and the same key mean the same
-# position in both tasks, left to right: blue / J = left, middle / K = middle ("neither" here),
-# red / L = right (before: J left, K right, L neither, plus the MRI's b / z / r, which the MEG
+# position in both tasks, left to right: button 1 / J = left, button 2 / K = middle ("neither"
+# here), button 3 / L = right (before: J left, K right, L neither, plus the MRI's b / z / r, which the MEG
 # keyboard never needs).
-KEY_LEFT = ("j",) + lab.POSITION_BUTTONS["left"]              # left picture: blue (left) button
-KEY_NEITHER = ("k",) + lab.POSITION_BUTTONS["middle"]         # neither picture: a middle button
-KEY_RIGHT = ("l",) + lab.POSITION_BUTTONS["right"]            # right picture: red (right) button
+KEY_LEFT = ("j",) + lab.POSITION_BUTTONS["left"]              # left picture: button 1
+KEY_NEITHER = ("k",) + lab.POSITION_BUTTONS["middle"]         # neither picture: button 2
+KEY_RIGHT = ("l",) + lab.POSITION_BUTTONS["right"]            # right picture: button 3
 KEY_CONTINUE = ("space", "j", "k", "l") + BUTTONS   # participant-paced screens (any button)
 KEY_OPERATOR = ("space",)   # operator screens before each block (keyboard only)
 TRIGGER_KEYS = ("t",)       # the experimenter's start key; the first one of a block is its t0

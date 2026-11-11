@@ -1,0 +1,14 @@
+# ValMap lab sessions (main task, MRI and MEG localizers): the Python packages, for pip.
+# Python 3.10 to 3.12 (3.11 recommended); PsychoPy 2026.2.4 needs one of these.
+#   pip install -r requirements.txt
+# setup_env_linux.sh and setup_env_conda.sh build a Python 3.11 environment and install this file.
+# Only needed where the CBS wrapper `PSYCHOPY --version 2026.2.4` is not available.
+
+psychopy==2026.2.4      # the version the lab runs (since 2026-11-09); brings numpy, pandas, scipy, pyglet, pillow
+PyQt6                   # the start dialog (start_session.py) and psychopy.gui
+psychtoolbox            # keyboard timing (the 'ptb' backend); on Linux needs glibc 2.28+ (Ubuntu 20.04+)
+pyserial                # MEG response box on COM2 / /dev/ttyS1
+
+# Linux only
+pyparallel; sys_platform == "linux"     # MEG triggers via the parallel port (/dev/parport0 = LPT1 = 0x378)
+python-xlib; sys_platform == "linux"    # keyboard access under X11

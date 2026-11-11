@@ -58,9 +58,9 @@ Ask the technician to start an acquisition and show the trigger channel. Then:
 
    | button | expected | write down |
    |---|---|---|
-   | blue (left) | `btn4` | |
-   | middle | `btn2` or `btn3` | |
-   | red (right) | `btn1` | |
+   | 1 (left) | `btn1` | |
+   | 2 (middle; "neither" in the localizer) | `btn2` | |
+   | 3 (right) | `btn3` | |
 
    Then hold one button for 2 s: the output says whether the box repeats a held button.
    Longer listening: `test_meg_io.py --listen 60`.
@@ -124,7 +124,7 @@ All MEG hardware settings live in ONE file shared by both tasks: `meg_lab/settin
 | Pulse length? | 20 ms, then 0 for at least 10 ms | `meg_lab/settings.py` lines 43-44 (`MARKER_PULSE_DURATION`, `MARKER_MIN_GAP`) |
 | Highest code? | 127 (bit 8 of the trigger input is broken) | `meg_lab/settings.py` line 45 |
 | How is a pulse sent? | written to the port right after the screen flip, reset by a timer thread | `meg_lab/markers.py`, class `ParallelMarker` (line 98) |
-| Photodiode? | off | `meg_lab/settings.py` line 50 (`PHOTODIODE`) |
+| Photodiode? | off by default; tick "Photodiode check" in the start dialog (or `--photodiode`) | white stripe at the top, middle third black on each coded flip: `meg_lab/photodiode.py`, height in `meg_lab/settings.py` (`PHOTODIODE_STRIPE_HEIGHT`) |
 | Response box port? | COM2 = `/dev/ttyS1`, 19200 baud, 8 data bits, 2 stop bits | `meg_lab/settings.py` lines 58-59 |
 | Which button is which answer? | left btn4 (blue), middle btn2/btn3, right btn1 (red) | `meg_lab/settings.py` line 73 (`POSITION_BUTTONS`) |
 | Held button repeating? | a repeat of the same byte within 0.15 s is dropped | `meg_lab/settings.py` line 72; reading in `meg_lab/buttons.py` (class `ButtonBox`, line 20) |

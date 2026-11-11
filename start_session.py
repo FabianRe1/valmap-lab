@@ -5,12 +5,15 @@ from lab_launcher/), started by run_session.sh through PsychoPy's python.
 
 One part per start: the dialog asks for the session (MRI or MEG), the part (localizer or main
 task), the participant database code, the subject number N, age, gender, handedness, the starting
-block and notes, then runs that part with the matching command. Every start appends one row to
+block, notes and (MEG) whether to run the photodiode check, then runs that part with the matching
+command. Every start appends one row to
 data/participant_details/n-<NN>_sub-<code>_details.tsv (never overwritten, ignored by git); the task data
 files themselves are unchanged.
 
   PY start_session.py [mri|meg]                 # the dialog, session preselected
   PY start_session.py --no-dialog --session mri --part localizer --code 27985.cb --n 12 ...
+  add --photodiode (MEG) for the photodiode check: a white stripe at the top of the screen whose
+  middle third is black on every flip that sends a trigger code (meg_lab/photodiode.py)
   add --dry-run for a fast-forward check without a participant (details marked dry_run)
 """
 import argparse
@@ -57,6 +60,8 @@ def build_command(d, dry_run=False):
                 "--modality", "meg" if meg else "fmri", "--start-run", str(d["start_block"])]
         if meg:
             args += ["--marker-backend", "parallel", "--button-box"]
+    if meg and d.get("photodiode"):
+        args += ["--photodiode"]       # recorded in the details file's command column
     if dry_run:
         args = [a for a in args if a not in ("--button-box",)]
         if "--marker-backend" in args:
@@ -94,6 +99,7 @@ def check_details(raw):
             problems.append(f"no design for subject {d['subject_n']}: {design.relative_to(ROOT)} "
                             "is missing")
     d["notes"] = " ".join(d["notes"].split())       # one line, no tabs, for the details file
+    d["photodiode"] = str(raw.get("photodiode", "")).strip().lower() in ("true", "1", "yes")
     return d, problems
 
 
@@ -132,6 +138,7 @@ def ask(initial):
         dlg.addField("Starting block (default 1; after a crash the block to restart)",
                      values["start_block"])
         dlg.addField("Notes", values["notes"])
+        dlg.addField("Photodiode check (MEG only; off unless ticked)", bool(values["photodiode"]))
         data = dlg.show()
         if not dlg.OK:
             return None
@@ -140,7 +147,8 @@ def ask(initial):
         if isinstance(data, dict):
             data = list(data.values())
         values = dict(zip(("session", "part", "code", "subject_n", "age", "gender", "handedness",
-                           "start_block", "notes"), (str(x) for x in data)))
+                           "start_block", "notes", "photodiode"), (str(x) for x in data)))
+        values["photodiode"] = values.get("photodiode", "").lower() in ("true", "1", "yes")
         d, problems = check_details(values)
         if not problems:
             return d
@@ -163,12 +171,15 @@ def main():
     ap.add_argument("--handedness", default="right")
     ap.add_argument("--start-block", default="1")
     ap.add_argument("--notes", default="")
+    ap.add_argument("--photodiode", action="store_true",
+                    help="MEG: the photodiode check (white stripe at the top, see meg_lab/photodiode.py)")
     ap.add_argument("--dry-run", action="store_true",
                     help="fast-forward check: simulated answers, dummy markers, no button box")
     a = ap.parse_args()
     initial = {"session": a.session or (a.preselect or "mri").upper(), "part": a.part or "localizer",
                "code": a.code, "subject_n": a.n, "age": a.age, "gender": a.gender,
-               "handedness": a.handedness, "start_block": a.start_block, "notes": a.notes}
+               "handedness": a.handedness, "start_block": a.start_block, "notes": a.notes,
+               "photodiode": a.photodiode}
     if a.no_dialog:
         d, problems = check_details(initial)
         if problems:
@@ -183,7 +194,8 @@ def main():
     folder, command = build_command(d, dry_run=a.dry_run)
     path = write_details(d, command, a.dry_run)
     print(f"{d['session']} {d['part']}, subject {d['subject_n']}, code {d['code']}, from block "
-          f"{d['start_block']}\n  details: {path.relative_to(ROOT)}\n  running in {folder.name}: "
+          f"{d['start_block']}" + (", PHOTODIODE CHECK ON" if "--photodiode" in command else "")
+          + f"\n  details: {path.relative_to(ROOT)}\n  running in {folder.name}: "
           + " ".join(command[1:]))
     exit_code = subprocess.run(command, cwd=folder).returncode
     write_details(d, command, a.dry_run, exit_code=f"finished {exit_code}")

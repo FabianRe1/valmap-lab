@@ -1,0 +1,16 @@
+# ValMap lab sessions as a conda environment (alternative to setup_env_conda.sh, which does the
+# same and also runs the checks):
+#   conda env create -f environment.yml
+#   conda activate valmap
+# On Linux, then remove conda's OpenGL loader so the PC's graphics driver is used
+# (setup_env_conda.sh does this): rm -f $CONDA_PREFIX/lib/libGL.so* $CONDA_PREFIX/lib/libGLX.so*
+#   $CONDA_PREFIX/lib/libGLdispatch.so* $CONDA_PREFIX/lib/libEGL.so* $CONDA_PREFIX/lib/libOpenGL.so*
+name: valmap
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - -r requirements.txt

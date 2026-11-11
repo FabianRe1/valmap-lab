@@ -86,8 +86,8 @@ OPTION_KEYS = (cfg.KEY_OPTION_1, cfg.KEY_OPTION_2, cfg.KEY_OPTION_3)
 
 def enable_button_box():
     """Add the MEG response box's buttons to the keys (2026-10-14): each option also accepts its
-    buttons (config.OPTION_BUTTONS -> meg_lab POSITION_BUTTONS: blue = left, either middle button
-    = middle, red = right, as the colleague's experiment in this lab, 2026-11-04), and any button
+    buttons (config.OPTION_BUTTONS -> meg_lab POSITION_BUTTONS: button 1 = left, 2 = middle,
+    3 = right since 2026-11-11), and any button
     advances a screen. Called once at startup when the box is used."""
     global OPTION_KEYS
     lab = cfg.lab
@@ -244,9 +244,11 @@ class Presenter:
                                            lineWidth=cfg.SELECTION_FRAME_WIDTH)
         self.key_hint = visual.TextStim(self.win, text="", height=cfg.PROBE_KEY_HINT_HEIGHT,
                                         color=cfg.PROMPT_COLOR)
-        self.photodiode = visual.Rect(
-            self.win, width=cfg.PHOTODIODE_SIZE, height=cfg.PHOTODIODE_SIZE,
-            pos=cfg.PHOTODIODE_POS, fillColor="white", lineColor=None)
+        # the photodiode check (MEG only, off unless --photodiode): see meg_lab/photodiode.py
+        self.photodiode = None
+        if cfg.PHOTODIODE and self.modality == "meg":
+            from meg_lab.photodiode import PhotodiodeStripe
+            self.photodiode = PhotodiodeStripe(self.win, cfg.PHOTODIODE_STRIPE_HEIGHT)
 
         self.clips = {}
         self.frames = {}
@@ -366,8 +368,15 @@ class Presenter:
 
     def flip(self):
         t = self.win.flip()
+        if self.photodiode is not None:
+            self.photodiode.after_flip()
         self.service_background_keys()
         return t
+
+    def arm_photodiode(self):
+        """The next flip sends a code: the photodiode stripe's middle third is black on it."""
+        if self.photodiode is not None:
+            self.photodiode.arm()
 
     def wait_marker_free(self):
         """Before a coded flip: wait (sleeping, never spinning) until the previous code has been
@@ -384,21 +393,18 @@ class Presenter:
         """
         Draw every frame until `duration` has elapsed; returns (onset, measured_duration).
         Frame-based with a wall-clock stop criterion. The marker is sent immediately after the
-        flip that puts the stimulus on screen. In MEG mode a photodiode patch accompanies the
-        first PHOTODIODE_DURATION of every marked event.
+        flip that puts the stimulus on screen; with the photodiode check on, that flip also
+        blacks the middle of the photodiode stripe.
         """
         target = duration * self.scale
         half_frame = self.frame_dur * 0.5
         onset = None
-        photodiode = cfg.PHOTODIODE and self.modality == "meg" and marker_code is not None
         if marker_code is not None:
             self.wait_marker_free()
+            self.arm_photodiode()
 
         while True:
             draw()
-            if photodiode and (onset is None
-                               or (self.now() - onset) < cfg.PHOTODIODE_DURATION * self.scale):
-                self.photodiode.draw()
             t = self.flip()
             if onset is None:
                 onset = t
@@ -760,8 +766,8 @@ class Presenter:
         target = cfg.T_PROBE * self.scale
         half_frame = self.frame_dur * 0.5
         first_frame = True
-        photodiode = cfg.PHOTODIODE and self.modality == "meg"
         self.wait_marker_free()
+        self.arm_photodiode()
         self.clear_responses()
 
         all_option_keys = [k for keys in OPTION_KEYS for k in keys]
@@ -778,10 +784,6 @@ class Presenter:
             if chosen_index is not None:
                 self.selection_frame.pos = positions[chosen_index]
                 self.selection_frame.draw()
-            if photodiode and (onset is None
-                               or (self.now() - onset) < cfg.PHOTODIODE_DURATION * self.scale):
-                self.photodiode.draw()
-
             t = self.flip()
             if first_frame:
                 onset = t
@@ -1656,6 +1658,9 @@ def main():
     parser.add_argument("--button-box", action="store_true",
                         help="also read the MEG response box (meg_lab/settings.py: port and the "
                              "bytes of the blue, middle and red buttons)")
+    parser.add_argument("--photodiode", action="store_true",
+                        help="MEG: the photodiode check, a white stripe at the top of the screen "
+                             "whose middle third is black on every coded flip (meg_lab/photodiode.py)")
     parser.add_argument("--keyboard-backend", choices=["ptb", "event", "iohub"],
                         help="use 'event' if ptb segfaults for lack of macOS Input Monitoring")
     parser.add_argument("--no-practice", action="store_true",
@@ -1673,6 +1678,8 @@ def main():
 
     if args.keyboard_backend:
         cfg.KEYBOARD_BACKEND = args.keyboard_backend
+    if args.photodiode:
+        cfg.PHOTODIODE = True       # used in MEG mode only (Presenter)
 
     try:
         skip = parse_skip(args.skip, no_practice=args.no_practice)
@@ -1911,7 +1918,11 @@ def main():
         print("\nStopped by the experimenter. Data up to the last completed trial is saved.")
         status = 1
     finally:
+        # the photodiode check: one flash per coded flip (only when it was on)
+        flashes = ({"photodiode_flashes": pres.photodiode.n_flashes}
+                   if pres is not None and pres.photodiode is not None else {})
         logger.write_session_end({
+            **flashes,
             "gate_passed": gate_result["passed"],
             "gate_attempts": gate_result["attempts"],
             "gate_scores": gate_result["scores"],

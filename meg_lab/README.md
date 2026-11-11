@@ -8,14 +8,16 @@ copy it along whenever the tasks are copied.
 
 | file | what |
 |---|---|
-| `settings.py` | THE place to change the lab: trigger port (`/dev/parport0`, 0x378 under Windows), pulse 20 ms, gap 10 ms, codes 1..127, the photodiode switch (off), the response box (COM2 = `/dev/ttyS1`, 19200 8N2) and which buttons answer left, middle, right (`POSITION_BUTTONS`) |
+| `settings.py` | THE place to change the lab: trigger port (`/dev/parport0`, 0x378 under Windows), pulse 20 ms, gap 10 ms, codes 1..127, the photodiode check's default (off) and stripe height, the response box (COM2 = `/dev/ttyS1`, 19200 8N2) and which buttons answer left, middle, right (`POSITION_BUTTONS`) |
+| `photodiode.py` | the photodiode check (2026-11-11), off unless ticked in the start dialog or `--photodiode`: a white stripe across the top 2% of the screen whose middle third is black for the one flip that sends each code |
 | `codes.py` | codes both tasks share: picture classes 1..12 (aliens 1-3, spaceships 4-6, planets 7-9, treasures 10-12), fixation 20, feedback 60/61, timeout 62, block start 100+b, block end 110+b; `check_codes()` |
 | `markers.py` | marker backends (dummy, parallel, serial, LSL): 20 ms pulses reset on a timer thread, `busy()` while the line has not been 0 for the gap |
 | `buttons.py` | the serial response box; a byte b arrives as the key name `btn<b>` |
 
 Each task keeps its own event codes (its config) and its own mapping of answers to positions, built
-from `POSITION_BUTTONS`. Since 2026-11-05 the two MEG tasks agree on every button: blue / J = left
-(answer code 50), middle / K = middle (51; "neither" in the localizer), red / L = right (52).
+from `POSITION_BUTTONS`. Since 2026-11-05 the two MEG tasks agree on every button: button 1 / J = left
+(answer code 50), button 2 / K = middle (51; "neither" in the localizer), button 3 / L = right (52)
+(since 2026-11-11; before: blue byte 4 = left, red byte 1 = right).
 
 ## Aligned with the colleague's MEG experiment (2026-11-04)
 Source: Evie Coxon's SWEEPs (MATLAB/Psychtoolbox), which currently runs in this lab,
@@ -24,7 +26,7 @@ Source: Evie Coxon's SWEEPs (MATLAB/Psychtoolbox), which currently runs in this 
 | | colleague (file:line) | here |
 |---|---|---|
 | response box | `serial('COM2','BaudRate',19200,'Stopbits',2,'Databits',8)`, run_sweeps_test.m:78 | same port (`/dev/ttyS1` under Linux), 19200 8N2, no flow control |
-| button bytes | blue = left = 4, red = right = 1, run_sweeps_test.m:109-110, hw/meg_responsebox_test.m:25 | left option btn4, right option btn1; middle btn2 or btn3 (the colleague uses no third button) |
+| button bytes | blue = left = 4, red = right = 1, run_sweeps_test.m:109-110, hw/meg_responsebox_test.m:25 | since 2026-11-11: left btn1, middle btn2, right btn3 (until 11-10 as the colleague: left btn4, right btn1) |
 | reading | flush, then read every waiting byte, hw/check_meg_kbd_test.m:16-43; flush again after a press "so held button doesn't auto-repeat", instr/showInstructionBlockNav.m:72-75 | the box is emptied before each answer or continue window and read only there; a byte repeating the previous one within 0.15 s is dropped (`BUTTON_REPEAT_GAP`) |
 | trigger port | io64 on 0x378, run_sweeps_test.m:81-83 | LPT1: `/dev/parport0` (Linux), 0x378 if run under Windows |
 | pulse | code, 2 ms, then 0, hw/send_trigger_test.m:5-7 (its older .asv: 20 ms) | code, 20 ms, then 0 (technician), see below |

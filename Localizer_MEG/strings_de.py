@@ -22,15 +22,15 @@ INSTRUCTIONS = [
     "Ab und zu kommt ein Test mit zwei Bildern. Wähle das Bild, das zu dem Bild direkt davor "
     "passt. Das kann genau dasselbe Bild sein oder ein anderes Bild desselben Aliens, "
     "Raumschiffs, Planeten oder Schatzes.\n\n"
-    "Linke (blaue) Taste: linkes Bild\n"
+    "Linke Taste: linkes Bild\n"
     "Mittlere Taste: keines der beiden Bilder passt\n"
-    "Rechte (rote) Taste: rechtes Bild",
+    "Rechte Taste: rechtes Bild",
 ]
 
 CHECK_INTRO = "Wir testen kurz die Tasten."
 BUTTON_CHECK = {
-    "check_left": "Bitte drücke die linke, blaue Taste.\n\n(linkes Bild)",
-    "check_right": "Bitte drücke die rechte, rote Taste.\n\n(rechtes Bild)",
+    "check_left": "Bitte drücke die linke Taste.\n\n(linkes Bild)",
+    "check_right": "Bitte drücke die rechte Taste.\n\n(rechtes Bild)",
     "check_neither": "Bitte drücke die mittlere Taste.\n\n(keines der beiden Bilder)",
 }
 

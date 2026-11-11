@@ -45,12 +45,14 @@ MARKER_MIN_GAP = 0.010              # the line stays 0 at least this long before
 MARKER_MAX_CODE = 127               # bit 8 of the MEG trigger input is broken
 
 # ---------------------------------------------------------------------------
-# Photodiode: one switch for both tasks (decided 2026-10-14: off; the colleague uses none either)
+# Photodiode check
 # ---------------------------------------------------------------------------
-PHOTODIODE = False                  # True: a white patch in a corner at every coded onset
-PHOTODIODE_DURATION = 0.1           # seconds the patch stays white from each coded onset
-PHOTODIODE_SIZE = 0.08              # height units, square
-PHOTODIODE_POS = (0.85, -0.45)      # bottom-right corner, height units
+# (2026-11-11, user; replaces the corner patch of 2026-10-14): off by default,
+# switched on per session in the start dialog or with --photodiode (both MEG tasks). A white stripe
+# across the top of the screen whose middle third is black for the one flip that sends each code;
+# see photodiode.py.
+PHOTODIODE = False                  # the default when neither the dialog nor --photodiode turns it on
+PHOTODIODE_STRIPE_HEIGHT = 0.02     # of the screen height (about 22 px at 1080 lines), full width
 
 # ---------------------------------------------------------------------------
 # Response box (as the colleague: COM2, 19200 baud, 8 data bits, no parity, 2 stop bits)
@@ -58,11 +60,11 @@ PHOTODIODE_POS = (0.85, -0.45)      # bottom-right corner, height units
 BUTTON_SERIAL_PORT = "COM2" if _WINDOWS else "/dev/ttyS1"   # COM2; /dev/ttyS1 under Linux
 BUTTON_BAUDRATE = 19200
 BUTTONS = ("btn1", "btn2", "btn3", "btn4")   # a byte b arrives as the key name "btn<b>"
-# Which buttons answer the left, middle and right option (2026-11-04, from the colleague's code):
-# left = the BLUE button, byte 4, and right = the RED button, byte 1, exactly as the colleague
-# (run_sweeps_test.m:109-110, "BLUE (LEFT)" and "RED (RIGHT)" in hw/meg_responsebox_test.m).
-# The colleague uses no third button, so middle accepts EITHER remaining button (bytes 2 and 3):
-# confirm in the lab with test_meg_io.py and drop the one nobody uses. Both tasks follow.
+# Which buttons answer the left, middle and right option (2026-11-11, user): the three buttons that
+# send bytes 1, 2 and 3, left to right. Main task: 1 = left, 2 = middle, 3 = right option.
+# Localizer: 1 = left picture, 2 = neither picture, 3 = right picture. Both tasks follow.
+# (2026-11-04 to 2026-11-10, after the colleague's run_sweeps_test.m:109-110: left = blue = byte 4,
+# right = red = byte 1, middle = byte 2 or 3.)
 # A held or bouncing button (2026-11-05): the colleague's instruction code flushes the port after
 # each press "so held button doesn't auto-repeat" (instr/showInstructionBlockNav.m:72-75), so a box
 # may send the same byte more than once per press. A byte equal to the previous one that comes
@@ -71,7 +73,7 @@ BUTTONS = ("btn1", "btn2", "btn3", "btn4")   # a byte b arrives as the key name 
 # whether this box repeats at all (hold a button there).
 BUTTON_REPEAT_GAP = 0.15
 POSITION_BUTTONS = {
-    "left": ("btn4",),              # blue (colleague: codeLeft = 4)
-    "middle": ("btn2", "btn3"),     # the buttons between blue and red; bytes not yet seen in the lab
-    "right": ("btn1",),             # red (colleague: codeRight = 1)
+    "left": ("btn1",),              # button 1: left option / left picture
+    "middle": ("btn2",),            # button 2: middle option / "neither" in the localizer
+    "right": ("btn3",),             # button 3: right option / right picture
 }

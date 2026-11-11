@@ -316,12 +316,11 @@ T_BLOCK_LEAD_OUT = 7.0
 # including the dummies; the wait then counts pulses after t0 before the lead-in.
 DUMMY_VOLUMES = 0
 
-# MEG photodiode: one switch for both tasks, in meg_lab/settings.py (off since 2026-10-14). When on,
-# a white patch flashes in a corner at each coded onset in MEG mode, alongside the port code.
+# MEG photodiode check (2026-11-11): off by default, on with --photodiode (the start dialog's
+# "Photodiode check"), MEG mode only. A white stripe across the top of the screen whose middle third
+# is black for the one flip that sends each code (meg_lab/photodiode.py, shared with the localizer).
 PHOTODIODE = lab.PHOTODIODE
-PHOTODIODE_DURATION = lab.PHOTODIODE_DURATION
-PHOTODIODE_SIZE = lab.PHOTODIODE_SIZE
-PHOTODIODE_POS = lab.PHOTODIODE_POS
+PHOTODIODE_STRIPE_HEIGHT = lab.PHOTODIODE_STRIPE_HEIGHT
 
 # Marker backend: 'dummy' | 'parallel' | 'lsl' | 'serial'; port, pulse (20 ms), gap and the 1..127
 # limit come from meg_lab/settings.py (the MEG lab, 2026-10-14)

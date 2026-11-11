@@ -65,7 +65,9 @@ are worth the time.
     class codes from there, and the keys use `FINGER_BUTTON` (which byte each finger's button
     sends). Same codes and keys as before; the main task's codes are aligned with these
     (picture = class 1..12, fixation 20, feedback 60/61, timeout 62, block 100+b / 110+b).
-    The photodiode is one switch in `meg_lab/settings.py` for both tasks, off.
+    The photodiode is one switch in `meg_lab/settings.py` for both tasks, off. Since 2026-11-11 a
+    photodiode CHECK can be ticked in the start dialog (`--photodiode`): a white stripe at the top whose
+    middle third is black on every coded flip (`../meg_lab/photodiode.py`).
 15. Final stimuli on grey (user, 2026-10-26; supersedes the picture part of 12): the MEG
     localizer shows the new STILL of each item (`final_stimuli/favorites`, cut to the 1080 square
     on grey by the MRI localizer's `stimuli/make_video_stimuli.py`: `probe/<id>.png`) and the

@@ -19,7 +19,7 @@ VALMAP_HOME="${VALMAP_HOME:-$HOME/.valmap}"
 ENV="$VALMAP_HOME/env"
 MAMBA="$VALMAP_HOME/bin/micromamba"
 REPO="$(cd "$(dirname "$0")" && pwd)"
-PYTHON="$ENV/bin/python"
+PYTHON="${VALMAP_PYTHON:-$ENV/bin/python}"   # setup_env_conda.sh sets VALMAP_PYTHON for --check
 
 say() { echo ""; echo "=== $*"; }
 
@@ -55,7 +55,7 @@ install_env() {
         "$ENV"/lib/libEGL.so* "$ENV"/lib/libOpenGL.so*
   say "Installing PsychoPy 2026.2.4 and the hardware packages (pip)"
   "$PYTHON" -m pip install --upgrade pip >/dev/null
-  "$PYTHON" -m pip install "psychopy==2026.2.4" PyQt6 psychtoolbox pyserial pyparallel python-xlib \
+  "$PYTHON" -m pip install -r "$REPO/requirements.txt" \
     || { echo "pip failed"; exit 1; }
   echo "$PYTHON" > "$REPO/.valmap_python"
   echo "Wrote $REPO/.valmap_python: run_session.sh now uses this environment."

@@ -10,7 +10,12 @@ Hardware
 - Pulse: each code is held for 20 ms, then the line returns to 0
 - Timing: a code is sent right after the screen flip that shows its event.
   Response codes are sent when the button press is read.
-- Photodiode: off (meg_lab/settings.py PHOTODIODE = False)
+- Photodiode check: off by default; on when "Photodiode check" is ticked in the start
+  dialog (or --photodiode). Then a white stripe runs across the top 2% of the screen, and its
+  middle third is black for exactly the one flip that sends a code, white again on the next.
+  One black flash = one code that comes with a screen change. Responses (50-52), block start
+  (100+) and block end (110+) have no screen change, so no flash. The log counts the flashes
+  (localizer: meta photodiode_flashes; main task: session_end photodiode_flashes).
 - Every code that is sent is also logged in the output file
   (localizer: the "marker" column; main task: the event log).
 
@@ -37,9 +42,9 @@ Picture / video onset (the picture's class; the same video in both tasks)
 
 Other shared events
   20  fixation cross between pictures
-  50  response: left button  (blue, btn4, or key J)
-  51  response: middle button (btn2/btn3, or key K)
-  52  response: right button (red, btn1, or key L)
+  50  response: left button   (button 1, or key J)
+  51  response: middle button (button 2, or key K)
+  52  response: right button  (button 3, or key L)
   60  feedback: correct
   61  feedback: incorrect
   62  timeout: no answer in time
@@ -58,9 +63,9 @@ Code  Event
   30  fixation before a probe (probe ITI)
   40  probe onset, kind "match": one of the two pictures is the one just seen
   41  probe onset, kind "neither": neither picture is the one just seen
-  50  response: left picture  (blue button / J)
-  51  response: "neither"     (middle button / K)
-  52  response: right picture (red button / L)
+  50  response: left picture  (button 1 / J)
+  51  response: "neither"     (button 2 / K)
+  52  response: right picture (button 3 / L)
   60  feedback correct
   61  feedback incorrect
   62  timeout screen (no answer within the probe window)
@@ -108,9 +113,9 @@ Probe (question) onset, coded by its type
   43  structure question, established (structure control)
 
 Answer and feedback
-  50  response: left option   (blue button / J)
-  51  response: middle option (middle button / K)
-  52  response: right option  (red button / L)
+  50  response: left option   (button 1 / J)
+  51  response: middle option (button 2 / K)
+  52  response: right option  (button 3 / L)
   62  no answer in time
   60  feedback correct
   61  feedback incorrect (also after a timeout, when the feedback screen shows "no answer")

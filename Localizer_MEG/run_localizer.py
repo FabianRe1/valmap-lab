@@ -11,7 +11,9 @@ the design row; nothing is recomputed.
 
 Markers (config.py): a code right after the flip that shows each event (picture = its class
 1..12, fixation, probe fixation, probe, feedback, timeout), a response code when the key press is
-read, 100 + block at t0 and 110 + block at the block's end. No photodiode. MEG lab rules
+read, 100 + block at t0 and 110 + block at the block's end. Photodiode check with --photodiode
+(off by default): a white stripe at the top whose middle third is black on every coded flip
+(../meg_lab/photodiode.py). MEG lab rules
 (2026-10-14): codes 1..127 only, each held 20 ms on a timer (the drawing loop never sleeps), and
 no code before the line has been back at 0 for MARKER_MIN_GAP; the feedback after an answer waits
 for that (the probe stays up meanwhile). If the marker backend or the button box cannot start,
@@ -239,6 +241,11 @@ class Presenter:
         self.marker = marker
         self.buttons = buttons
         self.marker_holds = 0     # coded flips that had to wait for the previous pulse
+        # the photodiode check (off unless --photodiode): see ../meg_lab/photodiode.py
+        self.photodiode = None
+        if cfg.PHOTODIODE:
+            from meg_lab.photodiode import PhotodiodeStripe
+            self.photodiode = PhotodiodeStripe(self.win, cfg.PHOTODIODE_STRIPE_HEIGHT)
 
         self.fixation = visual.TextStim(self.win, text=cfg.FIXATION_TEXT, height=cfg.FIXATION_HEIGHT,
                                         color=cfg.FIXATION_COLOR)
@@ -295,6 +302,8 @@ class Presenter:
 
     def flip(self):
         t = self.win.flip()
+        if self.photodiode is not None:
+            self.photodiode.after_flip()
         watched = list(cfg.KEY_QUIT) + (list(cfg.TRIGGER_KEYS) if self.in_run else [])
         for name, _ in self.poll(watched):
             if name in cfg.KEY_QUIT:
@@ -324,13 +333,17 @@ class Presenter:
             draw()
             self.flip()
 
-    def wait_marker(self):
+    def wait_marker(self, flash=True):
         """Last resort before a coded flip: wait (without flipping) for a pulse still up. The
-        design never needs this; it is counted and reported at the end."""
+        design never needs this; it is counted and reported at the end. Every coded flip comes
+        right after this call, so it also blacks the photodiode stripe's middle for that flip
+        (flash=False: the code that follows goes out without a flip, e.g. the block start)."""
         if self.marker_busy():
             self.marker_holds += 1
             while self.marker_busy():
                 time.sleep(0.0005)    # yields, so the reset thread can run
+        if flash and self.photodiode is not None:
+            self.photodiode.arm()
 
     def present(self, duration, draw, code=None, label=""):
         """Draw every frame until `duration` (scaled in a dry run) has passed since the first
@@ -516,6 +529,8 @@ def run(args):
                          pulse=cfg.MARKER_PULSE_DURATION * cfg.DRY_RUN_SCALE if fast else None)
     if args.button_box:
         cfg.BUTTON_BOX = True
+    if args.photodiode:
+        cfg.PHOTODIODE = True
     buttons = None
     if cfg.BUTTON_BOX:
         from responses import make_button_box
@@ -525,6 +540,7 @@ def run(args):
                  ("dry_run", int(args.dry_run)), ("keyboard_backend", cfg.KEYBOARD_BACKEND),
                  ("marker_backend", cfg.MARKER_BACKEND), ("marker_fallback", int(marker.is_fallback)),
                  ("marker_pulse_s", marker.pulse), ("button_box", int(buttons is not None)),
+                 ("photodiode", int(cfg.PHOTODIODE)),
                  ("started", stamp)):
         log.meta(k, v)
     outcomes = dict(earlier_probe_results(subj, design, args.start_block))
@@ -564,7 +580,7 @@ def run(args):
             t0 = t_trig
             pres.in_run = True
             code = cfg.MARKER_CODES["block_start"] + b
-            pres.wait_marker()    # only a dry run reaches t0 within 30 ms of the last block end code
+            pres.wait_marker(flash=False)    # no flip with this code; only a dry run reaches t0 within 30 ms of the last block end code
             pres.send(code, f"block_{b}_start")
             log.write(block=b, event="trigger", onset=0.0, time_abs=t0, marker=code)
 
@@ -628,6 +644,8 @@ def run(args):
         bonus_file.write_text(f"{bonus}\n")
         pres.message(txt.GOODBYE.format(bonus=bonus), keys=cfg.KEY_OPERATOR, footer="")
         log.meta("marker_holds", pres.marker_holds)
+        if pres.photodiode is not None:
+            log.meta("photodiode_flashes", pres.photodiode.n_flashes)
         log.meta("marker_overlaps", marker.overlaps)
         log.meta("session_end", "complete")
     except QuitExperiment:
@@ -655,6 +673,9 @@ def main():
     ap.add_argument("--keyboard-backend", choices=("ptb", "event"))
     ap.add_argument("--button-box", action="store_true",
                     help="also read the MEG serial response box (config.BUTTON_SERIAL_PORT)")
+    ap.add_argument("--photodiode", action="store_true",
+                    help="the photodiode check: a white stripe at the top of the screen whose middle "
+                         "third is black on every coded flip (../meg_lab/photodiode.py)")
     ap.add_argument("--marker-backend", choices=("dummy", "parallel", "serial", "lsl"),
                     help="overrides config.MARKER_BACKEND")
     run(ap.parse_args())
