@@ -14,8 +14,10 @@
 #   psychtoolbox (keyboard timing), pyserial (MEG response box), pyparallel (MEG triggers via
 #   /dev/parport0) and python-xlib. Only conda-forge is used, so Anaconda's default channels
 #   (and their terms of service) are never needed. An environment with another Python is replaced.
-# Finding conda: the `conda` command, else ~/anaconda3, ~/miniconda3, ~/miniforge3, /opt/anaconda3,
-#   /opt/conda; or set CONDA=/path/to/bin/conda.
+# Works with Miniforge (conda-forge's own installer), Miniconda and Anaconda alike: the environment
+#   is always built from conda-forge only.
+# Finding conda: the active conda, else ~/miniforge3, ~/mambaforge, ~/miniconda3, ~/anaconda3, the
+#   same under /opt, /opt/conda, Homebrew's miniforge; or set CONDA=/path/to/bin/conda.
 
 set -u
 ENV_NAME="${VALMAP_ENV_NAME:-valmap}"
@@ -27,8 +29,10 @@ find_conda() {
   if [ -n "${CONDA:-}" ] && [ -x "$CONDA" ]; then echo "$CONDA"; return; fi
   if [ -n "${CONDA_EXE:-}" ] && [ -x "$CONDA_EXE" ]; then echo "$CONDA_EXE"; return; fi
   if command -v conda >/dev/null 2>&1 && [ -x "$(command -v conda)" ]; then command -v conda; return; fi
-  for c in "$HOME"/anaconda3/bin/conda "$HOME"/miniconda3/bin/conda "$HOME"/miniforge3/bin/conda \
-           /opt/anaconda3/bin/conda /opt/miniconda3/bin/conda /opt/conda/bin/conda; do
+  for c in "$HOME"/miniforge3/bin/conda "$HOME"/mambaforge/bin/conda "$HOME"/miniconda3/bin/conda \
+           "$HOME"/anaconda3/bin/conda /opt/miniforge3/bin/conda /opt/miniforge/bin/conda \
+           /opt/miniconda3/bin/conda /opt/anaconda3/bin/conda /opt/conda/bin/conda \
+           /opt/homebrew/Caskroom/miniforge/base/bin/conda /opt/homebrew/anaconda3/bin/conda; do
     [ -x "$c" ] && { echo "$c"; return; }
   done
 }
