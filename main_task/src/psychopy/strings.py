@@ -198,7 +198,7 @@ STRINGS = {
         "button_check_left_mri": "BUTTON CHECK\n\nPlease press the blue button under your right index finger.\n\n(left picture)",
         "button_check_middle_mri": "Good. Now the button under your left index finger.\n\n(middle picture)",
         "button_check_right_mri": "Good. Now the yellow button under your right middle finger.\n\n(right picture)",
-        # the MEG response box (2026-11-11): buttons 1, 2, 3 = left, middle, right, named by position only
+        # the MEG response box (2026-11-11): bytes 4, 3, 2 = left, middle, right, named by position only
         "lab_refresher_2_meg": "Today the journeys start again as you learned them. Which journey is worth 100 at the start may differ from last time: you will see it on an overview in a moment.\n\nYou answer with three buttons:\nleft button = left picture\nmiddle button = middle picture\nright button = right picture\nYou have {t_probe} seconds.\n\nFirst, a short check of the buttons.",
         "button_check_left_meg": "BUTTON CHECK\n\nPlease press the left button.\n\n(left picture)",
         "button_check_middle_meg": "Good. Now the middle button.\n\n(middle picture)",

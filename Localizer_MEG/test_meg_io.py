@@ -5,8 +5,8 @@
    exactly this list and nothing else.
 2. Button box: then listens on the serial response box and prints the byte of every press, so
    the expected bytes in ../meg_lab/settings.py (POSITION_BUTTONS, shared with the main task) can
-   be confirmed: since 2026-11-11 button 1 = btn1 = left, button 2 = btn2 = middle (neither in the
-   localizer), button 3 = btn3 = right. Holding a button shows whether the box
+   be confirmed: since 2026-11-11 btn4 = left, btn3 = middle (neither in the localizer),
+   btn2 = right. Holding a button shows whether the box
    repeats a held button (2026-11-05).
 
 Usage (on the MEG PC, PsychoPy's python):
@@ -55,8 +55,8 @@ def main():
     if box is None:
         print("!!! button box failed to open; nothing to listen to")
         return
-    print(f"\nlistening {a.listen:.0f} s on {cfg.BUTTON_SERIAL_PORT}: press button 1 (left), 2 (middle), "
-          "3 (right), one at a time")
+    print(f"\nlistening {a.listen:.0f} s on {cfg.BUTTON_SERIAL_PORT}: press the left (btn4), middle (btn3) "
+          "and right (btn2) button, one at a time")
     roles = {b: role for role, bs in cfg.lab.POSITION_BUTTONS.items() for b in bs}
     print("then HOLD one button for 2 s: if lines marked 'repeat' appear, the box repeats a held "
           "button and the tasks drop those bytes (meg_lab BUTTON_REPEAT_GAP)")
@@ -71,7 +71,7 @@ def main():
                 print(f"  byte {b:3d}  {name}  -> {roles.get(name, 'NOT MAPPED')}  ({kind}, t = {t:.3f} s)")
         time.sleep(0.005)
     box.close()
-    print("expected: btn1 -> left, btn2 -> middle (neither), btn3 -> right, "
+    print("expected: btn4 -> left, btn3 -> middle (neither), btn2 -> right, "
           "one 'press' line per press. If not, correct POSITION_BUTTONS in ../meg_lab/settings.py; "
           "both tasks read it from there")
 

@@ -113,8 +113,8 @@ are worth the time.
 
 Kept from MRI without a separate question: 5 s lead-in and lead-out fixation per block,
 30 s planned breaks, timeout message, bonus file. German texts: scanner wording removed, plus one
-sentence asking to look at the center and blink only when no picture is shown (and a break text
-allowing blinks). Easy to change in `strings_de.py`.
+sentence asking to look at the center (2026-11-11, user: no remarks about blinking, neither there
+nor in the break text). Easy to change in `strings_de.py`.
 
 ## Session length
 Plan per design: 930 trials, about 45.8 min with 30 s breaks, about 43.3 min of recording

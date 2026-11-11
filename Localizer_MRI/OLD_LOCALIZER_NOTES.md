@@ -128,7 +128,7 @@ lengths about 545 to 562 s.
     with a second sequence if fewer than 3 of 4 are right. The parts differ exactly as the two
     localizers do: MRI ITIs from makeITI and pictures at 0.50 screen height; MEG ITIs uniform
     [1.25, 1.75] s (read from `../Localizer_MEG/generate_localizer_designs.py`) and pictures at
-    0.33; the MEG page asks to look at the center and blink only when no picture is shown.
+    0.33; the MEG page asks to look at the center (no remark about blinking since 2026-11-11).
     Tested end to end in the browser (wrong MRI answers: 0 of 4 and the repeat; MEG 4 of 4, no repeat).
 12. Block start checked against the old scripts (user, 2026-10-13): operator space, then the
     scanner's first trigger, whose key-press time is the block's t0 for every logged onset; later

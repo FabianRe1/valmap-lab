@@ -33,7 +33,8 @@ PsychoPy's frame timing is reliable only under X11.
 
     bash setup_env_linux.sh
 
-Builds the Python environment in `~/.valmap` (a few minutes, needs internet, no admin rights) and
+Builds the Python environment in `valmap_env`, a folder next to the repo folder, outside it (a few
+minutes, needs internet, no admin rights), and
 then checks the hardware. Every line must end in "ok". The MEG port lines:
 
 | line | if it fails |
@@ -58,9 +59,9 @@ Ask the technician to start an acquisition and show the trigger channel. Then:
 
    | button | expected | write down |
    |---|---|---|
-   | 1 (left) | `btn1` | |
-   | 2 (middle; "neither" in the localizer) | `btn2` | |
-   | 3 (right) | `btn3` | |
+   | left | `btn4` | |
+   | middle ("neither" in the localizer) | `btn3` | |
+   | right | `btn2` | |
 
    Then hold one button for 2 s: the output says whether the box repeats a held button.
    Longer listening: `test_meg_io.py --listen 60`.

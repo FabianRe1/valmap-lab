@@ -12,13 +12,18 @@
 #   Python 3.11, PsychoPy 2026.2.4 with its own requirements (numpy 2, PyQt6 for the start
 #   dialog, psychtoolbox for keyboard timing, pyglet), pyserial (MEG response box), pyparallel
 #   (MEG triggers via /dev/parport0). An environment from the 2023 version is replaced.
-# Where: micromamba in ~/.valmap/bin, the environment in ~/.valmap/env (change with VALMAP_HOME).
+# Where (2026-11-11): OUTSIDE the repo, in a folder valmap_env next to it (same level), so git
+#   never sees it and a fresh clone or `git pull` leaves it alone:
+#     .../valmap-lab/          the repo
+#     .../valmap_env/bin/      micromamba
+#     .../valmap_env/env/      the environment; run_session.sh finds its python there by itself
+#   (until 2026-11-11 in ~/.valmap; an old ~/.valmap can be deleted). Change with VALMAP_HOME.
 
 set -u
-VALMAP_HOME="${VALMAP_HOME:-$HOME/.valmap}"
+REPO="$(cd "$(dirname "$0")" && pwd)"
+VALMAP_HOME="${VALMAP_HOME:-$(dirname "$REPO")/valmap_env}"   # next to the repo, not inside it
 ENV="$VALMAP_HOME/env"
 MAMBA="$VALMAP_HOME/bin/micromamba"
-REPO="$(cd "$(dirname "$0")" && pwd)"
 PYTHON="${VALMAP_PYTHON:-$ENV/bin/python}"   # setup_env_conda.sh sets VALMAP_PYTHON for --check
 
 say() { echo ""; echo "=== $*"; }

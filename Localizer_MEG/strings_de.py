@@ -13,8 +13,7 @@ INSTRUCTIONS = [
 
     "Es ist wichtig, dass dein Kopf so still wie möglich bleibt. Die Qualität der Daten leidet "
     "sehr unter Kopfbewegungen und könnte deine Daten für uns unbrauchbar machen.\n\n"
-    "Schau bitte die ganze Zeit auf die Mitte des Bildschirms. Versuche, möglichst nur dann zu "
-    "blinzeln, wenn gerade kein Bild zu sehen ist.",
+    "Schau bitte die ganze Zeit auf die Mitte des Bildschirms.",
 
     "Die Aufgabe kennst du bereits.\n\n"
     "Wir zeigen dir nacheinander die Aliens, Raumschiffe, Planeten und Schätze. Schau dir jedes "
@@ -48,7 +47,7 @@ TIMEOUT = "Zu langsam. Versuche, etwas schneller zu antworten."
 BLOCK_DONE = ("Geschafft, ein Block ist vorbei!\n\n"
               "Du hast {done} % der Aufgabe abgeschlossen und {bonus} % des möglichen Bonus "
               "gesammelt.\n\n"
-              "Ruh dich kurz aus. Du darfst jetzt blinzeln, aber bewege bitte deinen Kopf nicht.")
+              "Ruh dich kurz aus, aber bewege bitte deinen Kopf nicht.")
 
 GOODBYE = ("Glückwunsch, du hast diesen Teil abgeschlossen!\n\n"
            "Du hast {bonus} % des möglichen Bonus gesammelt.\n\n"

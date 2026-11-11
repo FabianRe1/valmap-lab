@@ -60,11 +60,10 @@ PHOTODIODE_STRIPE_HEIGHT = 0.02     # of the screen height (about 22 px at 1080 
 BUTTON_SERIAL_PORT = "COM2" if _WINDOWS else "/dev/ttyS1"   # COM2; /dev/ttyS1 under Linux
 BUTTON_BAUDRATE = 19200
 BUTTONS = ("btn1", "btn2", "btn3", "btn4")   # a byte b arrives as the key name "btn<b>"
-# Which buttons answer the left, middle and right option (2026-11-11, user): the three buttons that
-# send bytes 1, 2 and 3, left to right. Main task: 1 = left, 2 = middle, 3 = right option.
-# Localizer: 1 = left picture, 2 = neither picture, 3 = right picture. Both tasks follow.
-# (2026-11-04 to 2026-11-10, after the colleague's run_sweeps_test.m:109-110: left = blue = byte 4,
-# right = red = byte 1, middle = byte 2 or 3.)
+# Which buttons answer the left, middle and right option (2026-11-11, user, in the MEG): byte 4 =
+# left, byte 3 = middle, byte 2 = right. Main task: left / middle / right option. Localizer: left
+# picture / neither / right picture. Both tasks follow. (Earlier on 2026-11-11: 1 / 2 / 3; until
+# 2026-11-10, after the colleague's run_sweeps_test.m:109-110: left = byte 4, right = byte 1.)
 # A held or bouncing button (2026-11-05): the colleague's instruction code flushes the port after
 # each press "so held button doesn't auto-repeat" (instr/showInstructionBlockNav.m:72-75), so a box
 # may send the same byte more than once per press. A byte equal to the previous one that comes
@@ -73,7 +72,7 @@ BUTTONS = ("btn1", "btn2", "btn3", "btn4")   # a byte b arrives as the key name 
 # whether this box repeats at all (hold a button there).
 BUTTON_REPEAT_GAP = 0.15
 POSITION_BUTTONS = {
-    "left": ("btn1",),              # button 1: left option / left picture
-    "middle": ("btn2",),            # button 2: middle option / "neither" in the localizer
-    "right": ("btn3",),             # button 3: right option / right picture
+    "left": ("btn4",),              # byte 4: left option / left picture
+    "middle": ("btn3",),            # byte 3: middle option / "neither" in the localizer
+    "right": ("btn2",),             # byte 2: right option / right picture
 }

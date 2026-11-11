@@ -1,7 +1,7 @@
 # ValMap lab sessions (MEG, MRI)
 
 Private. Built by `make_lab_repo.py` in the main task project; do not edit here, rebuild there.
-Content as of 2026-11-11: main task commit d8744b1. Runs with PsychoPy 2026.2.4 (since 2026-11-09; tested before with 2023.2.3).
+Content as of 2026-11-11: main task commit 4071f57. Runs with PsychoPy 2026.2.4 (since 2026-11-09; tested before with 2023.2.3).
 
 ## Before every session
     git pull
@@ -19,7 +19,8 @@ the command below. One part per start: run it again for the main task after the 
 start adds a row to `data/participant_details/n-NN_sub-CODE_details.tsv`. It uses the CBS wrapper
 `PSYCHOPY --version 2026.2.4`; elsewhere set PY first (`PY=... bash run_session.sh mri`).
 On a Linux PC where that wrapper is missing (or lacks pyserial and pyparallel for the MEG):
-`bash setup_env_linux.sh` once builds an environment in ~/.valmap (no root needed) and checks the
+`bash setup_env_linux.sh` once builds an environment in `../valmap_env`, next to this repo folder
+(outside git; no root needed) and checks the
 MEG ports; run_session.sh then uses it by itself. `bash setup_env_linux.sh --check` repeats the checks.
 With Anaconda or Miniconda on the PC: `bash setup_env_conda.sh` instead (environment `valmap`, same
 checks; `conda activate valmap` to use it by hand). The packages are listed in `requirements.txt`

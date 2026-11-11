@@ -86,8 +86,8 @@ OPTION_KEYS = (cfg.KEY_OPTION_1, cfg.KEY_OPTION_2, cfg.KEY_OPTION_3)
 
 def enable_button_box():
     """Add the MEG response box's buttons to the keys (2026-10-14): each option also accepts its
-    buttons (config.OPTION_BUTTONS -> meg_lab POSITION_BUTTONS: button 1 = left, 2 = middle,
-    3 = right since 2026-11-11), and any button
+    buttons (config.OPTION_BUTTONS -> meg_lab POSITION_BUTTONS: byte 4 = left, 3 = middle,
+    2 = right since 2026-11-11), and any button
     advances a screen. Called once at startup when the box is used."""
     global OPTION_KEYS
     lab = cfg.lab

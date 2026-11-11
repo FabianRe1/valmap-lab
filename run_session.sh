@@ -4,7 +4,8 @@
 # Opens the start dialog (start_session.py) through the CBS PsychoPy wrapper; one part per start.
 # Outside the CBS (no PSYCHOPY command), set PY to PsychoPy's python, e.g.
 #   PY=/Applications/PsychoPy.app/Contents/MacOS/python bash run_session.sh mri
-# On a Linux PC without the wrapper: bash setup_env_linux.sh once, then this script uses it.
+# On a Linux PC without the wrapper: bash setup_env_linux.sh once, then this script uses it: the
+# environment in ../valmap_env next to the repo (since 2026-11-11), else the one in .valmap_python.
 
 PSYCHOPY_VERSION=2026.2.4   # since 2026-11-09 (2023.2.3 before)
 
@@ -14,7 +15,11 @@ echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
 cd "$(dirname "$0")" || exit 1
 
-# the environment made by setup_env_linux.sh (2026-11-04), if this PC has one
+# the environment made by setup_env_linux.sh, next to the repo (2026-11-11), if this PC has one
+if [ -z "$PY" ] && [ -x ../valmap_env/env/bin/python ]; then
+  PY="$(cd ../valmap_env/env/bin && pwd)/python"
+fi
+# else the one named in .valmap_python (setup_env_conda.sh, or an older setup_env_linux.sh)
 if [ -z "$PY" ] && [ -f .valmap_python ]; then
   PY="$(cat .valmap_python)"
   [ -x "$PY" ] || { echo "The environment in .valmap_python is gone: rerun bash setup_env_linux.sh"; exit 1; }

@@ -43,9 +43,9 @@ Picture / video onset (the picture's class; the same video in both tasks)
 
 Other shared events
   20  fixation cross between pictures
-  50  response: left button   (button 1, or key J)
-  51  response: middle button (button 2, or key K)
-  52  response: right button  (button 3, or key L)
+  50  response: left button   (byte 4, or key J)
+  51  response: middle button (byte 3, or key K)
+  52  response: right button  (byte 2, or key L)
   60  feedback: correct
   61  feedback: incorrect
   62  timeout: no answer in time
@@ -64,9 +64,9 @@ Code  Event
   30  fixation before a probe (probe ITI)
   40  probe onset, kind "match": one of the two pictures is the one just seen
   41  probe onset, kind "neither": neither picture is the one just seen
-  50  response: left picture  (button 1 / J)
-  51  response: "neither"     (button 2 / K)
-  52  response: right picture (button 3 / L)
+  50  response: left picture  (byte 4 / J)
+  51  response: "neither"     (byte 3 / K)
+  52  response: right picture (byte 2 / L)
   60  feedback correct
   61  feedback incorrect
   62  timeout screen (no answer within the probe window)
@@ -114,9 +114,9 @@ Probe (question) onset, coded by its type
   43  structure question, established (structure control)
 
 Answer and feedback
-  50  response: left option   (button 1 / J)
-  51  response: middle option (button 2 / K)
-  52  response: right option  (button 3 / L)
+  50  response: left option   (byte 4 / J)
+  51  response: middle option (byte 3 / K)
+  52  response: right option  (byte 2 / L)
   62  no answer in time
   60  feedback correct
   61  feedback incorrect (also after a timeout, when the feedback screen shows "no answer")
