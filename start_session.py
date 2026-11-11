@@ -13,7 +13,7 @@ files themselves are unchanged.
   PY start_session.py [mri|meg]                 # the dialog, session preselected
   PY start_session.py --no-dialog --session mri --part localizer --code 27985.cb --n 12 ...
   add --photodiode (MEG) for the photodiode check: a white stripe at the top of the screen whose
-  middle third is black on every flip that sends a trigger code (meg_lab/photodiode.py)
+  middle third toggles white/black on every flip that sends a trigger code (meg_lab/photodiode.py)
   add --dry-run for a fast-forward check without a participant (details marked dry_run)
 """
 import argparse

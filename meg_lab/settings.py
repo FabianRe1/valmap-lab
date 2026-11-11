@@ -49,8 +49,8 @@ MARKER_MAX_CODE = 127               # bit 8 of the MEG trigger input is broken
 # ---------------------------------------------------------------------------
 # (2026-11-11, user; replaces the corner patch of 2026-10-14): off by default,
 # switched on per session in the start dialog or with --photodiode (both MEG tasks). A white stripe
-# across the top of the screen whose middle third is black for the one flip that sends each code;
-# see photodiode.py.
+# across the top of the screen whose middle third toggles between white and black on every flip that
+# sends a code and stays so until the next; see photodiode.py.
 PHOTODIODE = False                  # the default when neither the dialog nor --photodiode turns it on
 PHOTODIODE_STRIPE_HEIGHT = 0.02     # of the screen height (about 22 px at 1080 lines), full width
 

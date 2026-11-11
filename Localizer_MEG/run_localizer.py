@@ -12,7 +12,7 @@ the design row; nothing is recomputed.
 Markers (config.py): a code right after the flip that shows each event (picture = its class
 1..12, fixation, probe fixation, probe, feedback, timeout), a response code when the key press is
 read, 100 + block at t0 and 110 + block at the block's end. Photodiode check with --photodiode
-(off by default): a white stripe at the top whose middle third is black on every coded flip
+(off by default): a white stripe at the top whose middle third toggles on every coded flip
 (../meg_lab/photodiode.py). MEG lab rules
 (2026-10-14): codes 1..127 only, each held 20 ms on a timer (the drawing loop never sleeps), and
 no code before the line has been back at 0 for MARKER_MIN_GAP; the feedback after an answer waits
@@ -336,7 +336,7 @@ class Presenter:
     def wait_marker(self, flash=True):
         """Last resort before a coded flip: wait (without flipping) for a pulse still up. The
         design never needs this; it is counted and reported at the end. Every coded flip comes
-        right after this call, so it also blacks the photodiode stripe's middle for that flip
+        right after this call, so it also toggles the photodiode stripe's middle on that flip
         (flash=False: the code that follows goes out without a flip, e.g. the block start)."""
         if self.marker_busy():
             self.marker_holds += 1
@@ -645,7 +645,7 @@ def run(args):
         pres.message(txt.GOODBYE.format(bonus=bonus), keys=cfg.KEY_OPERATOR, footer="")
         log.meta("marker_holds", pres.marker_holds)
         if pres.photodiode is not None:
-            log.meta("photodiode_flashes", pres.photodiode.n_flashes)
+            log.meta("photodiode_toggles", pres.photodiode.n_toggles)
         log.meta("marker_overlaps", marker.overlaps)
         log.meta("session_end", "complete")
     except QuitExperiment:
@@ -675,7 +675,7 @@ def main():
                     help="also read the MEG serial response box (config.BUTTON_SERIAL_PORT)")
     ap.add_argument("--photodiode", action="store_true",
                     help="the photodiode check: a white stripe at the top of the screen whose middle "
-                         "third is black on every coded flip (../meg_lab/photodiode.py)")
+                         "third toggles white/black on every coded flip (../meg_lab/photodiode.py)")
     ap.add_argument("--marker-backend", choices=("dummy", "parallel", "serial", "lsl"),
                     help="overrides config.MARKER_BACKEND")
     run(ap.parse_args())

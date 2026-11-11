@@ -9,7 +9,7 @@ copy it along whenever the tasks are copied.
 | file | what |
 |---|---|
 | `settings.py` | THE place to change the lab: trigger port (`/dev/parport0`, 0x378 under Windows), pulse 20 ms, gap 10 ms, codes 1..127, the photodiode check's default (off) and stripe height, the response box (COM2 = `/dev/ttyS1`, 19200 8N2) and which buttons answer left, middle, right (`POSITION_BUTTONS`) |
-| `photodiode.py` | the photodiode check (2026-11-11), off unless ticked in the start dialog or `--photodiode`: a white stripe across the top 2% of the screen whose middle third is black for the one flip that sends each code |
+| `photodiode.py` | the photodiode check (2026-11-11), off unless ticked in the start dialog or `--photodiode`: a white stripe across the top 2% of the screen whose middle third toggles (white/black) on every flip that sends a code and stays until the next |
 | `codes.py` | codes both tasks share: picture classes 1..12 (aliens 1-3, spaceships 4-6, planets 7-9, treasures 10-12), fixation 20, feedback 60/61, timeout 62, block start 100+b, block end 110+b; `check_codes()` |
 | `markers.py` | marker backends (dummy, parallel, serial, LSL): 20 ms pulses reset on a timer thread, `busy()` while the line has not been 0 for the gap |
 | `buttons.py` | the serial response box; a byte b arrives as the key name `btn<b>` |

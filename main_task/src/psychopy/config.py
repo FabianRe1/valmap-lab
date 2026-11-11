@@ -318,7 +318,7 @@ DUMMY_VOLUMES = 0
 
 # MEG photodiode check (2026-11-11): off by default, on with --photodiode (the start dialog's
 # "Photodiode check"), MEG mode only. A white stripe across the top of the screen whose middle third
-# is black for the one flip that sends each code (meg_lab/photodiode.py, shared with the localizer).
+# toggles white/black on every flip that sends a code (meg_lab/photodiode.py, shared with the localizer).
 PHOTODIODE = lab.PHOTODIODE
 PHOTODIODE_STRIPE_HEIGHT = lab.PHOTODIODE_STRIPE_HEIGHT
 

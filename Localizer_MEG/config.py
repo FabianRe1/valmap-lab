@@ -58,8 +58,8 @@ MARKER_PULSE_DURATION = lab.MARKER_PULSE_DURATION
 MARKER_MIN_GAP = lab.MARKER_MIN_GAP
 MARKER_MAX_CODE = lab.MARKER_MAX_CODE
 # Photodiode check (2026-11-11): off by default, on with --photodiode (the start dialog's
-# "Photodiode check"). A white stripe across the top of the screen whose middle third is black for
-# the one flip that sends each code (../meg_lab/photodiode.py, shared with the main task).
+# "Photodiode check"). A white stripe across the top of the screen whose middle third toggles
+# white/black on every flip that sends a code (../meg_lab/photodiode.py, shared with the main task).
 PHOTODIODE = lab.PHOTODIODE
 PHOTODIODE_STRIPE_HEIGHT = lab.PHOTODIODE_STRIPE_HEIGHT
 

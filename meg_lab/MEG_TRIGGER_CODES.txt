@@ -12,10 +12,11 @@ Hardware
   Response codes are sent when the button press is read.
 - Photodiode check: off by default; on when "Photodiode check" is ticked in the start
   dialog (or --photodiode). Then a white stripe runs across the top 2% of the screen, and its
-  middle third is black for exactly the one flip that sends a code, white again on the next.
-  One black flash = one code that comes with a screen change. Responses (50-52), block start
-  (100+) and block end (110+) have no screen change, so no flash. The log counts the flashes
-  (localizer: meta photodiode_flashes; main task: session_end photodiode_flashes).
+  middle third switches (white -> black -> white ...) on exactly the flip that sends a code,
+  and stays so until the next one. So every edge = one code, and each event (e.g. a video)
+  is one black or one white period. The session starts white. Responses (50-52), block start
+  (100+) and block end (110+) have no screen change, so no switch. The log counts the switches
+  (localizer: meta photodiode_toggles; main task: session_end photodiode_toggles).
 - Every code that is sent is also logged in the output file
   (localizer: the "marker" column; main task: the event log).
 

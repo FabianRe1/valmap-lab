@@ -374,7 +374,7 @@ class Presenter:
         return t
 
     def arm_photodiode(self):
-        """The next flip sends a code: the photodiode stripe's middle third is black on it."""
+        """The next flip sends a code: the photodiode stripe's middle third toggles on it."""
         if self.photodiode is not None:
             self.photodiode.arm()
 
@@ -394,7 +394,7 @@ class Presenter:
         Draw every frame until `duration` has elapsed; returns (onset, measured_duration).
         Frame-based with a wall-clock stop criterion. The marker is sent immediately after the
         flip that puts the stimulus on screen; with the photodiode check on, that flip also
-        blacks the middle of the photodiode stripe.
+        toggles the middle of the photodiode stripe.
         """
         target = duration * self.scale
         half_frame = self.frame_dur * 0.5
@@ -1660,7 +1660,7 @@ def main():
                              "bytes of the blue, middle and red buttons)")
     parser.add_argument("--photodiode", action="store_true",
                         help="MEG: the photodiode check, a white stripe at the top of the screen "
-                             "whose middle third is black on every coded flip (meg_lab/photodiode.py)")
+                             "whose middle third toggles white/black on every coded flip (meg_lab/photodiode.py)")
     parser.add_argument("--keyboard-backend", choices=["ptb", "event", "iohub"],
                         help="use 'event' if ptb segfaults for lack of macOS Input Monitoring")
     parser.add_argument("--no-practice", action="store_true",
@@ -1918,8 +1918,8 @@ def main():
         print("\nStopped by the experimenter. Data up to the last completed trial is saved.")
         status = 1
     finally:
-        # the photodiode check: one flash per coded flip (only when it was on)
-        flashes = ({"photodiode_flashes": pres.photodiode.n_flashes}
+        # the photodiode check: one toggle per coded flip (only when it was on)
+        flashes = ({"photodiode_toggles": pres.photodiode.n_toggles}
                    if pres is not None and pres.photodiode is not None else {})
         logger.write_session_end({
             **flashes,
